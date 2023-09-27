@@ -1,19 +1,13 @@
 import express from 'express';
-import { createUser, getAllUsers, getUserById } from './controllers/userController.js';
+import userRouter from './routes/userRoute'; // Import the user route
 
 const app = express();
 const port = 3000;
 
 app.use(express.json());
 
-// Create a new user
-app.post('/users', createUser);
-
-// Get all users
-app.get('/users', getAllUsers);
-
-// Get a user by ID
-app.get('/users/:id', getUserById);
+// Use the user route
+app.use(userRouter);
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);

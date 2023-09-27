@@ -34,12 +34,12 @@ export const getAllUsers = async (req, res) => {
 
 // Function to fetch a single user by ID
 export const getUserById = async (req, res) => {
-  const { id } = req.params;
+  const { username } = req.params;
   try {
     const user = await prisma.users.findUnique({
-      where: {
-        id: parseInt(id),
-      },
+        where: {
+            username: username,
+        },
     });
     if (!user) {
       return res.status(404).json({ error: 'User not found' });
@@ -49,4 +49,22 @@ export const getUserById = async (req, res) => {
     console.error('Error fetching user by ID:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
+};
+
+
+export const getProductByUsername = async (req, res) => {
+    try {
+        const response = await prisma.users.findUnique({
+            where: {
+                username: req.params.username, // Use 'username' as the property name
+            },
+        });
+        if (!response) {
+            res.status(404).json({ msg: 'Product not found' });
+        } else {
+            res.status(200).json(response);
+        }
+    } catch (error) {
+        res.status(500).json({ msg: error.message });
+    }
 };
