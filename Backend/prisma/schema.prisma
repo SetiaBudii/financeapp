@@ -1,0 +1,58 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model income {
+  id_income  Int       @id @default(autoincrement())
+  amount     Int?
+  time_stamp DateTime? @db.Date
+  id_wallet  Int?
+  wallet     wallet?   @relation(fields: [id_wallet], references: [id_wallet], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model kategori {
+  nama_kategori String?   @db.VarChar(32)
+  id_kategori   Int       @id @default(autoincrement())
+  budget        Int?
+  username      String?   @db.VarChar(32)
+  users         users?    @relation(fields: [username], references: [username], onDelete: NoAction, onUpdate: NoAction)
+  outcome       outcome[]
+}
+
+model outcome {
+  id_outcome  Int       @id @default(autoincrement())
+  amount      Int?
+  time_stamp  DateTime? @db.Date
+  id_wallet   Int?
+  id_kategori Int?
+  kategori    kategori? @relation(fields: [id_kategori], references: [id_kategori], onDelete: NoAction, onUpdate: NoAction)
+  wallet      wallet?   @relation(fields: [id_wallet], references: [id_wallet], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model tipe_wallet {
+  tipe   String   @id @db.VarChar(16)
+  wallet wallet[]
+}
+
+model users {
+  username String     @id @db.VarChar(32)
+  password String     @db.VarChar(32)
+  kategori kategori[]
+  wallet   wallet[]
+}
+
+model wallet {
+  username    String?      @db.VarChar(32)
+  saldo       Int
+  id_wallet   Int          @id @default(autoincrement())
+  tipe        String?      @db.VarChar(16)
+  income      income[]
+  outcome     outcome[]
+  tipe_wallet tipe_wallet? @relation(fields: [tipe], references: [tipe], onDelete: NoAction, onUpdate: NoAction)
+  users       users?       @relation(fields: [username], references: [username], onDelete: NoAction, onUpdate: NoAction)
+}
