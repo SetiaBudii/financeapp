@@ -1,18 +1,15 @@
 // Import necessary modules
 import express from 'express';
-import { createUser, getAllUsers, getProductByUsername } from './userController'; // Import your user controller function
+import { createUser, getAllUsers, getUserByUsername, deleteUserByUsername, updatePasswordByUsername} from '../controllers/userController.js';
 
 // Create an Express Router
 const router = express.Router();
 
-// Create a new user
 router.post('/users', createUser);
-
-// Get all users
 router.get('/users', getAllUsers);
-
-// Get a user by ID
-router.get('/users/:username', getProductByUsername);
+router.get('/users/:username', getUserByUsername);
+router.delete('/users/:username', deleteUserByUsername);
+router.patch('/users/:username', updatePasswordByUsername)
 
 export default router;
 
