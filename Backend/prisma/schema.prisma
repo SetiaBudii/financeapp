@@ -12,16 +12,20 @@ model income {
   amount     Int?
   time_stamp DateTime? @db.Date
   id_wallet  Int?
-  wallet     wallet?   @relation(fields: [id_wallet], references: [id_wallet], onDelete: NoAction, onUpdate: NoAction)
+  wallet     wallet?   @relation(fields: [id_wallet], references: [id_wallet], onDelete: Cascade)
+
+  @@index([id_wallet], map: "fki_income_id_wallet_fkey")
 }
 
 model kategori {
   nama_kategori String?   @db.VarChar(32)
-  id_kategori   Int       @id @default(autoincrement())
+  id_kategori   Int       @id(map: "pk_kategori") @default(autoincrement())
   budget        Int?
   username      String?   @db.VarChar(32)
-  users         users?    @relation(fields: [username], references: [username], onDelete: NoAction, onUpdate: NoAction)
+  users         users?    @relation(fields: [username], references: [username], onDelete: Cascade, map: "fk_username")
   outcome       outcome[]
+
+  @@index([username], map: "fki_f_username")
 }
 
 model outcome {
@@ -30,8 +34,11 @@ model outcome {
   time_stamp  DateTime? @db.Date
   id_wallet   Int?
   id_kategori Int?
-  kategori    kategori? @relation(fields: [id_kategori], references: [id_kategori], onDelete: NoAction, onUpdate: NoAction)
-  wallet      wallet?   @relation(fields: [id_wallet], references: [id_wallet], onDelete: NoAction, onUpdate: NoAction)
+  kategori    kategori? @relation(fields: [id_kategori], references: [id_kategori], onDelete: Cascade)
+  wallet      wallet?   @relation(fields: [id_wallet], references: [id_wallet], onDelete: Cascade)
+
+  @@index([id_kategori], map: "fki_outcome_id_kategori_fkey")
+  @@index([id_wallet], map: "fki_outcome_id_wallet_fkey")
 }
 
 model tipe_wallet {
@@ -53,6 +60,9 @@ model wallet {
   tipe        String?      @db.VarChar(16)
   income      income[]
   outcome     outcome[]
-  tipe_wallet tipe_wallet? @relation(fields: [tipe], references: [tipe], onDelete: NoAction, onUpdate: NoAction)
-  users       users?       @relation(fields: [username], references: [username], onDelete: NoAction, onUpdate: NoAction)
+  tipe_wallet tipe_wallet? @relation(fields: [tipe], references: [tipe], onDelete: Cascade)
+  users       users?       @relation(fields: [username], references: [username], onDelete: Cascade)
+
+  @@index([tipe], map: "fki_wallet_tipe_fkey")
+  @@index([username], map: "fki_wallet_username_fkey")
 }
