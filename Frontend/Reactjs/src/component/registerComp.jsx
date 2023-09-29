@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import { Link } from 'react-router-dom';
 
 const registerComp = () => {
     setPageAttributes();
@@ -82,7 +83,7 @@ const registerComp = () => {
                                     </form>
                                     <hr />
                                     <div className="text-center">
-                                        <a className="small" href="login.html">Already have an account? Login!</a>
+                                    <Link className="small" to="/login">Sudah Punya Akun? Login!</Link>
                                     </div>
                                 </div>
                             </div>

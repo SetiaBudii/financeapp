@@ -36,11 +36,11 @@ export const getUserByUsername = async (req, res) => {
     try {
         const response = await prisma.users.findUnique({
             where: {
-                username: req.params.username, // Use 'username' as the property name
+                username: req.params.username,
             },
         });
         if (!response) {
-            res.status(404).json({ msg: 'Product not found' });
+            res.status(404).json({ username:req.params.username, msg: 'Not found' });
         } else {
             res.status(200).json(response);
         }
