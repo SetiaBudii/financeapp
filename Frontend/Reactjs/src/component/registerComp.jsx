@@ -33,7 +33,6 @@ const registerComp = () => {
             const response = await axios.post('http://localhost:5000/users', formData);
             alert("REGISTRASI SUKSES");
             setDefaultPageAttributes();
-            
             navigate('/login');
 
             // Clear the form after successful registration
