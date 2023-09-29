@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import { Link } from 'react-router-dom';
 
 const LoginForm = () => {
   setPageAttributes();
@@ -66,7 +67,7 @@ const LoginForm = () => {
                       </form>
                       <hr />
                       <div className="text-center">
-                        <a className="small" href="register.html">Klik disini untuk registrasi!</a>
+                        <Link className="small" to="/register">Klik disini untuk registrasi!</Link>
                       </div>
                     </div>
                   </div>
