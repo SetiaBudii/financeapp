@@ -1,18 +1,19 @@
 import React, { useState } from 'react'
 
 const Sidebar = () => {
-    const [style, setStyle] = useState("navbar-nav bg-gradient-dark sidebar sidebar-dark accordion");
-    const changeStyle = () => {
-        if (style === "navbar-nav bg-gradient-primary sidebar sidebar-dark accordion") {
-            setStyle("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion toggled");
-        } else {
-            setStyle("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion");
-        }
-    }
+    const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+
+    const toggleSidebar = () => {
+      setIsSidebarOpen(!isSidebarOpen);
+    };
+  
+    const sidebarClassName = isSidebarOpen
+      ? 'navbar-nav bg-gradient-dark sidebar sidebar-dark accordion'
+      : 'navbar-nav bg-gradient-dark sidebar sidebar-dark accordion toggled';
 
     return (
         <>
-            <ul className={style} id="accordionSidebar">
+            <ul className={sidebarClassName} id="accordionSidebar">
                 <a className="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
                     <div className="sidebar-brand-text mx-1">M5-FinanceWeb</div>
                 </a>
@@ -98,7 +99,7 @@ const Sidebar = () => {
                 <hr className="sidebar-divider d-none d-md-block" />
 
                 <div className="text-center d-none d-md-inline">
-                    <button className="rounded-circle border-0" id="sidebarToggle" name="sidebarToggle" onClick={changeStyle}></button>
+                    <button className="rounded-circle border-0" id="sidebarToggle" name="sidebarToggle" onClick={toggleSidebar}></button>
                 </div>
             </ul>
         </>

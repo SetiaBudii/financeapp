@@ -1,9 +1,21 @@
 
 const Navbar = () => {
+    const sidebarToggle = () => {
+        const sidebar = document.getElementById('sidebarToggle')
+        const ul = document.getElementById('accordionSidebar')
+        if (sidebar.classList.contains('toggled')) {
+            sidebar.classList.remove('toggled')
+            ul.classList.remove('toggled')
+        } else {
+            sidebar.classList.add('toggled')
+            ul.classList.add('toggled')
+        }
+    }
+
+
     return (
         <nav className="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-
-            <button id="sidebarToggleTop" className="btn btn-link d-md-none rounded-circle mr-3">
+            <button id="sidebarToggleTop" className="btn btn-link d-md-none rounded-circle mr-3" onClick={sidebarToggle}>
                 <i className="fa fa-bars"></i>
             </button>
 
@@ -154,7 +166,7 @@ const Navbar = () => {
                 <li className="nav-item dropdown no-arrow">
                     <a className="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <span className="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
+                        <span className="mr-2 d-none d-lg-inline text-gray-600 small">Username</span>
                         <img className="img-profile rounded-circle"
                             src="img/undraw_profile.svg" />
                     </a>
