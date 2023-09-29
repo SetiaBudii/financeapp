@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-d
 import LoginForm from './component/LoginComp';
 import Redirect from './pages/coba';
 import Register from './pages/register';
+import Home from './pages/Home';
 
 function App() {
   return (
@@ -11,7 +12,8 @@ function App() {
         <Route path="/login" element={<LoginForm />} />
         <Route path="/register" element={<Register />} />
         <Route path="/Redirect" element={<Redirect />} />
-        <Route path="/" element={<Navigate to="/login" />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/" element={<Navigate to="/home" />} />
       </Routes>
     </Router>
   );
