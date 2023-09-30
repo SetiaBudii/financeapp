@@ -1,6 +1,7 @@
 import React from 'react'
 import Sidebar from '../component/Sidebar'
 import Navbar from '../component/Navbar'
+import Welcome from '../component/Welcome'
 
 const Home = () => {
   return (
@@ -10,6 +11,7 @@ const Home = () => {
             <div id="content">
                 <Navbar />
             </div>
+            <Welcome />
         </div>
     </div>
   )
