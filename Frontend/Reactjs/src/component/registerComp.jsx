@@ -3,8 +3,9 @@ import axios from 'axios'
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import { Link } from 'react-router-dom';
 import Cookies from 'js-cookie';
+import Swal from 'sweetalert2';
 
-const registerComp = () => {
+const RegisterComp = () => {
     Cookies.remove('username');
     setPageAttributes();
     const navigate = useNavigate()
@@ -25,19 +26,27 @@ const registerComp = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
         // Check if passwords match
         if (formData.password !== formData.repeatPassword) {
-            alert('Passwords Tidak Sama!');
+            Swal.fire({
+              icon: 'error',
+              title: 'Passwords Do Not Match!',
+              text: 'Please make sure the passwords match.',
+            });
             return;
-        }
+          }
 
         try {
             const response = await axios.post('http://localhost:5000/users', formData);
-            alert("REGISTRASI SUKSES");
-            setDefaultPageAttributes();
-            navigate('/login');
-
+            if(response.status === 201){
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Registration Success!',
+                    text: response.data.msg,
+                  });
+                  setDefaultPageAttributes();
+                  navigate('/login');
+            }
             // Clear the form after successful registration
             setFormData({
                 username: '',
@@ -45,8 +54,11 @@ const registerComp = () => {
                 repeatPassword: '',
             });
         } catch (error) {
-            // Handle registration error (e.g., show an error message)
-            console.error('Registration error', error);
+            Swal.fire({
+                icon: 'error',
+                title: 'Registration Failed!',
+                text: "Please check your credentials.",
+              });
         }
     };
 
@@ -85,7 +97,7 @@ const registerComp = () => {
                                     </form>
                                     <hr />
                                     <div className="text-center">
-                                    <Link className="small" to="/login">Sudah Punya Akun? Login!</Link>
+                                    <Link className="small" to="/login">Have Account? Login!</Link>
                                     </div>
                                 </div>
                             </div>
@@ -97,4 +109,4 @@ const registerComp = () => {
     )
 }
 
-export default registerComp
+export default RegisterComp
