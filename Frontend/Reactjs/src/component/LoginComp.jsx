@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import { Link } from 'react-router-dom';
 import Cookies from 'js-cookie';
+import Swal from 'sweetalert2';
 
 const LoginForm = () => {
   setPageAttributes();
@@ -26,15 +27,23 @@ const LoginForm = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post(`http://localhost:5000/users/login`, formData); // Replace with your API endpoint
+      const response = await axios.post(`http://localhost:5000/users/login`, formData, { validateStatus: false }); // Replace with your API endpoint
       if (response.status === 200) {
         setDefaultPageAttributes();
         Cookies.set('username', response.data.username, { expires: 1 }); // Save username to cookie with expiry of 1 day
         navigate('/home'); // Navigate to home page
       } else if (response.status === 400){
-        alert(response); // Handle errors here
-      }else{
-        alert('Login failed. Please check your credentials.'); // Handle errors here
+        Swal.fire({
+          icon: 'error',
+          title: 'Login Failed!',
+          text: response.data.error,
+        });
+      }else if (response.status === 404){
+        Swal.fire({
+          icon: 'error',
+          title: 'Login Failed!',
+          text: response.data.error,
+        });
       }
       // You can perform actions like redirecting the user after successful login
     } catch (err) {

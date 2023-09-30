@@ -37,7 +37,7 @@ const RegisterComp = () => {
           }
 
         try {
-            const response = await axios.post('http://localhost:5000/users', formData);
+            const response = await axios.post('http://localhost:5000/users', formData, { validateStatus: false });
             if(response.status === 201){
                 Swal.fire({
                     icon: 'success',
@@ -46,6 +46,18 @@ const RegisterComp = () => {
                   });
                   setDefaultPageAttributes();
                   navigate('/login');
+            }else if(response.status === 400){
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Registration Failed!',
+                    text: response.data.msg,
+                    });
+            }else{
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Registration Failed!',
+                    text: 'Please check your credentials.',
+                    });
             }
             // Clear the form after successful registration
             setFormData({
@@ -54,11 +66,7 @@ const RegisterComp = () => {
                 repeatPassword: '',
             });
         } catch (error) {
-            Swal.fire({
-                icon: 'error',
-                title: 'Registration Failed!',
-                text: "Please check your credentials.",
-              });
+            console.error(error);
         }
     };
 
