@@ -135,7 +135,7 @@ export const login = async (req, res) => {
     if (!isMatch) {
       return res.status(400).json({ error: 'Invalid Password' });
     }
-    res.json({ msg: 'Login successful' });
+    res.json({ username:user.username,msg: 'Login successful' });
 
   } catch (error) {
     console.error('Error logging in:', error);

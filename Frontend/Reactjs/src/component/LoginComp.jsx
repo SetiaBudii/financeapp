@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import { Link } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 const LoginForm = () => {
   setPageAttributes();
@@ -28,7 +29,7 @@ const LoginForm = () => {
       const response = await axios.post(`http://localhost:5000/users/login`, formData); // Replace with your API endpoint
       if (response.status === 200) {
         setDefaultPageAttributes();
-        console.log(response.data.username);
+        Cookies.set('username', response.data.username, { expires: 1 }); // Save username to cookie with expiry of 1 day
         navigate('/home'); // Navigate to home page
       } else if (response.status === 400){
         alert(response); // Handle errors here
