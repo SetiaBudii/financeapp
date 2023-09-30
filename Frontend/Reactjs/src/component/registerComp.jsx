@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import { Link } from 'react-router-dom';
 import Cookies from 'js-cookie';
 
-const registerComp = () => {
+const RegisterComp = () => {
     Cookies.remove('username');
     setPageAttributes();
     const navigate = useNavigate()
@@ -97,4 +97,4 @@ const registerComp = () => {
     )
 }
 
-export default registerComp
+export default RegisterComp
