@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import { Link } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 const LoginForm = () => {
   setPageAttributes();
@@ -25,13 +26,15 @@ const LoginForm = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.get(`http://localhost:5000/users/${formData.username}`, formData); // Replace with your API endpoint
+      const response = await axios.post(`http://localhost:5000/users/login`, formData); // Replace with your API endpoint
       if (response.status === 200) {
         setDefaultPageAttributes();
-        navigate('/Redirect'); // Navigate to home page
-      } else {
-        setError('Login failed. Please check your credentials.');
-        console.error('Login failed:', response.data.message);
+        Cookies.set('username', response.data.username, { expires: 1 }); // Save username to cookie with expiry of 1 day
+        navigate('/home'); // Navigate to home page
+      } else if (response.status === 400){
+        alert(response); // Handle errors here
+      }else{
+        alert('Login failed. Please check your credentials.'); // Handle errors here
       }
       // You can perform actions like redirecting the user after successful login
     } catch (err) {

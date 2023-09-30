@@ -48,7 +48,7 @@ model tipe_wallet {
 
 model users {
   username String     @id @db.VarChar(32)
-  password String     @db.VarChar(32)
+  password String     @db.VarChar(255)
   kategori kategori[]
   wallet   wallet[]
 }
