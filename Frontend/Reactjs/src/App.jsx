@@ -4,6 +4,7 @@ import LoginForm from './component/LoginComp';
 import Redirect from './pages/coba';
 import Register from './pages/register';
 import Home from './pages/Home';
+import NewWallet from './pages/newWallet';
 import ProtectedRoute from './routes/ProtectedRoute';
 import AddIncome from './pages/AddIncome';
 import AddOutcome from './pages/AddOutcome';
@@ -13,6 +14,7 @@ function App() {
     <Router>
       <Routes>
         <Route path="/login" element={<LoginForm />} />
+        <Route path="/newWallet" element={<ProtectedRoute><NewWallet /></ProtectedRoute>} />
         <Route path="/register" element={<Register />} />
         <Route path="/Redirect" element={<Redirect />} />
         <Route path="/home" element={<ProtectedRoute><Home /></ProtectedRoute>} />

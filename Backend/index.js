@@ -4,6 +4,8 @@ import incomeRouter from './routes/incomeRoute.js'; // Import the income route
 import outcomeRouter from './routes/outcomeRoute.js'; // Import the outcome route
 import kategoriRouter from './routes/kategoriRoute.js'; // Import the outcome route
 
+import tipeRouter from './routes/tipeRoute.js'
+import walletRouter from './routes/walletRoute.js'
 import cors from 'cors';
 
 const app = express();
@@ -20,6 +22,8 @@ app.use(incomeRouter);
 app.use(outcomeRouter);
 // Use the kategori route
 app.use(kategoriRouter);
+app.use(tipeRouter);
+app.use(walletRouter);
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
