@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom';
 
 const Sidebar = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);
@@ -60,8 +61,11 @@ const Sidebar = () => {
                             <a className="collapse-item" href="utilities-border.html">Borders</a>
                             <a className="collapse-item" href="utilities-animation.html">Animations</a>
                             <a className="collapse-item" href="utilities-other.html">Other</a> */}
-                            <a className="collapse-item" href="/income">Income</a>
-                            <a className="collapse-item" href="/outcome">Outcome</a>
+                            {/* <a className="collapse-item" href="utilities-color.html">Income</a> */}
+                            <Link to="/income" className='collapse-item'>Income</Link>
+                            <Link to="/outcome" className='collapse-item'>Outcome</Link>
+                     
+
                         </div>
                     </div>
                 </li>
