@@ -2,7 +2,6 @@ import Cookies from "js-cookie"
 import React, { useEffect, useState } from "react"
 
 const Navbar = () => {
-
     //Get username from cookies
     const [username, setUsername] = useState('')
 
@@ -31,7 +30,6 @@ const Navbar = () => {
             ul.classList.add('toggled')
         }
     }
-
 
     return (
         <>
@@ -108,20 +106,20 @@ const Navbar = () => {
             </nav>
 
             {/* <!-- Logout Modal--> */}
-            <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            <div className="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                <div className="modal-dialog" role="document">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <h5 className="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                            <button className="close" type="button" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">×</span>
                             </button>
                         </div>
-                        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                        <div class="modal-footer">
-                            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                            <a class="btn btn-primary" onClick={logout}>Logout</a>
+                        <div className="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                        <div className="modal-footer">
+                            <button className="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                            <a className="btn btn-primary" onClick={logout}>Logout</a>
                         </div>
                     </div>
                 </div>
