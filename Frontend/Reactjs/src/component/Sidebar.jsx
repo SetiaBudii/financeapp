@@ -60,8 +60,8 @@ const Sidebar = () => {
                             <a className="collapse-item" href="utilities-border.html">Borders</a>
                             <a className="collapse-item" href="utilities-animation.html">Animations</a>
                             <a className="collapse-item" href="utilities-other.html">Other</a> */}
-                            <a className="collapse-item" href="utilities-color.html">Income</a>
-                            <a className="collapse-item" href="utilities-border.html">Outcome</a>
+                            <a className="collapse-item" href="/income">Income</a>
+                            <a className="collapse-item" href="/outcome">Outcome</a>
                         </div>
                     </div>
                 </li>
