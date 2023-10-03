@@ -50,3 +50,23 @@ export const createWallet = async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 };
+
+export const getIDWalletByUnameTipe = async (req, res) => {
+  try{
+    const wallet = req.body;
+    const response = await prisma.wallet.findMany({
+      where: {
+        tipe: wallet.tipe_wallet,
+        username: wallet.username,
+      },
+    });
+    console.log(wallet);
+    if (!response) {
+      res.status(404).json({ msg: 'Wallet not found' });
+    } else {
+      res.status(200).json({msg: 'Wallet found', data: response});
+    }
+  } catch (error) {
+    res.status(500).json({ msg: error.message });
+  }
+};

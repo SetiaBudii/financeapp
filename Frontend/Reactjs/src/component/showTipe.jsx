@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import AddIncome from '../pages/AddIncome';
 
 function ShowTipe({ onTipeChange }) {
   const [tipeWallets, setTipeWallets] = useState([]);
@@ -33,6 +34,7 @@ function ShowTipe({ onTipeChange }) {
           </option>
         ))}
       </select>
+      <AddIncome tipe={selectedTipe} />
     </div>
   );
 }

@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import Sidebar from '../component/Sidebar';
 import Navbar from '../component/Navbar';
+import ShowTipe from "../component/ShowTipe";
 import axios from "axios";
 import Swal from "sweetalert2";
 
-const AddIncome = () => {
+const AddIncome = (props) => {
     const [allIncome, setAllIncome] = useState([]);
     const [newIncome, setNewIncome] = useState({
         id_wallet: 0,
@@ -159,6 +160,7 @@ const AddIncome = () => {
                                     onChange={handleInputChange}
                                 />
                             </div>
+                            <ShowTipe />
                             <button type="submit" className="btn btn-primary m-1">Submit</button>
                             <button className="btn btn-secondary m-1 " type="button" data-dismiss="modal">Cancel</button>
                         </form>
