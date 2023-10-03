@@ -35,8 +35,8 @@ const Sidebar = () => {
                     <div id="collapseTwo" className="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                         <div className="bg-white py-2 collapse-inner rounded">
                             <h6 className="collapse-header">Custom Components:</h6>
-                            <a className="collapse-item" href="buttons.html">Buttons</a>
-                            <a className="collapse-item" href="cards.html">Cards</a>
+                            <a className="collapse-item" href="/newWallet">Add</a>
+                            <a className="collapse-item" href="">View</a>
                         </div>
                     </div>
                 </li>
