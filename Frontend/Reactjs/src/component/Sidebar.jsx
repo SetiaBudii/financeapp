@@ -19,8 +19,11 @@ const Sidebar = () => {
                     <div className="sidebar-brand-text mx-1">M5-FinanceWeb</div>
                 </a>
                 <hr className="sidebar-divider my-0" />
-                <li className="nav-item">
-                    <a className="nav-link" href="index.html">
+
+                <li className="nav-item active">
+                    <a className="nav-link" href="/home">
+
+
                         <i className="fas fa-fw fa-tachometer-alt"></i>
                         <span>Dashboard</span></a>
                 </li>
@@ -35,10 +38,12 @@ const Sidebar = () => {
                     </a>
                     <div id="collapseTwo" className="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                         <div className="bg-white py-2 collapse-inner rounded">
-                            {/* <a className="collapse-item" href="buttons.html">Buttons</a>
-                            <a className="collapse-item" href="cards.html">Cards</a> */}
-                            <a className="collapse-item" href="buttons.html">Add Wallet</a>
+
+                            <h6 className="collapse-header">Custom Components:</h6>
+                            <a className="collapse-item" href="">View</a>
+                            <a className="collapse-item" href="/newWallet">Add</a>
                             <a className="collapse-item" href="cards.html">Remove Wallet</a>
+
                         </div>
                     </div>
                 </li>
@@ -59,7 +64,8 @@ const Sidebar = () => {
                             {/* <a className="collapse-item" href="utilities-color.html">Income</a> */}
                             <Link to="/income" className='collapse-item'>Income</Link>
                             <Link to="/outcome" className='collapse-item'>Outcome</Link>
-                            {/* <a className="collapse-item" href="utilities-border.html">Outcome</a> */}
+                     
+
                         </div>
                     </div>
                 </li>
