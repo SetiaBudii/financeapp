@@ -20,8 +20,8 @@ const Navbar = () => {
 
     //Expand or collapse sidebar
     const sidebarToggle = () => {
-        const sidebar = document.getElementById('sidebarToggle')
-        const ul = document.getElementById('accordionSidebar')
+        const sidebar = document.getElementById('sidebarToggle');
+        const ul = document.getElementById('accordionSidebar');
         if (sidebar.classList.contains('toggled')) {
             sidebar.classList.remove('toggled')
             ul.classList.remove('toggled')

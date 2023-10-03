@@ -2,11 +2,14 @@ import React, { useEffect, useState } from "react";
 import Sidebar from '../component/Sidebar';
 import Navbar from '../component/Navbar';
 import ShowTipe from "../component/ShowTipe";
+import IdWallett from "../component/IdWallet";
 import axios from "axios";
 import Swal from "sweetalert2";
+import Cookies from "js-cookie";
 
-const AddIncome = (props) => {
+const AddIncome = () => {
     const [allIncome, setAllIncome] = useState([]);
+    const [tipeWallet, setTipeWallet] = useState([]);
     const [newIncome, setNewIncome] = useState({
         id_wallet: 0,
         amount: 0,
@@ -16,26 +19,33 @@ const AddIncome = (props) => {
     useEffect(() => {
         loadIncome();
     }, []);
+        
+    const handleDataFromChild = (data) => {
+        setTipeWallet(data);
+      };
 
     const loadIncome = async () => {
         try {
             const result = await axios.get("http://localhost:5000/income", { validateStatus: false });
             setAllIncome(result.data.data);
-            console.log(result.data.data);
         } catch (error) {
             console.error("Error loading income data:", error);
         }
     }
 
     const addIncome = async (e) => {
-        e.preventDefault(); // Prevent the default form submission behavior
+        e.preventDefault();
 
         try {
-            // Send a POST request to add the new income data
+            const id = await axios.post("http://localhost:5000/wallet/getid", {
+                username: Cookies.get("username"),
+                tipe_wallet: tipeWallet,
+            }, { validateStatus: false });
+            
             newIncome.amount = parseInt(newIncome.amount);
-            newIncome.id_wallet = parseInt(newIncome.id_wallet);
-            newIncome.time_stamp = convertDateDDMMYYToISOString(newIncome.time_stamp);
-            console.log(newIncome);
+            newIncome.id_wallet = parseInt(id.data.data[0].id_wallet);
+            const date = new Date(newIncome.time_stamp);
+            newIncome.time_stamp = date.toISOString();
             const data = await axios.post("http://localhost:5000/income", newIncome, { validateStatus: false });
 
             if (data.status === 201) {
@@ -91,19 +101,17 @@ const AddIncome = (props) => {
                                         <table className="table table-bordered text-center" id="dataTable">
                                             <thead>
                                                 <tr>
-                                                    <th>Id Wallet</th>
-                                                    <th>Id Income</th>
+                                                    <th>Wallet</th>
                                                     <th>Amount</th>
-                                                    <th>Time Stamp</th>
+                                                    <th>Date</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 {allIncome && allIncome.map((income) => (
                                                     <tr key={income.id_income}>
-                                                        <td>{income.id_wallet}</td>
-                                                        <td>{income.id_income}</td>
+                                                        <td><IdWallett id={income.id_wallet}/></td>
                                                         <td>{income.amount}</td>
-                                                        <td>{income.time_stamp}</td>
+                                                        <td>{formatDateDDMMYYYY(income.time_stamp)}</td>
                                                     </tr>
                                                 ))}
                                             </tbody>
@@ -126,18 +134,9 @@ const AddIncome = (props) => {
                                 <span aria-hidden="true">×</span>
                             </button>
                         </div>
-                        <div className="modal-body">                            <form onSubmit={addIncome}>
-                            <div className="form-group">
-                                <label htmlFor="id_wallet">Id Wallet</label>
-                                <input
-                                    type="number"
-                                    className="form-control"
-                                    id="id_wallet"
-                                    name="id_wallet"
-                                    value={newIncome.id_wallet}
-                                    onChange={handleInputChange}
-                                />
-                            </div>
+                        <div className="modal-body">     
+                        <ShowTipe onTipeChange={handleDataFromChild}/>                     
+                          <form onSubmit={addIncome}>
                             <div className="form-group">
                                 <label htmlFor="amount">Amount</label>
                                 <input
@@ -160,7 +159,6 @@ const AddIncome = (props) => {
                                     onChange={handleInputChange}
                                 />
                             </div>
-                            <ShowTipe />
                             <button type="submit" className="btn btn-primary m-1">Submit</button>
                             <button className="btn btn-secondary m-1 " type="button" data-dismiss="modal">Cancel</button>
                         </form>
