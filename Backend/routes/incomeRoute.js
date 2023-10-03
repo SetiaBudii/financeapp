@@ -7,5 +7,4 @@ router.post('/income', createIncome);
 router.get('/income', getAllIcnome);
 router.get('/income/:id_wallet', getIncomeByUser);
 
-
 export default router;

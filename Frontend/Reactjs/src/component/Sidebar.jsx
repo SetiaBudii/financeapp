@@ -57,15 +57,8 @@ const Sidebar = () => {
                     <div id="collapseUtilities" className="collapse" aria-labelledby="headingUtilities"
                         data-parent="#accordionSidebar">
                         <div className="bg-white py-2 collapse-inner rounded">
-                            {/* <a className="collapse-item" href="utilities-color.html">Colors</a>
-                            <a className="collapse-item" href="utilities-border.html">Borders</a>
-                            <a className="collapse-item" href="utilities-animation.html">Animations</a>
-                            <a className="collapse-item" href="utilities-other.html">Other</a> */}
-                            {/* <a className="collapse-item" href="utilities-color.html">Income</a> */}
                             <Link to="/income" className='collapse-item'>Income</Link>
                             <Link to="/outcome" className='collapse-item'>Outcome</Link>
-                     
-
                         </div>
                     </div>
                 </li>

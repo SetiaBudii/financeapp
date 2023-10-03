@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
+
 function ShowTipe({ onTipeChange }) {
   const [tipeWallets, setTipeWallets] = useState([]);
   const [selectedTipe, setSelectedTipe] = useState('');
