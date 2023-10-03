@@ -18,7 +18,7 @@ const Sidebar = () => {
                     <div className="sidebar-brand-text mx-1">M5-FinanceWeb</div>
                 </a>
                 <hr className="sidebar-divider my-0" />
-                <li className="nav-item active">
+                <li className="nav-item">
                     <a className="nav-link" href="index.html">
                         <i className="fas fa-fw fa-tachometer-alt"></i>
                         <span>Dashboard</span></a>
@@ -34,9 +34,10 @@ const Sidebar = () => {
                     </a>
                     <div id="collapseTwo" className="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                         <div className="bg-white py-2 collapse-inner rounded">
-                            <h6 className="collapse-header">Custom Components:</h6>
-                            <a className="collapse-item" href="buttons.html">Buttons</a>
-                            <a className="collapse-item" href="cards.html">Cards</a>
+                            {/* <a className="collapse-item" href="buttons.html">Buttons</a>
+                            <a className="collapse-item" href="cards.html">Cards</a> */}
+                            <a className="collapse-item" href="buttons.html">Add Wallet</a>
+                            <a className="collapse-item" href="cards.html">Remove Wallet</a>
                         </div>
                     </div>
                 </li>
@@ -50,11 +51,12 @@ const Sidebar = () => {
                     <div id="collapseUtilities" className="collapse" aria-labelledby="headingUtilities"
                         data-parent="#accordionSidebar">
                         <div className="bg-white py-2 collapse-inner rounded">
-                            <h6 className="collapse-header">Custom Utilities:</h6>
-                            <a className="collapse-item" href="utilities-color.html">Colors</a>
+                            {/* <a className="collapse-item" href="utilities-color.html">Colors</a>
                             <a className="collapse-item" href="utilities-border.html">Borders</a>
                             <a className="collapse-item" href="utilities-animation.html">Animations</a>
-                            <a className="collapse-item" href="utilities-other.html">Other</a>
+                            <a className="collapse-item" href="utilities-other.html">Other</a> */}
+                            <a className="collapse-item" href="utilities-color.html">Income</a>
+                            <a className="collapse-item" href="utilities-border.html">Outcome</a>
                         </div>
                     </div>
                 </li>
