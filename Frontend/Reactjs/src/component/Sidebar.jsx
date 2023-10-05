@@ -20,7 +20,7 @@ const Sidebar = () => {
                 </a>
                 <hr className="sidebar-divider my-0" />
 
-                <li className="nav-item active">
+                <li className="nav-item">
                     <a className="nav-link" href="/home">
 
 

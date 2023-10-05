@@ -17,7 +17,7 @@ const IncomeTable = ({allIncome}) => {
                         {allIncome && allIncome.map((income) => (
                             <tr key={income.id_income}>
                                 <td><IdWallett id={income.id_wallet} /></td>
-                                <td>{income.amount}</td>
+                                <td className='text-right'>{formatterIDR.format(income.amount)}</td>
                                 <td>{formatDateDDMMYYYY(income.time_stamp)}</td>
                             </tr>
                         ))}

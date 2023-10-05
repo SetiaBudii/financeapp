@@ -21,6 +21,8 @@ const Income = () => {
         loadIncome();
     }, []);
 
+
+
     const handleDataFromChild = (data) => {
         setTipeWallet(data);
     };
@@ -87,37 +89,53 @@ const Income = () => {
                     <div className="container-fluid">
                         <div className="d-sm-flex align-items-center justify-content-between mb-4">
                             <h1 className="h3 mb-0 text-gray-800">Income</h1>
-                            <a href="#" className="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-                                <i className="fas fa-download fa-sm text-white-50"></i> Generate Report
-                            </a>
+                        </div>
+                        <div className="container-fluid">
+                            <div class="card shadow mb-4">
+                                <a href="#collapseCardExample" class="d-block card-header py-3" data-toggle="collapse"
+                                    role="button" aria-expanded="true" aria-controls="collapseCardExample">
+                                    <h6 class="m-0 font-weight-bold text-primary">ADD INCOME</h6>
+                                </a>
+                                <div class="collapse show" id="collapseCardExample">
+                                    <div class="card-body">
+                                        <ShowTipe onTipeChange={handleDataFromChild} />
+                                        <form onSubmit={addIncome}>
+                                            <div className="form-group">
+                                                <label htmlFor="amount">Amount</label>
+                                                <input
+                                                    type="number"
+                                                    className="form-control"
+                                                    id="amount"
+                                                    name="amount"
+                                                    value={newIncome.amount}
+                                                    onChange={handleInputChange}
+                                                    style={{ width: "50%" }}
+                                                />
+                                            </div>
+                                            <div className="form-group">
+                                                <label htmlFor="time_stamp">Time Stamp</label>
+                                                <input
+                                                    type="date"
+                                                    className="form-control"
+                                                    id="time_stamp"
+                                                    name="time_stamp"
+                                                    value={newIncome.time_stamp}
+                                                    onChange={handleInputChange}
+                                                    style={{ width: "50%" }}
+                                                />
+                                            </div>
+                                            <button type="submit" className="btn btn-primary m-1">Submit</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div className="container-fluid">
                             <div className="card shadow mb-4 mt-5">
                                 <div className="card-header py-3">
-                                    <h6 className="m-0 font-weight-bold text-primary text-center">INCOME</h6>
+                                    <h6 className="m-0 font-weight-bold text-primary text-center">LIST INCOME</h6>
                                 </div>
                                 <div className="card-body">
-                                    <button type="button" className="btn btn-primary mb-4" data-toggle="modal" data-target="#addincomemodal">Add Income</button>
-                                    {/* <div className="table-responsive">
-                                        <table className="table table-bordered text-center" id="dataTable">
-                                            <thead>
-                                                <tr>
-                                                    <th>Wallet</th>
-                                                    <th>Amount</th>
-                                                    <th>Date</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                {allIncome && allIncome.map((income) => (
-                                                    <tr key={income.id_income}>
-                                                        <td><IdWallett id={income.id_wallet} /></td>
-                                                        <td>{income.amount}</td>
-                                                        <td>{formatDateDDMMYYYY(income.time_stamp)}</td>
-                                                    </tr>
-                                                ))}
-                                            </tbody>
-                                        </table>
-                                    </div> */}
                                     <IncomeTable allIncome={allIncome} />
                                 </div>
                             </div>
