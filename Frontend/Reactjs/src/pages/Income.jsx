@@ -3,11 +3,12 @@ import Sidebar from '../component/Sidebar';
 import Navbar from '../component/Navbar';
 import ShowTipe from "../component/ShowTipe";
 import IdWallett from "../component/IdWallet";
+import IncomeTable from "../component/IncomeTable";
 import axios from "axios";
 import Swal from "sweetalert2";
 import Cookies from "js-cookie";
 
-const AddIncome = () => {
+const Income = () => {
     const [allIncome, setAllIncome] = useState([]);
     const [tipeWallet, setTipeWallet] = useState([]);
     const [newIncome, setNewIncome] = useState({
@@ -19,10 +20,10 @@ const AddIncome = () => {
     useEffect(() => {
         loadIncome();
     }, []);
-        
+
     const handleDataFromChild = (data) => {
         setTipeWallet(data);
-      };
+    };
 
     const loadIncome = async () => {
         try {
@@ -41,7 +42,7 @@ const AddIncome = () => {
                 username: Cookies.get("username"),
                 tipe_wallet: tipeWallet,
             }, { validateStatus: false });
-            
+
             newIncome.amount = parseInt(newIncome.amount);
             newIncome.id_wallet = parseInt(id.data.data[0].id_wallet);
             const date = new Date(newIncome.time_stamp);
@@ -97,7 +98,7 @@ const AddIncome = () => {
                                 </div>
                                 <div className="card-body">
                                     <button type="button" className="btn btn-primary mb-4" data-toggle="modal" data-target="#addincomemodal">Add Income</button>
-                                    <div className="table-responsive">
+                                    {/* <div className="table-responsive">
                                         <table className="table table-bordered text-center" id="dataTable">
                                             <thead>
                                                 <tr>
@@ -109,14 +110,15 @@ const AddIncome = () => {
                                             <tbody>
                                                 {allIncome && allIncome.map((income) => (
                                                     <tr key={income.id_income}>
-                                                        <td><IdWallett id={income.id_wallet}/></td>
+                                                        <td><IdWallett id={income.id_wallet} /></td>
                                                         <td>{income.amount}</td>
                                                         <td>{formatDateDDMMYYYY(income.time_stamp)}</td>
                                                     </tr>
                                                 ))}
                                             </tbody>
                                         </table>
-                                    </div>
+                                    </div> */}
+                                    <IncomeTable allIncome={allIncome} />
                                 </div>
                             </div>
                         </div>
@@ -124,7 +126,7 @@ const AddIncome = () => {
                 </div>
             </div>
             {/* add income Modal*/}
-            <div className="modal fade" id="addincomemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            <div className="modal fade" id="addincomemodal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
                 <div className="modal-dialog" role="document">
                     <div className="modal-content">
@@ -134,34 +136,34 @@ const AddIncome = () => {
                                 <span aria-hidden="true">×</span>
                             </button>
                         </div>
-                        <div className="modal-body">     
-                        <ShowTipe onTipeChange={handleDataFromChild}/>                     
-                          <form onSubmit={addIncome}>
-                            <div className="form-group">
-                                <label htmlFor="amount">Amount</label>
-                                <input
-                                    type="number"
-                                    className="form-control"
-                                    id="amount"
-                                    name="amount"
-                                    value={newIncome.amount}
-                                    onChange={handleInputChange}
-                                />
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="time_stamp">Time Stamp</label>
-                                <input
-                                    type="date"
-                                    className="form-control"
-                                    id="time_stamp"
-                                    name="time_stamp"
-                                    value={newIncome.time_stamp}
-                                    onChange={handleInputChange}
-                                />
-                            </div>
-                            <button type="submit" className="btn btn-primary m-1">Submit</button>
-                            <button className="btn btn-secondary m-1 " type="button" data-dismiss="modal">Cancel</button>
-                        </form>
+                        <div className="modal-body">
+                            <ShowTipe onTipeChange={handleDataFromChild} />
+                            <form onSubmit={addIncome}>
+                                <div className="form-group">
+                                    <label htmlFor="amount">Amount</label>
+                                    <input
+                                        type="number"
+                                        className="form-control"
+                                        id="amount"
+                                        name="amount"
+                                        value={newIncome.amount}
+                                        onChange={handleInputChange}
+                                    />
+                                </div>
+                                <div className="form-group">
+                                    <label htmlFor="time_stamp">Time Stamp</label>
+                                    <input
+                                        type="date"
+                                        className="form-control"
+                                        id="time_stamp"
+                                        name="time_stamp"
+                                        value={newIncome.time_stamp}
+                                        onChange={handleInputChange}
+                                    />
+                                </div>
+                                <button type="submit" className="btn btn-primary m-1">Submit</button>
+                                <button className="btn btn-secondary m-1 " type="button" data-dismiss="modal">Cancel</button>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -170,4 +172,4 @@ const AddIncome = () => {
     );
 }
 
-export default AddIncome;
+export default Income;
