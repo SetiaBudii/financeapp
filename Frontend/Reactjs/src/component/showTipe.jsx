@@ -24,8 +24,8 @@ function ShowTipe({ onTipeChange }) {
   };
 
   return (
-    <div className=' ml-3'style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
-      <label>Pilih tipe Wallet :</label>
+    <div>
+      <label className='mr-2 mb-3'>Pilih tipe Wallet :  </label>
       <select onChange={handleTipeChange} value={selectedTipe}>
         <option value="">- -</option> {/* Blank default option */}
         {tipeWallets.map((tipeWallet) => (
