@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import Sidebar from '../component/Sidebar';
 import Navbar from '../component/Navbar';
 import ShowTipe from "../component/ShowTipe";
-import IdWallett from "../component/IdWallet";
 import IncomeTable from "../component/IncomeTable";
 import axios from "axios";
 import Swal from "sweetalert2";
