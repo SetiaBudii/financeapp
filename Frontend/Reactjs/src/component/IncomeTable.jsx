@@ -1,5 +1,4 @@
 import React from 'react'
-import IdWallett from './IdWallet'
 
 const IncomeTable = ({allIncome}) => {
     return (
@@ -15,10 +14,10 @@ const IncomeTable = ({allIncome}) => {
                     </thead>
                     <tbody>
                         {allIncome && allIncome.map((income) => (
-                            <tr key={income.id_income}>
-                                <td><IdWallett id={income.id_wallet} /></td>
-                                <td className='text-right'>{formatterIDR.format(income.amount)}</td>
-                                <td>{formatDateDDMMYYYY(income.time_stamp)}</td>
+                            <tr key={income.incomeId}>
+                                <td>{income.tipewallet}</td>
+                                <td className='text-right'>{formatterIDR.format(income.income)}</td>
+                                <td>{formatDateDDMMYYYY(income.tanggal)}</td>
                             </tr>
                         ))}
                     </tbody>

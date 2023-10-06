@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-import e from "express";
+import e, { query } from "express";
 
 const prisma = new PrismaClient();
 
@@ -27,17 +27,13 @@ export const getAllIcnome = async (req, res) => {
     }
 }
 
-export const getIncomeByUser = async (req, res) => {
+export const getAllIncomeByUsername = async (req, res) => {
     try{
-        const response = await prisma.income.findMany({
-            where: {
-                id_wallet: parseInt(req.params.id_wallet),
-            },
-        });
-        if (!response) {
+        const result = await prisma.$queryRaw`SELECT * FROM get_income_by_username(${req.params.username})`;
+        if (!result) {
             res.status(404).json({ msg: 'Income not found' });
         } else {
-            res.status(200).json({msg: 'Income found', data: response});
+            res.status(200).json({msg: 'Income found', data: result});
         }
     } catch (error) {
         res.status(500).json({ msg: error.message });

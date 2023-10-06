@@ -28,7 +28,7 @@ const Income = () => {
 
     const loadIncome = async () => {
         try {
-            const result = await axios.get("http://localhost:5000/income", { validateStatus: false });
+            const result = await axios.get(`http://localhost:5000/income/${Cookies.get("username")}`, { validateStatus: false });
             setAllIncome(result.data.data);
         } catch (error) {
             console.error("Error loading income data:", error);
