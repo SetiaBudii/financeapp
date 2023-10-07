@@ -3,27 +3,58 @@ import Sidebar from '../component/Sidebar';
 import Navbar from '../component/Navbar';
 import axios from "axios";
 import Swal from "sweetalert2";
+import Cookies from 'js-cookie';
+
+
+
 
 const AddOutcome = () => {
-    const [allOutcome, setAllOutcome] = useState([]);
+    const [username, setUsername] = useState('');
+    const [userOutcomes, setUserOutcomes] = useState([]);
+    const [loading, setLoading] = useState(true);
+
     const [newOutcome, setNewOutcome] = useState({
         id_wallet: 0,
         amount: 0,
         time_stamp: "",
         id_kategori: 0,
     });
+    
 
     useEffect(() => {
-        loadOutcome();
-    }, []);
+        // Fetch outcomes from the API
+        const storedUsername = Cookies.get('username')
+        if (storedUsername) {
+            setUsername(storedUsername)
+        }
+      
+        axios.get(`http://localhost:5000/outcome/per/${storedUsername}`)
+        .then((response) => {
+            console.log(response.data)
+            setUserOutcomes(response.data);
+            setLoading(false);
+        })
+        .catch((error) => {
+            console.error('Error fetching outcomes:', error);
+            setLoading(false);
+        });
+
+      }, []);
+      
+
+      if (loading) {
+        return <p>Loading...</p>;
+      }
 
     const loadOutcome = async () => {
         try {
-            const result = await axios.get("http://localhost:5000/outcome", { validateStatus: false });
-            setAllOutcome(result.data.data);
-            console.log(result.data.data);
+            const result = await axios.get(`http://localhost:5000/outcome/per/${username}`);
+            setUserOutcomes(result.data);
+            setLoading(false);
+            console.log(result.data);
         } catch (error) {
             console.error("Error loading outcome data:", error);
+            
         }
     }
 
@@ -34,7 +65,9 @@ const AddOutcome = () => {
             // Send a POST request to add the new income data
             newOutcome.amount = parseInt(newOutcome.amount);
             newOutcome.id_wallet = parseInt(newOutcome.id_wallet);
-            newOutcome.time_stamp = convertDateDDMMYYToISOString(newOutcome.time_stamp);
+            const isoDateString = formatDateToISOString(newOutcome.time_stamp);
+            console.log(isoDateString);
+            newOutcome.time_stamp = isoDateString
             newOutcome.id_kategori = parseInt(newOutcome.id_kategori);
             console.log(newOutcome);
             const data = await axios.post("http://localhost:5000/outcome", newOutcome, { validateStatus: false });
@@ -61,6 +94,27 @@ const AddOutcome = () => {
         } catch (error) {
             console.error("Error adding outcome:", error);
         }
+    };
+
+    const formatDateToISOString = (dateString) => {
+        if (!dateString) {
+            return "";
+        }
+    
+        const parts = dateString.split("-");
+        if (parts.length !== 3) {
+            return "";
+        }
+    
+        const year = parts[0];
+        const month = parts[1];
+        const day = parts[2];
+    
+        // Create a new Date object with the given year, month, and day
+        const dateObject = new Date(year, month - 1, day);
+    
+        // Use the toISOString() method to get the ISO-8601 formatted string
+        return dateObject.toISOString();
     };
 
     const handleInputChange = (e) => {
@@ -92,24 +146,37 @@ const AddOutcome = () => {
                                         <table className="table table-bordered text-center" id="dataTable">
                                             <thead>
                                                 <tr>
-                                                    <th>Id Wallet</th>
-                                                    <th>Id Income</th>
+                                                    <th>Tipe</th>
                                                     <th>Amount</th>
                                                     <th>Time Stamp</th>
-                                                    <th>Id Category</th>
+                                                    <th>Kategori</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                {allOutcome && allOutcome.map((outcome) => (
-                                                    <tr key={outcome.id_outcome}>
-                                                        <td>{outcome.id_wallet}</td>
-                                                        <td>{outcome.id_outcome}</td>
-                                                        <td>{outcome.amount}</td>
-                                                        <td>{outcome.time_stamp}</td>
-                                                        <td>{outcome.id_kategori}</td>
+                                                {userOutcomes.map((outcome) => {
+                                                    // Check if outcome.wallet and outcome.kategori are defined before accessing their properties
+                                                    const walletType = outcome.wallet ? outcome.wallet.tipe : 'N/A';
+                                                    const amount = outcome.amount ? parseFloat(outcome.amount).toLocaleString('de-DE', { minimumFractionDigits: 2 }) : 'N/A';
+
+                                                    // Convert outcome.time_stamp to a Date object and format the date
+                                                    const date = outcome.time_stamp ? new Date(outcome.time_stamp) : null;
+                                                    const formattedDate = date ? date.toLocaleDateString('en-UK') : 'N/A';
+
+                                                    // Check if outcome.kategori is defined before accessing its property
+                                                    const categoryName = outcome.kategori ? outcome.kategori.nama_kategori : 'N/A';
+
+                                                    return (
+                                                        <tr key={outcome.id_outcome}>
+                                                        <td>{walletType}</td>
+                                                        <td style={{ textAlign: 'right' }}>{amount}</td>
+                                                        <td>{formattedDate}</td>
+                                                        <td>{categoryName}</td>
                                                     </tr>
-                                                ))}
+                                                    );
+                                                })}
                                             </tbody>
+
+
                                         </table>
                                     </div>
                                 </div>

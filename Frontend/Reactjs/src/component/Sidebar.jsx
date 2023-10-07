@@ -39,7 +39,7 @@ const Sidebar = () => {
                         <div className="bg-white py-2 collapse-inner rounded">
 
                             <h6 className="collapse-header">Custom Components:</h6>
-                            <a className="collapse-item" href="">View</a>
+                            <a className="collapse-item" href="/wallet">View</a>
                             <a className="collapse-item" href="/newWallet">Add</a>
                             <a className="collapse-item" href="cards.html">Remove Wallet</a>
 

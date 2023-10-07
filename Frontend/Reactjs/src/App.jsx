@@ -9,6 +9,7 @@ import ProtectedRoute from './routes/ProtectedRoute';
 import AddIncome from './pages/AddIncome';
 import AddOutcome from './pages/AddOutcome';
 import ViewBudget from './pages/ViewBudget';
+import Wallet from './pages/wallet';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route path="/income" element={<ProtectedRoute><AddIncome /></ProtectedRoute>} />
         <Route path="/outcome" element={<ProtectedRoute><AddOutcome /></ProtectedRoute>} />
         <Route path="/budget" element={<ProtectedRoute><ViewBudget /></ProtectedRoute>} />
+        <Route path="/wallet" element={<ProtectedRoute><Wallet /></ProtectedRoute>} />
         <Route path="/" element={<Navigate to="/home" />} />
       </Routes>
     </Router>
