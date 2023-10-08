@@ -7,17 +7,17 @@ const IncomeTable = ({allIncome}) => {
                 <table className="table table-bordered text-center" id="dataTable">
                     <thead>
                         <tr>
+                            <th>Date</th>
                             <th>Wallet</th>
                             <th>Amount</th>
-                            <th>Date</th>
                         </tr>
                     </thead>
                     <tbody>
                         {allIncome && allIncome.map((income) => (
-                            <tr key={income.incomeId}>
-                                <td>{income.tipewallet}</td>
-                                <td className='text-right'>{formatterIDR.format(income.income)}</td>
-                                <td>{formatDateDDMMYYYY(income.tanggal)}</td>
+                            <tr key={income.id_income}>
+                                <td>{formatDateDDMMYYYY(income.time_stamp)}</td>
+                                <td>{income.wallet.tipe}</td>
+                                <td className='text-right'>{formatterIDR.format(income.amount)}</td>
                             </tr>
                         ))}
                     </tbody>

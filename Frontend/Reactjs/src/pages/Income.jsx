@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Sidebar from '../component/Sidebar';
 import Navbar from '../component/Navbar';
 import ShowTipe from "../component/ShowTipe";
+import WalletTypeDropdown from "../component/WalletDropdown";
 import IncomeTable from "../component/IncomeTable";
 import axios from "axios";
 import Swal from "sweetalert2";
@@ -9,7 +10,7 @@ import Cookies from "js-cookie";
 
 const Income = () => {
     const [allIncome, setAllIncome] = useState([]);
-    const [tipeWallet, setTipeWallet] = useState([]);
+    const [selectedWalletId, setSelectedWalletId] = useState('');
     const [newIncome, setNewIncome] = useState({
         id_wallet: 0,
         amount: 0,
@@ -28,24 +29,24 @@ const Income = () => {
 
     const loadIncome = async () => {
         try {
-            const result = await axios.get(`http://localhost:5000/income/${Cookies.get("username")}`, { validateStatus: false });
+            const result = await axios.get(`http://localhost:5000/income/per/${Cookies.get("username")}`, { validateStatus: false });
             setAllIncome(result.data.data);
+            
         } catch (error) {
             console.error("Error loading income data:", error);
         }
     }
 
+    const handleWalletChange = (value) => {
+        setSelectedWalletId(value);
+      };
+
     const addIncome = async (e) => {
         e.preventDefault();
 
         try {
-            const id = await axios.post("http://localhost:5000/wallet/getid", {
-                username: Cookies.get("username"),
-                tipe_wallet: tipeWallet,
-            }, { validateStatus: false });
-
             newIncome.amount = parseInt(newIncome.amount);
-            newIncome.id_wallet = parseInt(id.data.data[0].id_wallet);
+            newIncome.id_wallet = parseInt(selectedWalletId);
             const date = new Date(newIncome.time_stamp);
             newIncome.time_stamp = date.toISOString();
             const data = await axios.post("http://localhost:5000/income", newIncome, { validateStatus: false });
@@ -97,7 +98,8 @@ const Income = () => {
                                 </a>
                                 <div class="collapse show" id="collapseCardExample">
                                     <div class="card-body">
-                                        <ShowTipe onTipeChange={handleDataFromChild} />
+                                        {/* <ShowTipe onTipeChange={handleDataFromChild} /> */}
+                                        <WalletTypeDropdown onWalletChange={handleWalletChange}/>
                                         <form onSubmit={addIncome}>
                                             <div className="form-group">
                                                 <label htmlFor="amount">Amount</label>
