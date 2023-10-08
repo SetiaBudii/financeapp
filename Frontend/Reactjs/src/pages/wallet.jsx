@@ -65,13 +65,15 @@ const Wallet = () => {
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                {allWallet && allWallet.map((wallet) => (
-                                                    <tr key={wallet.username}>
-                                                        <td>{wallet.tipe}</td>
-                                                        <td>{wallet.saldo}</td>
-                                                    </tr>
-                                                ))}
-                                            </tbody>
+                                            {allWallet && allWallet.map((wallet) => (
+                                                <tr key={wallet.username}>
+                                                    <td>{wallet.tipe}</td>
+                                                    <td className="text-right">{wallet.saldo.toLocaleString('de-DE')}</td>
+                                                </tr>
+                                            ))}
+                                        </tbody>
+
+
                                         </table>
                                     </div>
                                 </div>

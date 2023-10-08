@@ -90,3 +90,33 @@ export const getWalletbyUsername = async (req, res) => {
     await prisma.$disconnect();
   }
 };
+
+export const deleteWallet = async (req, res) => {
+  try {
+    const { username, tipe } = req.params;
+
+    // Find the wallet with the provided username and tipe
+    const wallet = await prisma.wallet.findFirst({
+      where: {
+        username: username,
+        tipe: tipe,
+      },
+    });
+
+    if (!wallet) {
+      return res.status(404).json({ error: 'Wallet not found' });
+    }
+
+    // Delete the wallet
+    await prisma.wallet.delete({
+      where: {
+        id_wallet: wallet.id_wallet,
+      },
+    });
+
+    res.status(204).send(); // Respond with no content (success)
+  } catch (error) {
+    console.error('Error deleting wallet:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};

@@ -10,6 +10,7 @@ import AddIncome from './pages/AddIncome';
 import AddOutcome from './pages/AddOutcome';
 import ViewBudget from './pages/ViewBudget';
 import Wallet from './pages/wallet';
+import DelWal from './pages/deleteWallet';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
       <Routes>
         <Route path="/login" element={<LoginForm />} />
         <Route path="/newWallet" element={<ProtectedRoute><NewWallet /></ProtectedRoute>} />
+        <Route path="/deleteWallet" element={<ProtectedRoute><DelWal /></ProtectedRoute>} />
         <Route path="/register" element={<Register />} />
         <Route path="/Redirect" element={<Redirect />} />
         <Route path="/home" element={<ProtectedRoute><Home /></ProtectedRoute>} />

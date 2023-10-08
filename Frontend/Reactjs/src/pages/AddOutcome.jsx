@@ -48,8 +48,15 @@ const AddOutcome = () => {
       
 
       if (loading) {
-        return <p>Loading...</p>;
-      }
+        // Render a Bootstrap-styled loading screen
+        return (
+            <div className="d-flex justify-content-center align-items-center" style={{ height: "100vh" }}>
+                <div className="spinner-border text-primary" role="status">
+                    <span className="visually-hidden">Loading</span>
+                </div>
+            </div>
+        );
+    }
 
     const loadOutcome = async () => {
         try {
@@ -80,7 +87,7 @@ const AddOutcome = () => {
             if (data.status === 201) {
                 Swal.fire({
                     icon: 'success',
-                    title: 'Income Added!',
+                    title: 'Outcome Added!',
                     text: data.data.msg,
                 });
             } else {
@@ -220,7 +227,7 @@ const AddOutcome = () => {
                 <div className="modal-dialog" role="document">
                     <div className="modal-content">
                         <div className="modal-header">
-                            <h5 className="modal-title" id="exampleModalLabel">Add income</h5>
+                            <h5 className="modal-title" id="exampleModalLabel">Add Outcome</h5>
                             <button className="close" type="button" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">×</span>
                             </button>

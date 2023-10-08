@@ -41,7 +41,7 @@ const Sidebar = () => {
                             <h6 className="collapse-header">Custom Components:</h6>
                             <a className="collapse-item" href="/wallet">View</a>
                             <a className="collapse-item" href="/newWallet">Add</a>
-                            <a className="collapse-item" href="cards.html">Remove Wallet</a>
+                            <a className="collapse-item" href="/deleteWallet">Remove Wallet</a>
 
                         </div>
                     </div>
