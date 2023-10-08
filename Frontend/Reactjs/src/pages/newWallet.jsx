@@ -20,6 +20,8 @@ const NewWallet = () => {
     if (storedUsername) {
       setUsername(storedUsername);
     }
+    console.log('username :', storedUsername);
+
   }, []);
 
   return (

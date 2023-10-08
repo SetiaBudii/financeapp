@@ -3,9 +3,12 @@ import Sidebar from '../component/Sidebar';
 import Navbar from '../component/Navbar';
 import axios from "axios";
 import Swal from "sweetalert2";
+import Cookies from "js-cookie"
 
 const AddIncome = () => {
     const [allIncome, setAllIncome] = useState([]);
+    const [allkategori, setAllKategori] = useState([]);
+    const [username, setUsername] = useState('');
     const [newIncome, setNewIncome] = useState({
         id_wallet: 0,
         amount: 0,
@@ -13,6 +16,10 @@ const AddIncome = () => {
     });
 
     useEffect(() => {
+        const storedUsername = Cookies.get('username')
+        if (storedUsername) {
+            setUsername(storedUsername)
+        }
         loadIncome();
     }, []);
 
@@ -26,6 +33,37 @@ const AddIncome = () => {
         }
     }
 
+    const loadKategori = async () => {
+        try {
+            const result = await axios.get(`http://localhost:5000/kategori/${username}`, { validateStatus: false });
+            setAllKategori(result.data.data);
+            console.log(result.data.data);
+        } catch (error) {
+            console.error("Error loading income data:", error);
+        }
+    }
+
+    const formatDateToISOString = (dateString) => {
+        if (!dateString) {
+            return "";
+        }
+    
+        const parts = dateString.split("-");
+        if (parts.length !== 3) {
+            return "";
+        }
+    
+        const year = parts[0];
+        const month = parts[1];
+        const day = parts[2];
+    
+        // Create a new Date object with the given year, month, and day
+        const dateObject = new Date(year, month - 1, day);
+    
+        // Use the toISOString() method to get the ISO-8601 formatted string
+        return dateObject.toISOString();
+    };
+
     const addIncome = async (e) => {
         e.preventDefault(); // Prevent the default form submission behavior
 
@@ -33,7 +71,8 @@ const AddIncome = () => {
             // Send a POST request to add the new income data
             newIncome.amount = parseInt(newIncome.amount);
             newIncome.id_wallet = parseInt(newIncome.id_wallet);
-            newIncome.time_stamp = convertDateDDMMYYToISOString(newIncome.time_stamp);
+            const isoDateString = formatDateToISOString(newIncome.time_stamp);
+            newIncome.time_stamp = isoDateString
             console.log(newIncome);
             const data = await axios.post("http://localhost:5000/income", newIncome, { validateStatus: false });
 

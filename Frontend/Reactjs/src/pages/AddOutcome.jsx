@@ -1,29 +1,65 @@
 import React, { useEffect, useState } from "react";
 import Sidebar from '../component/Sidebar';
 import Navbar from '../component/Navbar';
+import CategoryDropdown from "../component/KategoriDropdown";
+import WalletTypeDropdown from "../component/WalletDropdown";
 import axios from "axios";
 import Swal from "sweetalert2";
+import Cookies from 'js-cookie';
+
+
+
 
 const AddOutcome = () => {
-    const [allOutcome, setAllOutcome] = useState([]);
+    const [username, setUsername] = useState('');
+    const [userOutcomes, setUserOutcomes] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    const [selectedCategory, setSelectedCategory] = useState('');
+    const [selectedWalletId, setSelectedWalletId] = useState('');
+
     const [newOutcome, setNewOutcome] = useState({
         id_wallet: 0,
         amount: 0,
         time_stamp: "",
         id_kategori: 0,
     });
+    
 
     useEffect(() => {
-        loadOutcome();
-    }, []);
+        // Fetch outcomes from the API
+        const storedUsername = Cookies.get('username')
+        if (storedUsername) {
+            setUsername(storedUsername)
+        }
+      
+        axios.get(`http://localhost:5000/outcome/per/${storedUsername}`)
+        .then((response) => {
+            console.log(response.data)
+            setUserOutcomes(response.data);
+            setLoading(false);
+        })
+        .catch((error) => {
+            console.error('Error fetching outcomes:', error);
+            setLoading(false);
+        });
+
+      }, []);
+      
+
+      if (loading) {
+        return <p>Loading...</p>;
+      }
 
     const loadOutcome = async () => {
         try {
-            const result = await axios.get("http://localhost:5000/outcome", { validateStatus: false });
-            setAllOutcome(result.data.data);
-            console.log(result.data.data);
+            const result = await axios.get(`http://localhost:5000/outcome/per/${username}`);
+            setUserOutcomes(result.data);
+            setLoading(false);
+            console.log(result.data);
         } catch (error) {
             console.error("Error loading outcome data:", error);
+            
         }
     }
 
@@ -33,9 +69,11 @@ const AddOutcome = () => {
         try {
             // Send a POST request to add the new income data
             newOutcome.amount = parseInt(newOutcome.amount);
-            newOutcome.id_wallet = parseInt(newOutcome.id_wallet);
-            newOutcome.time_stamp = convertDateDDMMYYToISOString(newOutcome.time_stamp);
-            newOutcome.id_kategori = parseInt(newOutcome.id_kategori);
+            newOutcome.id_wallet = parseInt(selectedWalletId);
+            const isoDateString = formatDateToISOString(newOutcome.time_stamp);
+            console.log(isoDateString);
+            newOutcome.time_stamp = isoDateString
+            newOutcome.id_kategori = parseInt(selectedCategory);
             console.log(newOutcome);
             const data = await axios.post("http://localhost:5000/outcome", newOutcome, { validateStatus: false });
 
@@ -63,10 +101,58 @@ const AddOutcome = () => {
         }
     };
 
+    const formatDateToISOString = (dateString) => {
+        if (!dateString) {
+            return "";
+        }
+    
+        const parts = dateString.split("-");
+        if (parts.length !== 3) {
+            return "";
+        }
+    
+        const year = parts[0];
+        const month = parts[1];
+        const day = parts[2];
+    
+        // Create a new Date object with the given year, month, and day
+        const dateObject = new Date(year, month - 1, day);
+    
+        // Use the toISOString() method to get the ISO-8601 formatted string
+        return dateObject.toISOString();
+    };
+
+    const sortedOutcomes = userOutcomes.slice().sort((a, b) => {
+        const dateA = a.time_stamp ? new Date(a.time_stamp) : null;
+        const dateB = b.time_stamp ? new Date(b.time_stamp) : null;
+    
+        if (dateA && dateB) {
+            return dateA - dateB;
+        }
+    
+        // Handle cases where dateA or dateB is null (N/A)
+        if (dateA) {
+            return -1;
+        }
+        if (dateB) {
+            return 1;
+        }
+    
+        return 0;
+    });
+
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setNewOutcome({ ...newOutcome, [name]: value });
     };
+
+    const handleWalletChange = (value) => {
+        setSelectedWalletId(value);
+      };
+
+      const handleKategoriChange = (value) => {
+        setSelectedCategory(value);
+      };
 
     return (
         <div id="wrapper">
@@ -92,24 +178,34 @@ const AddOutcome = () => {
                                         <table className="table table-bordered text-center" id="dataTable">
                                             <thead>
                                                 <tr>
-                                                    <th>Id Wallet</th>
-                                                    <th>Id Income</th>
+                                                    <th>Date</th>
+                                                    <th>Wallet</th>
+                                                    <th>Category</th>
                                                     <th>Amount</th>
-                                                    <th>Time Stamp</th>
-                                                    <th>Id Category</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                {allOutcome && allOutcome.map((outcome) => (
+                                            {sortedOutcomes.map((outcome) => {
+                                                const walletType = outcome.wallet ? outcome.wallet.tipe : 'N/A';
+                                                const amount = outcome.amount ? parseFloat(outcome.amount).toLocaleString('de-DE', { minimumFractionDigits: 2 }) : 'N/A';
+
+                                                const date = outcome.time_stamp ? new Date(outcome.time_stamp) : null;
+                                                const formattedDate = date ? date.toLocaleDateString('en-UK') : 'N/A';
+
+                                                const categoryName = outcome.kategori ? outcome.kategori.nama_kategori : 'N/A';
+
+                                                return (
                                                     <tr key={outcome.id_outcome}>
-                                                        <td>{outcome.id_wallet}</td>
-                                                        <td>{outcome.id_outcome}</td>
-                                                        <td>{outcome.amount}</td>
-                                                        <td>{outcome.time_stamp}</td>
-                                                        <td>{outcome.id_kategori}</td>
+                                                        <td>{formattedDate}</td>
+                                                        <td>{walletType}</td>
+                                                        <td>{categoryName}</td>
+                                                        <td style={{ textAlign: 'right' }}>{amount}</td>
                                                     </tr>
-                                                ))}
-                                            </tbody>
+                                                );
+                                            })}
+                                        </tbody>
+
+
                                         </table>
                                     </div>
                                 </div>
@@ -131,17 +227,8 @@ const AddOutcome = () => {
                         </div>
                         <div className="modal-body">                            
                         <form onSubmit={AddNewOutcome}>
-                            <div className="form-group">
-                                <label htmlFor="id_wallet">Id Wallet</label>
-                                <input
-                                    type="number"
-                                    className="form-control"
-                                    id="id_wallet"
-                                    name="id_wallet"
-                                    value={newOutcome.id_wallet}
-                                    onChange={handleInputChange}
-                                />
-                            </div>
+                            <CategoryDropdown onKategoriChange={handleKategoriChange}/>
+                            <WalletTypeDropdown onWalletChange={handleWalletChange}/>
                             <div className="form-group">
                                 <label htmlFor="amount">Amount</label>
                                 <input
@@ -150,17 +237,6 @@ const AddOutcome = () => {
                                     id="amount"
                                     name="amount"
                                     value={newOutcome.amount}
-                                    onChange={handleInputChange}
-                                />
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="time_stamp">ID Kategori</label>
-                                <input
-                                    type="number"
-                                    className="form-control"
-                                    id="id_kategori"
-                                    name="id_kategori"
-                                    value={newOutcome.id_kategori}
                                     onChange={handleInputChange}
                                 />
                             </div>

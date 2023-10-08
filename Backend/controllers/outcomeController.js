@@ -30,9 +30,13 @@ export const getAllOutcome = async (req, res) => {
 export const getOutcomeByUser = async (req, res) => {
     try{
         const response = await prisma.outcome.findMany({
+            include: {
+                wallet: true,
+                kategori: true,
+              },
             where: {
                 id_wallet: parseInt(req.params.id_wallet),
-            },
+            }
         });
         if (!response) {
             res.status(404).json({ msg: 'Outcome not found' });
@@ -60,3 +64,30 @@ export const getOutcomeByCategory = async (req, res) => {
         res.status(500).json({ msg: error.message });
     }
 }
+
+export const getUserOutcomes = async (req, res) => {
+    const { username } = req.params; // Extract the username from the URL parameter
+  
+    try {
+      const userOutcomes = await prisma.outcome.findMany({
+        where: { wallet: { username } },
+        select: {
+          id_outcome: true,
+          id_wallet: true,
+          id_kategori: true,
+          amount : true,
+          time_stamp: true,
+          wallet: { select: { username: true, tipe: true } },
+          kategori: { select: { nama_kategori: true } },
+        },
+      });
+  
+      res.json(userOutcomes);
+    } catch (error) {
+      console.error('Error retrieving user outcomes:', error);
+      res.status(500).json({ error: 'Internal server error' });
+    } finally {
+      await prisma.$disconnect();
+    }
+  };
+  
