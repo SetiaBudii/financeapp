@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Sidebar from '../component/Sidebar';
 import Navbar from '../component/Navbar';
+import CategoryDropdown from "../component/KategoriDropdown";
+import WalletTypeDropdown from "../component/WalletDropdown";
 import axios from "axios";
 import Swal from "sweetalert2";
 import Cookies from 'js-cookie';
@@ -12,6 +14,9 @@ const AddOutcome = () => {
     const [username, setUsername] = useState('');
     const [userOutcomes, setUserOutcomes] = useState([]);
     const [loading, setLoading] = useState(true);
+
+    const [selectedCategory, setSelectedCategory] = useState('');
+    const [selectedWalletId, setSelectedWalletId] = useState('');
 
     const [newOutcome, setNewOutcome] = useState({
         id_wallet: 0,
@@ -64,11 +69,11 @@ const AddOutcome = () => {
         try {
             // Send a POST request to add the new income data
             newOutcome.amount = parseInt(newOutcome.amount);
-            newOutcome.id_wallet = parseInt(newOutcome.id_wallet);
+            newOutcome.id_wallet = parseInt(selectedWalletId);
             const isoDateString = formatDateToISOString(newOutcome.time_stamp);
             console.log(isoDateString);
             newOutcome.time_stamp = isoDateString
-            newOutcome.id_kategori = parseInt(newOutcome.id_kategori);
+            newOutcome.id_kategori = parseInt(selectedCategory);
             console.log(newOutcome);
             const data = await axios.post("http://localhost:5000/outcome", newOutcome, { validateStatus: false });
 
@@ -117,10 +122,37 @@ const AddOutcome = () => {
         return dateObject.toISOString();
     };
 
+    const sortedOutcomes = userOutcomes.slice().sort((a, b) => {
+        const dateA = a.time_stamp ? new Date(a.time_stamp) : null;
+        const dateB = b.time_stamp ? new Date(b.time_stamp) : null;
+    
+        if (dateA && dateB) {
+            return dateA - dateB;
+        }
+    
+        // Handle cases where dateA or dateB is null (N/A)
+        if (dateA) {
+            return -1;
+        }
+        if (dateB) {
+            return 1;
+        }
+    
+        return 0;
+    });
+
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setNewOutcome({ ...newOutcome, [name]: value });
     };
+
+    const handleWalletChange = (value) => {
+        setSelectedWalletId(value);
+      };
+
+      const handleKategoriChange = (value) => {
+        setSelectedCategory(value);
+      };
 
     return (
         <div id="wrapper">
@@ -146,35 +178,32 @@ const AddOutcome = () => {
                                         <table className="table table-bordered text-center" id="dataTable">
                                             <thead>
                                                 <tr>
-                                                    <th>Tipe</th>
+                                                    <th>Date</th>
+                                                    <th>Wallet</th>
+                                                    <th>Category</th>
                                                     <th>Amount</th>
-                                                    <th>Time Stamp</th>
-                                                    <th>Kategori</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                {userOutcomes.map((outcome) => {
-                                                    // Check if outcome.wallet and outcome.kategori are defined before accessing their properties
-                                                    const walletType = outcome.wallet ? outcome.wallet.tipe : 'N/A';
-                                                    const amount = outcome.amount ? parseFloat(outcome.amount).toLocaleString('de-DE', { minimumFractionDigits: 2 }) : 'N/A';
+                                            {sortedOutcomes.map((outcome) => {
+                                                const walletType = outcome.wallet ? outcome.wallet.tipe : 'N/A';
+                                                const amount = outcome.amount ? parseFloat(outcome.amount).toLocaleString('de-DE', { minimumFractionDigits: 2 }) : 'N/A';
 
-                                                    // Convert outcome.time_stamp to a Date object and format the date
-                                                    const date = outcome.time_stamp ? new Date(outcome.time_stamp) : null;
-                                                    const formattedDate = date ? date.toLocaleDateString('en-UK') : 'N/A';
+                                                const date = outcome.time_stamp ? new Date(outcome.time_stamp) : null;
+                                                const formattedDate = date ? date.toLocaleDateString('en-UK') : 'N/A';
 
-                                                    // Check if outcome.kategori is defined before accessing its property
-                                                    const categoryName = outcome.kategori ? outcome.kategori.nama_kategori : 'N/A';
+                                                const categoryName = outcome.kategori ? outcome.kategori.nama_kategori : 'N/A';
 
-                                                    return (
-                                                        <tr key={outcome.id_outcome}>
-                                                        <td>{walletType}</td>
-                                                        <td style={{ textAlign: 'right' }}>{amount}</td>
+                                                return (
+                                                    <tr key={outcome.id_outcome}>
                                                         <td>{formattedDate}</td>
+                                                        <td>{walletType}</td>
                                                         <td>{categoryName}</td>
+                                                        <td style={{ textAlign: 'right' }}>{amount}</td>
                                                     </tr>
-                                                    );
-                                                })}
-                                            </tbody>
+                                                );
+                                            })}
+                                        </tbody>
 
 
                                         </table>
@@ -198,17 +227,8 @@ const AddOutcome = () => {
                         </div>
                         <div className="modal-body">                            
                         <form onSubmit={AddNewOutcome}>
-                            <div className="form-group">
-                                <label htmlFor="id_wallet">Id Wallet</label>
-                                <input
-                                    type="number"
-                                    className="form-control"
-                                    id="id_wallet"
-                                    name="id_wallet"
-                                    value={newOutcome.id_wallet}
-                                    onChange={handleInputChange}
-                                />
-                            </div>
+                            <CategoryDropdown onKategoriChange={handleKategoriChange}/>
+                            <WalletTypeDropdown onWalletChange={handleWalletChange}/>
                             <div className="form-group">
                                 <label htmlFor="amount">Amount</label>
                                 <input
@@ -217,17 +237,6 @@ const AddOutcome = () => {
                                     id="amount"
                                     name="amount"
                                     value={newOutcome.amount}
-                                    onChange={handleInputChange}
-                                />
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="time_stamp">ID Kategori</label>
-                                <input
-                                    type="number"
-                                    className="form-control"
-                                    id="id_kategori"
-                                    name="id_kategori"
-                                    value={newOutcome.id_kategori}
                                     onChange={handleInputChange}
                                 />
                             </div>

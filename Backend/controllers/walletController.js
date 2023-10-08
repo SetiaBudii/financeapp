@@ -51,7 +51,7 @@ export const createWallet = async (req, res) => {
   }
 };
 
-export const getWalletbyUsername = async (req, res) => {
+export const getWalletbyUsernamed = async (req, res) => {
   try{
       const response = await prisma.wallet.findMany({
           where: {
@@ -67,3 +67,26 @@ export const getWalletbyUsername = async (req, res) => {
       res.status(500).json({ msg: error.message });
   }
 }
+
+export const getWalletbyUsername = async (req, res) => {
+  const { usernameL } = req.params; // Extract the username from the URL parameter
+
+  try {
+    const userOutcomes = await prisma.wallet.findMany({
+      where: { username:  req.params.username  },
+      select: {
+        username: true,
+        saldo: true,
+        id_wallet: true,
+        tipe : true,
+      },
+    });
+
+    res.json(userOutcomes);
+  } catch (error) {
+    console.error('Error retrieving user outcomes:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  } finally {
+    await prisma.$disconnect();
+  }
+};

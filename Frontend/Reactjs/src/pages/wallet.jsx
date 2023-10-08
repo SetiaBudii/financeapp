@@ -20,26 +20,24 @@ const Wallet = () => {
         const storedUsername = Cookies.get('username')
         if (storedUsername) {
             setUsername(storedUsername)
+            console.log('Stored Username:', storedUsername);
+            console.log(' Username:', username);
+            loadKategori(storedUsername)
         }
-                console.log('username :', username);
 
-        loadKategori();
+        
     }, []);
 
-    const loadKategori = async () => {
+    const loadKategori = async (x) => {
         try {
-            const result = await axios.get(`http://localhost:5000/wallet/${username}`, { validateStatus: false });
+            const result = await axios.get(`http://localhost:5000/wallets/${x}`, { validateStatus: false });
             setAllWallet(result.data.data);
             console.log(result.data.data);
-            console.log('username :', username);
+            console.log(`http://localhost:5000/wallets/${x}`);
         } catch (error) {
             console.error("Error loading outcome data:", error);
         }
     }
-
-    useEffect(() => {
-        loadKategori();
-    }, [username]);
 
     
 
@@ -82,7 +80,7 @@ const Wallet = () => {
                     </div>
                 </div>
             </div>
-            {/* add income Modal*/}
+            
             {/* <div className="modal fade" id="addoutcomemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
                 <div className="modal-dialog" role="document">
