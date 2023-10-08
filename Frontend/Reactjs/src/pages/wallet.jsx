@@ -4,13 +4,13 @@ import Navbar from '../component/Navbar';
 import axios from "axios";
 import Swal from "sweetalert2";
 import Cookies from "js-cookie";
-import ShowTipe from '../component/ShowTipe'; // Import ShowTipe component
-import WalletComp from '../component/WalletComp'; // Import WalletComp component
+import ShowTipe from '../component/ShowTipe';
+import WalletComp from '../component/WalletComp';
 
 const Wallet = () => {
     const [allWallet, setAllWallet] = useState([]);
     const [username, setUsername] = useState('');
-    const [isCreateWalletPopupOpen, setCreateWalletPopupOpen] = useState(false); // State for controlling the popup
+    const [isCreateWalletModalOpen, setCreateWalletModalOpen] = useState(false);
     const [selectedTipe, setSelectedTipe] = useState('');
 
     useEffect(() => {
@@ -29,16 +29,21 @@ const Wallet = () => {
             console.error("Error loading outcome data:", error);
         }
     }
-    
 
     const handleCreateWalletClick = () => {
-        // Toggle the visibility of the "Create Wallet" popup
-        setCreateWalletPopupOpen(!isCreateWalletPopupOpen);
+        // Open the Create Wallet modal
+        setCreateWalletModalOpen(true);
+    }
+
+    const handleCreateWalletModalClose = () => {
+        // Close the Create Wallet modal
+        setCreateWalletModalOpen(false);
     }
 
     const handleTipeChange = (value) => {
         setSelectedTipe(value);
-      };
+    };
+
     return (
         <div id="wrapper">
             <Sidebar />
@@ -79,17 +84,33 @@ const Wallet = () => {
                     </div>
                 </div>
             </div>
-            {isCreateWalletPopupOpen && (
-                <div className="create-wallet-popup">
-                    {/* ShowTipe component for selecting wallet type */}
-                    <ShowTipe onTipeChange={handleTipeChange} />
 
-                    {/* WalletComp component for creating the wallet */}
-                    <WalletComp username={username} selectedTipe={selectedTipe} />
+            {isCreateWalletModalOpen && (
+                // Modal backdrop and Create Wallet modal
+                <div className="modal-backdrop show" style={{ zIndex: 1040 }}>
+                    <div className="modal" tabIndex="-1" role="dialog" style={{ display: 'block', zIndex: 1050 }}>
+                        <div className="modal-dialog modal-dialog-centered" role="document">
+                            <div className="modal-content">
+                                <div className="modal-header">
+                                    <h5 className="modal-title">Create Wallet</h5>
+                                    <button type="button" className="close" onClick={handleCreateWalletModalClose}>
+                                        <span>&times;</span>
+                                    </button>
+                                </div>
+                                <div className="modal-body">
+                                    {/* ShowTipe component for selecting wallet type */}
+                                    <ShowTipe onTipeChange={handleTipeChange} />
+
+                                    {/* WalletComp component for creating the wallet */}
+                                    <WalletComp username={username} selectedTipe={selectedTipe} />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             )}
         </div>
     );
 }
 
-export default Wallet;
+export default Wallet;
