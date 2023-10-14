@@ -11279,3 +11279,30 @@ footer.sticky-footer .copyright {
 body.sidebar-toggled footer.sticky-footer {
   width: 100%;
 }
+/* Optionally, add styles to the header cells or other elements */
+.card-body .rdt_TableHeadRow {
+  background-color: #a3b6ee;
+  color: white;
+  border-radius: 2px;
+  border: #000 solid 1px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+
+
+.card-body .rdt_TableRow {
+  font-size: 14px;
+  border-left: #000 solid 1px;
+  border-right: #000 solid 1px;
+  border-bottom: #000 solid 1px;
+}
+
+.card-body .rdt_TableCol{
+  font-size: 14px;
+  color: black;
+  font-weight: bold;
+  text-align: center;
+
+}

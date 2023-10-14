@@ -16,7 +16,9 @@
     "highcharts-react-official": "^3.2.1",
     "js-cookie": "^3.0.5",
     "react": "^18.2.0",
+    "react-data-table-component": "^7.5.4",
     "react-dom": "^18.2.0",
+    "react-table": "^7.8.0",
     "sweetalert2": "^11.7.31"
   },
   "devDependencies": {

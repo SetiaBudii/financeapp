@@ -7,7 +7,6 @@ import Table from "../component/RecapTable";
 import axios from "axios";
 
 const Recap = () => {
-
   const [allIncome, setAllIncome] = useState([]);
   const username = Cookies.get("username");
   const date = new Date();
@@ -18,7 +17,6 @@ const Recap = () => {
   }, []);
 
   const loadIncome = async () => {
-
     try {
       const result = await axios.get(`http://localhost:5000/income/periode`, {
         params: {
@@ -32,6 +30,7 @@ const Recap = () => {
       console.error("Error loading income data:", error);
     }
   }
+
   return (
     <>
       <div id="wrapper">
@@ -41,11 +40,22 @@ const Recap = () => {
             <Navbar />
             <div className="container-fluid">
               <div className="card shadow mb-4">
-                <a href="#collapseCardExample" className="d-block card-header py-3" data-toggle="collapse"
-                  role="button" aria-expanded="true" aria-controls="collapseCardExample">
+                <a href="#collapseIncomeCard" className="d-block card-header py-3" data-toggle="collapse"
+                  role="button" aria-expanded="true" aria-controls="collapseIncomeCard">
                   <h6 className="m-0 font-weight-bold text-primary text-center">Today's Income</h6>
                 </a>
-                <div className="collapse show" id="collapseCardExample">
+                <div className="collapse show" id="collapseIncomeCard">
+                  <div className="card-body">
+                    <Table data={allIncome} />
+                  </div>
+                </div>
+              </div>
+              <div className="card shadow mb-4">
+                <a href="#collapseOutcomeCard" className="d-block card-header py-3" data-toggle="collapse"
+                  role="button" aria-expanded="true" aria-controls="collapseOutcomeCard">
+                  <h6 className="m-0 font-weight-bold text-primary text-center">Today's Outcome</h6>
+                </a>
+                <div className="collapse show" id="collapseOutcomeCard">
                   <div className="card-body">
                     <Table data={allIncome} />
                   </div>
@@ -55,7 +65,8 @@ const Recap = () => {
           </div>
         </div>
       </div>
-    </>)
+    </>
+  )
 }
 
 export default Recap;
