@@ -54,7 +54,7 @@ export const getAllIcnome = async (req, res) => {
 //     }
 // }
 
-
+//Mendapat semua income berdasarkan username
 export const getIncomeByUser = async (req, res) => {
     const { username } = req.params; // Extract the username from the URL parameter
 
@@ -83,21 +83,52 @@ export const getIncomeByUser = async (req, res) => {
     }
 };
 
+//Mendapat semua income berdasarkan username dan periode (dalam satu hari)
 export const getIncomeInPeriod = async (req, res) => {
   try {
     const { startDate, endDate, username } = req.query;
-    const incomeInPeriod = await prisma.income.findMany({
+    const incomeByWallet = await prisma.income.groupBy({
+      by: ['id_wallet'],
       where: {
         time_stamp: {
-          gte: new Date(startDate), 
+          gte: new Date(startDate),
           lte: new Date(endDate),
         },
         wallet: {
           username: username,
         },
       },
+      _sum: {
+        amount: true,
+      },
     });
-    res.json(incomeInPeriod);
+
+    const tipe = await prisma.wallet.findMany({
+      where: {
+        username: username,
+      },
+      select: {
+        tipe: true,
+        id_wallet: true,
+      },
+    });
+
+    const result = [];
+    incomeByWallet.forEach((income) => {
+      for (let i = 0; i < tipe.length; i++) {
+        if (income.id_wallet === tipe[i].id_wallet) {
+          const modifiedIncome = {
+            date: startDate,
+            amount: income._sum.amount,
+            tipewallet: tipe[i].tipe}
+          result.push(modifiedIncome);
+          break;
+        }
+      }
+    });
+
+    res.json(result);
+
   } catch (error) {
     console.error('Error retrieving income in period:', error);
     res.status(500).json({ msg: error.message });
@@ -120,13 +151,16 @@ export const getTotalIncomeInPeriod = async (req, res) => {
           username: username,
         },
       },select: {
+        id_income: true,
         amount: true,
         time_stamp: true,
         wallet: { select: { username: true, tipe: true } },
       },
     });
 
+    console.log(incomeInPeriod);
     const incomeByDay = {};
+    let currentId = 0;
 
     incomeInPeriod.forEach((income) => {
       const dateKey = income.time_stamp.toISOString().split('T')[0];
@@ -142,10 +176,11 @@ export const getTotalIncomeInPeriod = async (req, res) => {
     const currentDate = new Date(startDate);
     while (currentDate <= new Date(endDate)) {
       const dateKey = currentDate.toISOString().split('T')[0];
-      const dailyIncomeData = incomeByDay[dateKey] || { dailyIncome: 0, wallet: null };
+      const dailyIncomeData = incomeByDay[dateKey] || { dailyIncome: 0, wallet: {tipe: "-"} };
       result.push({
+        id_income: currentId++,
         time_stamp: dateKey,
-        income: dailyIncomeData.dailyIncome,
+        amount: dailyIncomeData.dailyIncome,
         wallet: dailyIncomeData.wallet,
       });
       currentDate.setDate(currentDate.getDate() + 1);

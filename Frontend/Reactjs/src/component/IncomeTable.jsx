@@ -1,6 +1,7 @@
 import React from 'react'
 
 const IncomeTable = ({allIncome}) => {
+    console.log(allIncome)
     return (
         <>
             <div className="table-responsive">

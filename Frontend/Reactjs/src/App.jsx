@@ -8,6 +8,7 @@ import ProtectedRoute from './routes/ProtectedRoute';
 import Income from './pages/Income';
 import AddOutcome from './pages/AddOutcome';
 import ViewBudget from './pages/ViewBudget';
+import Recap from './pages/Recap';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path="/outcome" element={<ProtectedRoute><AddOutcome /></ProtectedRoute>} />
         <Route path="/budget" element={<ProtectedRoute><ViewBudget /></ProtectedRoute>} />
         <Route path="/" element={<Navigate to="/home" />} />
+        <Route path="/recap" element={<ProtectedRoute><Recap /></ProtectedRoute>} />
       </Routes>
     </Router>
   );
