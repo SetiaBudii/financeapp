@@ -50,3 +50,73 @@ export const createWallet = async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 };
+
+export const getWalletbyUsernamed = async (req, res) => {
+  try{
+      const response = await prisma.wallet.findMany({
+          where: {
+              username: req.params.username,
+          },
+      });
+      if (!response) {
+          res.status(404).json({ msg: 'Wallet not found' });
+      } else {
+          res.status(200).json({msg: 'Wallet found', data: response});
+      }
+  } catch (error) {
+      res.status(500).json({ msg: error.message });
+  }
+}
+
+export const getWalletbyUsername = async (req, res) => {
+  const { usernameL } = req.params; // Extract the username from the URL parameter
+
+  try {
+    const userOutcomes = await prisma.wallet.findMany({
+      where: { username:  req.params.username  },
+      select: {
+        username: true,
+        saldo: true,
+        id_wallet: true,
+        tipe : true,
+      },
+    });
+
+    res.json(userOutcomes);
+  } catch (error) {
+    console.error('Error retrieving user outcomes:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  } finally {
+    await prisma.$disconnect();
+  }
+};
+
+export const deleteWallet = async (req, res) => {
+  try {
+    const { username, tipe } = req.params;
+
+    // Find the wallet with the provided username and tipe
+    const wallet = await prisma.wallet.findFirst({
+      where: {
+        username: username,
+        tipe: tipe,
+      },
+    });
+
+    if (!wallet) {
+      return res.status(404).json({ error: 'Wallet not found' });
+    }
+
+    // Delete the wallet
+    await prisma.wallet.delete({
+      where: {
+        id_wallet: wallet.id_wallet,
+      },
+    });
+
+    res.status(204).send(); // Respond with no content (success)
+  } catch (error) {
+    console.error('Error deleting wallet:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};
