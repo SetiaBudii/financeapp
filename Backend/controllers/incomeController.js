@@ -194,3 +194,16 @@ export const getTotalIncomeInPeriod = async (req, res) => {
     await prisma.$disconnect();
   }
 };
+
+export const deleteIncome = async (req, res) => {
+    try {
+        const response = await prisma.income.delete({
+            where: { id_income: parseInt(req.params.id_income) }
+        });
+        console.log(response);
+        console.log(req.params.id_income);
+        res.status(200).json({ msg: 'Income deleted successfully', data: response });
+    } catch (error) {
+        res.status(500).json({ msg: error.message });
+    }
+}

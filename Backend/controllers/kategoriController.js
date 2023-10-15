@@ -34,6 +34,7 @@ export const getKategoriByUsername = async (req, res) => {
                 username: req.params.username,
             },
         });
+        console.log(response);
         if (!response) {
             res.status(404).json({ msg: 'Kategori not found' });
         } else {
@@ -42,6 +43,7 @@ export const getKategoriByUsername = async (req, res) => {
     } catch (error) {
         res.status(500).json({ msg: error.message });
     }
+    console.log(req.params.username);
 }
 
 export const findIdKategoriByUsernameandNamaKategori = async (req, res) => {

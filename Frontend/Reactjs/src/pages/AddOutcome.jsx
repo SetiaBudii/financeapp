@@ -63,7 +63,7 @@ const AddOutcome = () => {
             const result = await axios.get(`http://localhost:5000/outcome/per/${username}`);
             setUserOutcomes(result.data);
             setLoading(false);
-            console.log(result.data);
+            console.log(username)
         } catch (error) {
             console.error("Error loading outcome data:", error);
             

@@ -1,6 +1,6 @@
 import React from 'react'
 
-const IncomeTable = ({allIncome}) => {
+const IncomeTable = ({allIncome,handleDeleteClick}) => {
     console.log(allIncome)
     return (
         <>
@@ -11,6 +11,7 @@ const IncomeTable = ({allIncome}) => {
                             <th>Date</th>
                             <th>Wallet</th>
                             <th>Amount</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -19,6 +20,7 @@ const IncomeTable = ({allIncome}) => {
                                 <td>{formatDateDDMMYYYY(income.time_stamp)}</td>
                                 <td>{income.wallet.tipe}</td>
                                 <td className='text-right'>{formatterIDR.format(income.amount)}</td>
+                                <td><button className="btn btn-danger btn-sm" data-id={income.id_income} data-toggle="modal" data-target="#deleteincomemodal" onClick={() => handleDeleteClick(income.id_income)}>Delete</button></td>
                             </tr>
                         ))}
                     </tbody>
