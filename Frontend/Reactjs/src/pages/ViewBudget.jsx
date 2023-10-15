@@ -220,13 +220,13 @@ const ViewBudget = () => {
                                         />
                                     </div>
                                     <div className="form-group">
-                                        <label htmlFor="id_kategori">Id</label>
                                         <input
                                             type="text"
                                             className="form-control"
                                             id="id_kategori"
                                             name="id_kategori"
                                             value={updateCategory.id_kategori}
+                                            hidden={true}
                                         />
                                     </div>
                                     <div className="form-group">
