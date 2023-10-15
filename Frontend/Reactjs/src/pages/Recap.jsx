@@ -8,12 +8,13 @@ import axios from "axios";
 
 const Recap = () => {
   const [allIncome, setAllIncome] = useState([]);
+  const [allOutcome, setAllOutcome] = useState([]);
   const username = Cookies.get("username");
   const date = new Date();
-  const endDate = new Date("2023-10-15");
 
   useEffect(() => {
     loadIncome();
+    loadOutcome();
   }, []);
 
   const loadIncome = async () => {
@@ -22,12 +23,27 @@ const Recap = () => {
         params: {
           username: username,
           startDate: date,
-          endDate: endDate
+          endDate: date,
         }
       }, { validateStatus: false });
       setAllIncome(result.data);
     } catch (error) {
       console.error("Error loading income data:", error);
+    }
+  }
+
+  const loadOutcome = async () => {
+    try {
+      const result = await axios.get(`http://localhost:5000/outcome/periode`, {
+        params: {
+          username: username,
+          startDate: date,
+          endDate: date,
+        }
+      }, { validateStatus: false });
+      setAllOutcome(result.data);
+    } catch (error) {
+      console.error("Error loading outcome data:", error);
     }
   }
 
@@ -57,7 +73,7 @@ const Recap = () => {
                 </a>
                 <div className="collapse show" id="collapseOutcomeCard">
                   <div className="card-body">
-                    <Table data={allIncome} />
+                    <Table data={allOutcome} />
                   </div>
                 </div>
               </div>
