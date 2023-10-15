@@ -21,6 +21,7 @@ function App() {
         <Route path="/deleteWallet" element={<ProtectedRoute><DelWal /></ProtectedRoute>} />
         <Route path="/register" element={<Register />} />
         <Route path="/home" element={<ProtectedRoute><Home /></ProtectedRoute>} />
+        <Route path="/budgeting" element={<ProtectedRoute><ViewBudget /></ProtectedRoute>} />
         <Route path="/income" element={<ProtectedRoute><Income /></ProtectedRoute>} />
         <Route path="/outcome" element={<ProtectedRoute><AddOutcome /></ProtectedRoute>} />
         <Route path="/budget" element={<ProtectedRoute><ViewBudget /></ProtectedRoute>} />
