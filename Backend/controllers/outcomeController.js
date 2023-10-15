@@ -162,3 +162,62 @@ export const getOutcomeByday = async (req, res) => {
       await prisma.$disconnect();
     }
   };
+
+  export const getTotalOutcomeInPeriod = async (req, res) => {
+    try {
+      const { startDate, endDate, username } = req.query;
+  
+      const incomeInPeriod = await prisma.outcome.findMany({
+        where: {
+          time_stamp: {
+            gte: new Date(startDate),
+            lte: new Date(endDate),
+          },
+          wallet: {
+            username: username,
+          },
+        },select: {
+          id_outcome: true,
+          amount: true,
+          time_stamp: true,
+          id_kategori: true,
+          wallet: { select: { username: true, tipe: true } },
+        },
+      });
+  
+      console.log(incomeInPeriod);
+      const incomeByDay = {};
+      let currentId = 0;
+  
+      incomeInPeriod.forEach((outcome) => {
+        const dateKey = outcome.time_stamp.toISOString().split('T')[0];
+        incomeByDay[dateKey] = incomeByDay[dateKey] || {
+          dailyIncome: 0,
+          wallet: outcome.wallet,
+        };
+        incomeByDay[dateKey].dailyIncome += outcome.amount;
+      });
+  
+      // Create an array of date-income pairs
+      const result = [];
+      const currentDate = new Date(startDate);
+      while (currentDate <= new Date(endDate)) {
+        const dateKey = currentDate.toISOString().split('T')[0];
+        const dailyIncomeData = incomeByDay[dateKey] || { dailyIncome: 0, wallet: {tipe: "-"} };
+        result.push({
+          id_income: currentId++,
+          time_stamp: dateKey,
+          amount: dailyIncomeData.dailyIncome,
+          wallet: dailyIncomeData.wallet,
+        });
+        currentDate.setDate(currentDate.getDate() + 1);
+      }
+  
+      res.json(result);
+    } catch (error) {
+      console.error('Error retrieving income in period:', error);
+      res.status(500).json({ msg: error.message });
+    } finally {
+      await prisma.$disconnect();
+    }
+  };

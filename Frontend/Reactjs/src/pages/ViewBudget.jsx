@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Sidebar from '../component/Sidebar';
 import Navbar from '../component/Navbar';
+import TableKategori from '../component/CategoryReactTable';
 import Cookies from "js-cookie";
 import axios from "axios";
 import Swal from "sweetalert2";
@@ -115,6 +116,23 @@ const ViewBudget = () => {
         setNewCategory({ ...newCategory, [name]: value });
     };
 
+    const handleDeleteClickk = (id_kategori) => {
+        // Set the default values for updateCategory
+        setDeleteCategory({
+            id_kategori: id_kategori,
+        });
+        console.log(deleteCategory);
+    };
+
+    const handleUpdateClickk = (id_kategori, nama_kategori, budget) => {
+        // Set the default values for updateCategory
+        setUpdateCategory({
+            id_kategori: id_kategori,
+            nama_kategori: nama_kategori,
+            budget: budget,
+        });
+    };
+
     const AddNewCategory = async (event) => {
         console.log(newCategory);
         newCategory.budget = parseInt(newCategory.budget);
@@ -180,6 +198,7 @@ const ViewBudget = () => {
                                             </tbody>
                                         </table>
                                     </div>
+                                <TableKategori allCategory={allKategori} handleDeleteClick={handleDeleteClickk} handleUpdateClick={handleUpdateClickk} />
                                 </div>
                             </div>
                         </div>

@@ -1,45 +1,88 @@
 import React from 'react'
+import { useState, useEffect } from 'react'
 import Sidebar from '../component/Sidebar'
 import Navbar from '../component/Navbar'
 import Welcome from '../component/Welcome'
 import CardInfo from '../component/CardInfo'
 import Highcharts from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
-
-
-const options = {
-  chart: {
-    type: 'column' // Use 'column' for a vertical bar chart
-  },
-  title: {
-    text: ''
-  },
-  xAxis: {
-    categories: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31'],
-    title: {
-      text: 'Day of the Month' // Add X-axis title here
-    }
-  },
-  yAxis: {
-    title: {
-      text: 'Amount (in USD)'
-    }
-  },
-  series: [
-    {
-      name: 'Income',
-      data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 10]
-    },
-    {
-      name: 'Outcome',
-      data: [2, 3, 2, 4]
-    }
-  ]
-}
-
+import axios from 'axios'
+import Cookies from 'js-cookie'
 
 
 const Home = () => {
+  const [allIncome, setAllIncome] = useState([]);
+  const [allOutcome, setAllOutcome] = useState([]);
+  const currentDate = new Date();
+  const start = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+  const end = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
+
+  useEffect(() => {
+      loadIncome();
+      loadOutcome();
+  }, []);
+
+  const loadIncome = async () => {
+    try {
+      const result = await axios.get(`http://localhost:5000/income/totalincomeperiode`, {
+        params: {
+          username: Cookies.get("username"),
+          startDate: start,
+          endDate: end,
+        }
+      }, { validateStatus: false });
+      setAllIncome(result.data);
+      console.log(result.data)
+    } catch (error) {
+      console.error("Error loading income data:", error);
+    }
+  }
+
+  const loadOutcome = async () => {
+    try {
+      const result = await axios.get(`http://localhost:5000/outcome/total`, {
+        params: {
+          username: Cookies.get("username"),
+          startDate: start,
+          endDate: end,
+        }
+      }, { validateStatus: false });
+      setAllOutcome(result.data);
+    } catch (error) {
+      console.error("Error loading outcome data:", error);
+    }
+  }
+
+  const options = {
+    chart: {
+      type: 'column',
+    },
+    title: {
+      text: '',
+    },
+    xAxis: {
+      categories: allIncome.map((income, index) => index + 1), // Extract the date from your allIncome data
+      title: {
+        text: 'Day of the Month',
+      },
+    },
+    yAxis: {
+      title: {
+        text: 'Amount (in Rupiah)',
+      },
+    },
+    series: [
+      {
+        name: 'Income',
+        data: allIncome.map((income) => income.amount), // Extract the amount from your allIncome data
+      },
+      {
+        name: 'Outcome',
+        data: allOutcome.map((outcome) => outcome.amount), // Extract the amount from your allOutcome data
+      },
+    ],
+  };
+
   return (
     <div id="wrapper">
       <Sidebar />

@@ -9,6 +9,7 @@ const IncomeReactTable = ({ allIncome,handleDeleteClick }) => {
                 name: 'Date',
                 selector: row => row.time_stamp,
                 cell: (row) => formatDateDDMMYYYY(row.time_stamp),
+                sortable: true,
             },
             {
                 name: 'Wallet',
