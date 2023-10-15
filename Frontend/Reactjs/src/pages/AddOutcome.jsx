@@ -3,6 +3,7 @@ import Sidebar from '../component/Sidebar';
 import Navbar from '../component/Navbar';
 import CategoryDropdown from "../component/KategoriDropdown";
 import WalletTypeDropdown from "../component/WalletDropdown";
+import TableReactOutcome from "../component/OutcomeReactTable";
 import axios from "axios";
 import Swal from "sweetalert2";
 import Cookies from 'js-cookie';
@@ -17,6 +18,7 @@ const AddOutcome = () => {
 
     const [selectedCategory, setSelectedCategory] = useState('');
     const [selectedWalletId, setSelectedWalletId] = useState('');
+    const [deletesOutcome, setDeletesOutcome] = useState({ id_outcome: 0 });
 
     const [newOutcome, setNewOutcome] = useState({
         id_wallet: 0,
@@ -161,6 +163,34 @@ const AddOutcome = () => {
         setSelectedCategory(value);
       };
 
+    const handleDeleteOnClick = (id) => {
+        setDeletesOutcome({ id_outcome: id });
+    };
+
+    const deleteOutcome = async (e) => {
+        e.preventDefault();
+        try {
+            const data = await axios.delete(`http://localhost:5000/outcome/${deletesOutcome.id_outcome}`, { validateStatus: false });
+            if (data.status === 200) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Outcome Deleted!',
+                    text: data.data.msg,
+                });
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Outcome Failed!',
+                    text: data.data.msg,
+                });
+            }
+            $("#deleteoutcomemodal").modal("hide");
+            loadOutcome();
+        } catch (error) {
+            console.error("Error deleting outcome:", error);
+        }
+    };
+
     return (
         <div id="wrapper">
             <Sidebar />
@@ -211,10 +241,9 @@ const AddOutcome = () => {
                                                 );
                                             })}
                                         </tbody>
-
-
                                         </table>
                                     </div>
+                                    <TableReactOutcome allOutcome={userOutcomes} handleDeleteClick={handleDeleteOnClick} />
                                 </div>
                             </div>
                         </div>
@@ -261,6 +290,28 @@ const AddOutcome = () => {
                             <button type="submit" className="btn btn-primary m-1">Submit</button>
                             <button className="btn btn-secondary m-1 " type="button" data-dismiss="modal">Cancel</button>
                         </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div className="modal fade" id="deleteoutcomemodal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div className="modal-dialog" role="document">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <h5 className="modal-title" id="exampleModalLabel">Delete outcome</h5>
+                            <button className="close" type="button" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                        <div className="modal-body">
+                            <form onSubmit={deleteOutcome}>
+                                <input type="hidden" name="id_outcome" id="id_outcome" value={deletesOutcome.id_outcome} />
+                                <p>Are you sure want to delete this outcome? </p>
+                                <button type="submit" className="btn btn-primary m-1">Delete</button>
+                                <button className="btn btn-secondary m-1 " type="button" data-dismiss="modal">Cancel</button>
+                            </form>
                         </div>
                     </div>
                 </div>
