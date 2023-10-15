@@ -1,10 +1,10 @@
 import { PrismaClient } from "@prisma/client";
-import e from "express";
+import e, { query } from "express";
 
 const prisma = new PrismaClient();
 
 export const createIncome = async (req, res) => {
-    try{
+    try {
         const response = await prisma.income.create({
             data: {
                 amount: req.body.amount,
@@ -19,7 +19,7 @@ export const createIncome = async (req, res) => {
 }
 
 export const getAllIcnome = async (req, res) => {
-    try{
+    try {
         const response = await prisma.income.findMany();
         res.status(200).json({ msg: 'All incomes', data: response });
     } catch (error) {
@@ -27,18 +27,182 @@ export const getAllIcnome = async (req, res) => {
     }
 }
 
+// export const getAllIncomeByUsername = async (req, res) => {
+//     try {
+//         const result = await prisma.$queryRaw`SELECT * FROM get_income_by_username(${req.params.username})`;
+//         if (!result) {
+//             res.status(404).json({ msg: 'Income not found' });
+//         } else {
+//             res.status(200).json({ msg: 'Income found', data: result });
+//         }
+//     } catch (error) {
+//         res.status(500).json({ msg: error.message });
+//     }
+// }
+
+// export const getAllIncomeInPeriode = async (req, res) => {
+//     try {
+//         console.log(req.body);
+//         const result = await prisma.$queryRaw`SELECT * FROM get_income_for_period(${req.body.username}, ${req.body.start},${req.body.end})`;
+//         if (!result) {
+//             res.status(404).json({ msg: 'Income not found' });
+//         } else {
+//             res.status(200).json({ msg: 'Income found', data: result });
+//         }
+//     } catch (error) {
+//         res.status(500).json({ msg: error.message });
+//     }
+// }
+
+//Mendapat semua income berdasarkan username
 export const getIncomeByUser = async (req, res) => {
-    try{
-        const response = await prisma.income.findMany({
-            where: {
-                id_wallet: parseInt(req.params.id_wallet),
+    const { username } = req.params; // Extract the username from the URL parameter
+
+    try {
+        const userIncomes = await prisma.income.findMany({
+            where: { wallet: { username } },
+            select: {
+                id_income: true,
+                id_wallet: true,
+                amount: true,
+                time_stamp: true,
+                wallet: { select: { username: true, tipe: true } },
             },
         });
-        if (!response) {
-            res.status(404).json({ msg: 'Income not found' });
+
+        if (!userIncomes) {
+            return res.status(404).json({ error: 'User not found' });
         } else {
-            res.status(200).json({msg: 'Income found', data: response});
+            return res.status(200).json({ msg: 'User found', data: userIncomes });
         }
+    } catch (error) {
+        console.error('Error retrieving user outcomes:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    } finally {
+        await prisma.$disconnect();
+    }
+};
+
+//Mendapat semua income berdasarkan username dan periode (dalam satu hari)
+export const getIncomeInPeriod = async (req, res) => {
+  try {
+    const { startDate, endDate, username } = req.query;
+    const incomeByWallet = await prisma.income.groupBy({
+      by: ['id_wallet'],
+      where: {
+        time_stamp: {
+          gte: new Date(startDate),
+          lte: new Date(endDate),
+        },
+        wallet: {
+          username: username,
+        },
+      },
+      _sum: {
+        amount: true,
+      },
+    });
+
+    const tipe = await prisma.wallet.findMany({
+      where: {
+        username: username,
+      },
+      select: {
+        tipe: true,
+        id_wallet: true,
+      },
+    });
+
+    const result = [];
+    incomeByWallet.forEach((income) => {
+      for (let i = 0; i < tipe.length; i++) {
+        if (income.id_wallet === tipe[i].id_wallet) {
+          const modifiedIncome = {
+            date: startDate,
+            amount: income._sum.amount,
+            tipewallet: tipe[i].tipe}
+          result.push(modifiedIncome);
+          break;
+        }
+      }
+    });
+
+    res.json(result);
+
+  } catch (error) {
+    console.error('Error retrieving income in period:', error);
+    res.status(500).json({ msg: error.message });
+  } finally {
+    await prisma.$disconnect();
+  }
+};
+
+export const getTotalIncomeInPeriod = async (req, res) => {
+  try {
+    const { startDate, endDate, username } = req.query;
+
+    const incomeInPeriod = await prisma.income.findMany({
+      where: {
+        time_stamp: {
+          gte: new Date(startDate),
+          lte: new Date(endDate),
+        },
+        wallet: {
+          username: username,
+        },
+      },select: {
+        id_income: true,
+        amount: true,
+        time_stamp: true,
+        wallet: { select: { username: true, tipe: true } },
+      },
+    });
+
+    console.log(incomeInPeriod);
+    const incomeByDay = {};
+    let currentId = 0;
+
+    incomeInPeriod.forEach((income) => {
+      const dateKey = income.time_stamp.toISOString().split('T')[0];
+      incomeByDay[dateKey] = incomeByDay[dateKey] || {
+        dailyIncome: 0,
+        wallet: income.wallet,
+      };
+      incomeByDay[dateKey].dailyIncome += income.amount;
+    });
+
+    // Create an array of date-income pairs
+    const result = [];
+    const currentDate = new Date(startDate);
+    while (currentDate <= new Date(endDate)) {
+      const dateKey = currentDate.toISOString().split('T')[0];
+      const dailyIncomeData = incomeByDay[dateKey] || { dailyIncome: 0, wallet: {tipe: "-"} };
+      result.push({
+        id_income: currentId++,
+        time_stamp: dateKey,
+        amount: dailyIncomeData.dailyIncome,
+        wallet: dailyIncomeData.wallet,
+      });
+      currentDate.setDate(currentDate.getDate() + 1);
+    }
+
+    res.json(result);
+  } catch (error) {
+    console.error('Error retrieving income in period:', error);
+    res.status(500).json({ msg: error.message });
+  } finally {
+    await prisma.$disconnect();
+  }
+};
+
+export const deleteIncome = async (req, res) => {
+    try {
+        const response = await prisma.income.delete({
+            where: { id_income: parseInt(req.params.id_income) }
+        });
+        console.log(response);
+        console.log(req.params.id_income);
+        res.status(200).json({ msg: 'Income deleted successfully', data: response });
     } catch (error) {
         res.status(500).json({ msg: error.message });
     }

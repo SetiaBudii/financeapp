@@ -62,5 +62,35 @@ export const findIdKategoriByUsernameandNamaKategori = async (req, res) => {
     }
 }
 
+export const updateKategori = async (req, res) => {
+    try{
+        const response = await prisma.kategori.update({
+            where: {
+                id_kategori: parseInt(req.params.id_kategori),
+            },
+            data: {
+                nama_kategori: req.body.nama_kategori,
+                budget: req.body.budget,
+            },
+        });
+        res.status(200).json({ msg: 'Kategori updated successfully', data: response });
+    } catch (error) {
+        res.status(500).json({ msg: error.message });
+    }
+}
+
+export const deleteKategori = async (req, res) => {
+    try{
+        const response = await prisma.kategori.delete({
+            where: {
+                id_kategori: parseInt(req.params.id_kategori),
+            },
+        });
+        res.status(200).json({ msg: 'Kategori deleted successfully', data: response });
+    } catch (error) {
+        res.status(500).json({ msg: error.message });
+    }
+}
+
 
 

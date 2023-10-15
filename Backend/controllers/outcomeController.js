@@ -30,9 +30,13 @@ export const getAllOutcome = async (req, res) => {
 export const getOutcomeByUser = async (req, res) => {
     try{
         const response = await prisma.outcome.findMany({
+            include: {
+                wallet: true,
+                kategori: true,
+              },
             where: {
                 id_wallet: parseInt(req.params.id_wallet),
-            },
+            }
         });
         if (!response) {
             res.status(404).json({ msg: 'Outcome not found' });
@@ -60,3 +64,101 @@ export const getOutcomeByCategory = async (req, res) => {
         res.status(500).json({ msg: error.message });
     }
 }
+
+export const getUserOutcomes = async (req, res) => {
+    const { username } = req.params; // Extract the username from the URL parameter
+  
+    try {
+      const userOutcomes = await prisma.outcome.findMany({
+        where: { wallet: { username } },
+        select: {
+          id_outcome: true,
+          id_wallet: true,
+          id_kategori: true,
+          amount : true,
+          time_stamp: true,
+          wallet: { select: { username: true, tipe: true } },
+          kategori: { select: { nama_kategori: true } },
+        },
+      });
+  
+      res.json(userOutcomes);
+    } catch (error) {
+      console.error('Error retrieving user outcomes:', error);
+      res.status(500).json({ error: 'Internal server error' });
+    } finally {
+      await prisma.$disconnect();
+    }
+  };
+
+  export const deleteOutcome = async (req, res) => {
+    try{
+        const { id_outcome } = req.params;
+        const outcome = await prisma.outcome.delete({
+            where: {
+                id_outcome: parseInt(id_outcome),
+            },
+        });
+
+        if (!outcome) {
+            res.status(404).json({ msg: 'Outcome not found' });
+        } else {
+            res.status(200).json({msg: 'Outcome deleted', data: outcome});
+        }
+    }
+    catch (error) {
+        res.status(500).json({ msg: error.message });
+    }
+}
+  
+//Mendapat semua outcome perhari
+export const getOutcomeByday = async (req, res) => {
+    try {
+      const { startDate, endDate, username } = req.query;
+      const outcomeByWallet = await prisma.outcome.groupBy({
+        by: ['id_wallet'],
+        where: {
+          time_stamp: {
+            gte: new Date(startDate),
+            lte: new Date(endDate),
+          },
+          wallet: {
+            username: username,
+          },
+        },
+        _sum: {
+          amount: true,
+        },
+      });
+  
+      const tipe = await prisma.wallet.findMany({
+        where: {
+          username: username,
+        },
+        select: {
+          tipe: true,
+          id_wallet: true,
+        },
+      });
+  
+      const result = [];
+      outcomeByWallet.forEach((outcome) => {
+        for (let i = 0; i < tipe.length; i++) {
+          if (outcome.id_wallet === tipe[i].id_wallet) {
+            const modifiedoutcome = {
+              date: startDate,
+              amount: outcome._sum.amount,
+              tipewallet: tipe[i].tipe}
+            result.push(modifiedoutcome);
+            break;
+          }
+        }
+      });
+      res.json(result);
+    } catch (error) {
+      console.error('Error retrieving outcome in period:', error);
+      res.status(500).json({ msg: error.message });
+    } finally {
+      await prisma.$disconnect();
+    }
+  };
