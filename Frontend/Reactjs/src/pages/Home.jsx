@@ -13,6 +13,7 @@ import Cookies from 'js-cookie'
 const Home = () => {
   const [allIncome, setAllIncome] = useState([]);
   const [allOutcome, setAllOutcome] = useState([]);
+  const [sumKategori, sumAllKategori] = useState([]);
   const currentDate = new Date();
   const start = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
   const end = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
@@ -20,6 +21,7 @@ const Home = () => {
   useEffect(() => {
       loadIncome();
       loadOutcome();
+      sumAll();
   }, []);
 
   const loadIncome = async () => {
@@ -83,6 +85,57 @@ const Home = () => {
     ],
   };
 
+    const sumAll = async () => {
+      try {
+        const result = await axios.get(`http://localhost:5000/outcome/sumall/${Cookies.get("username")}`, {
+    }, {validateStatus : false});
+      sumAllKategori(result.data);
+    } catch (error) {
+      console.error("Error loading outcome data:", error);
+    }
+  }
+
+  const pieChart = {
+  chart: {
+      plotBackgroundColor: null,
+      plotBorderWidth: null,
+      plotShadow: false,
+      type: 'pie'
+  },
+  title: {
+      text: '',
+      align: 'left'
+  },
+  tooltip: {
+      pointFormat: '{series.name}: <b>Rp.{point.y}</b>'
+  },
+  accessibility: {
+      point: {
+          valueSuffix: '%'
+      }
+  },
+  plotOptions: {
+      pie: {
+          allowPointSelect: true,
+          cursor: 'pointer',
+          dataLabels: {
+              enabled: true,
+              format: '<b>{point.name}</b>: {point.percentage:.1f}%'
+          }
+      }
+  },
+  series: [{
+    name: 'Category',
+    colorByPoint: true,
+    data: sumKategori.map((outcome) => ({
+      name: outcome.nama_kategori,
+      y: outcome.amount,
+    })),
+  }]
+}
+
+
+
   return (
     <div id="wrapper">
       <Sidebar />
@@ -102,6 +155,20 @@ const Home = () => {
                     highcharts={Highcharts}
                     options={options}
                   />
+                </div>
+              </div>
+            </div>
+            <div class="card shadow mb-4">
+              <a href="#collapseCardExample" class="d-block card-header py-3" data-toggle="collapse"
+                role="button" aria-expanded="true" aria-controls="collapseCardExample">
+                <h6 class="m-0 font-weight-bold text-primary text-center">OUTCOMES BASED ON CATEGORY</h6>
+              </a>
+              <div class="collapse show" id="collapseCardExample">
+                <div class="card-body">
+                <HighchartsReact
+                highcharts={Highcharts}
+                options={pieChart}
+                />
                 </div>
               </div>
             </div>
