@@ -3,7 +3,7 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 
 function WalletTypeDropdown({ onWalletChange }) {
-    const [username, setUsername] = useState('');
+  const [username, setUsername] = useState('');
   const [selectedWalletId, setSelectedWalletId] = useState('');
   const [walletTypes, setWalletTypes] = useState([]);
 
@@ -31,7 +31,6 @@ function WalletTypeDropdown({ onWalletChange }) {
 
   return (
     <div>
-      <label htmlFor="walletTypeDropdown">Select a Wallet Type:</label>
       <select
         id="walletTypeDropdown"
         className="form-control"
