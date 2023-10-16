@@ -166,7 +166,7 @@ const ViewBudget = () => {
                     <Navbar />
                     <div className="container-fluid">
                         <div className="d-sm-flex align-items-center justify-content-between mb-4">
-                            <h1 className="h3 mb-0 text-gray-800">Kategori</h1>
+                            <h1 className="h3 mb-0 text-gray-800">Category</h1>
                         </div>
                         <div className="container-fluid">
                             <div className="card shadow mb-4 mt-5">
@@ -179,7 +179,7 @@ const ViewBudget = () => {
                                         <table className="table table-bordered text-center" id="dataTable">
                                             <thead>
                                                 <tr>
-                                                    <th>Nama Kategori</th>
+                                                    <th>Category Name</th>
                                                     <th>Budget</th>
                                                     <th>Action</th>
                                                 </tr>
@@ -220,7 +220,7 @@ const ViewBudget = () => {
                         <div className="modal-body">
                             <form onSubmit={AddNewCategory}>
                                 <div className="form-group">
-                                    <label htmlFor="nama_kategori">Nama Kategori</label>
+                                    <label htmlFor="nama_kategori">Category Name</label>
                                     <input
                                         type="text"
                                         className="form-control"
@@ -263,7 +263,7 @@ const ViewBudget = () => {
                         <div className="modal-body">
                             <form onSubmit={UpdateNewCategory}>
                                 <div className="form-group">
-                                    <label htmlFor="nama_kategori">Nama Kategori</label>
+                                    <label htmlFor="nama_kategori">Category Name</label>
                                     <input
                                         type="text"
                                         className="form-control"
