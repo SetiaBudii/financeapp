@@ -34,7 +34,6 @@ function CategoryDropdown({ onKategoriChange }) {
 
   return (
     <div>
-      <label htmlFor="categoryDropdown">Select a Category:</label>
       <select
         id="categoryDropdown"
         className="form-control"

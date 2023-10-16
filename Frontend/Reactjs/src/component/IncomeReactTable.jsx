@@ -37,9 +37,9 @@ const IncomeReactTable = ({ allIncome,handleDeleteClick }) => {
                     columns={columns}
                     data={allIncome}
                     noHeader
-                    fixedHeader
-                    fixedHeaderScrollHeight="300px"
                     highlightOnHover
+                    pagination
+                    searchable
                 />
             </div>
         </>

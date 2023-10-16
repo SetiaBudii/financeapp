@@ -53,7 +53,14 @@ const Wallet = () => {
                         <div className="container-fluid">
                             <div className="card shadow mb-4 mt-5">
                                 <div className="card-header py-3">
-                                    <h6 className="m-0 font-weight-bold text-primary text-center">Wallet</h6>
+                                    <div className="row">
+                                        <div className="col">
+                                        <h6 className="m-0 font-weight-bold text-primary text-center">Wallet</h6>
+                                        </div>
+                                        <div className="col">
+
+                                        </div>
+                                    </div>
                                 </div>
                                 <div className="card-body">
                                     <div className="table-responsive">

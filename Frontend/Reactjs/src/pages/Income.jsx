@@ -133,6 +133,7 @@ const Income = () => {
                                 <div className="collapse show" id="collapseCardExample">
                                     <div className="card-body">
                                         {/* <ShowTipe onTipeChange={handleDataFromChild} /> */}
+                                        <label >Select Wallet</label>
                                         <WalletTypeDropdown onWalletChange={handleWalletChange}/>
                                         <form onSubmit={addIncome}>
                                             <div className="form-group">

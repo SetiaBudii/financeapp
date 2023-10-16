@@ -263,10 +263,12 @@ const AddOutcome = () => {
                         </div>
                         <div className="modal-body">                            
                         <form onSubmit={AddNewOutcome}>
+                            <label>Select Category</label>
                             <CategoryDropdown onKategoriChange={handleKategoriChange}/>
+                            <label className="mt-3">Select Wallet</label>
                             <WalletTypeDropdown onWalletChange={handleWalletChange}/>
                             <div className="form-group">
-                                <label htmlFor="amount">Amount</label>
+                                <label htmlFor="amount" className="mt-2">Amount</label>
                                 <input
                                     type="number"
                                     className="form-control"
