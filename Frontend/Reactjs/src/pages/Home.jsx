@@ -6,7 +6,7 @@ import Welcome from '../component/Welcome'
 import CardInfo from '../component/CardInfo'
 import Highcharts from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
-import axios from 'axios'
+import axios, { all } from 'axios'
 import Cookies from 'js-cookie'
 
 
@@ -32,7 +32,6 @@ const Home = () => {
         }
       }, { validateStatus: false });
       setAllIncome(result.data);
-      console.log(result.data)
     } catch (error) {
       console.error("Error loading income data:", error);
     }
@@ -48,6 +47,7 @@ const Home = () => {
         }
       }, { validateStatus: false });
       setAllOutcome(result.data);
+      console.log(result.data)
     } catch (error) {
       console.error("Error loading outcome data:", error);
     }

@@ -108,4 +108,3 @@ export const getKategoriById = async (req, res) => {
         res.status(500).json({ msg: error.message });
     }
 }
-

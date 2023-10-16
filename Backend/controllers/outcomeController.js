@@ -247,7 +247,3 @@ export const getOutcomeByday = async (req, res) => {
   };
   
   
-  
-  
-  
-  
