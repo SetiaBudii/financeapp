@@ -38,7 +38,7 @@ const WalletDel = ({ username, selectedTipe }) => {
         Swal.fire({
           icon: 'error',
           title: 'Error!',
-          text: error.response.status,
+          text: errorMessage,
         });
       } else if (error.request) {
         // The request was made, but no response was received
