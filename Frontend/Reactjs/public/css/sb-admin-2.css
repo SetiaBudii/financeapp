@@ -11281,28 +11281,26 @@ body.sidebar-toggled footer.sticky-footer {
 }
 /* Optionally, add styles to the header cells or other elements */
 .card-body .rdt_TableHeadRow {
-  background-color: #a3b6ee;
-  color: white;
+  background-color: #74807e;
   border-radius: 2px;
-  border: #000 solid 1px;
+  border: #000 hidden 1px;
   display: flex;
   align-items: center;
   justify-content: center;
-
 }
-
 
 .card-body .rdt_TableRow {
   font-size: 14px;
-  border-left: #000 solid 1px;
-  border-right: #000 solid 1px;
-  border-bottom: #000 solid 1px;
+  border-left: #9ba6a52b solid 1px;
+  border-right: #9ba6a52b solid 1px;
+  border-bottom: #9ba6a52b solid 1px;
+  border-width: thin;
 }
 
 .card-body .rdt_TableCol{
   font-size: 14px;
-  color: black;
+  color: white;
   font-weight: bold;
   text-align: center;
-
+  border-width: thin;
 }
