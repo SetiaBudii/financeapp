@@ -11,7 +11,8 @@ const Recap = () => {
   const [allOutcome, setAllOutcome] = useState([]);
   const username = Cookies.get("username");
   const date = new Date();
-
+  const dateNow = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
+  console.log(dateNow);
   useEffect(() => {
     loadIncome();
     loadOutcome();
@@ -22,11 +23,12 @@ const Recap = () => {
       const result = await axios.get(`http://localhost:5000/income/periode`, {
         params: {
           username: username,
-          startDate: date,
-          endDate: date,
+          startDate: dateNow,
+          endDate: dateNow,
         }
       }, { validateStatus: false });
       setAllIncome(result.data);
+      console.log(result.data);
     } catch (error) {
       console.error("Error loading income data:", error);
     }
@@ -37,8 +39,8 @@ const Recap = () => {
       const result = await axios.get(`http://localhost:5000/outcome/periode`, {
         params: {
           username: username,
-          startDate: date,
-          endDate: date,
+          startDate: dateNow,
+          endDate: dateNow,
         }
       }, { validateStatus: false });
       setAllOutcome(result.data);

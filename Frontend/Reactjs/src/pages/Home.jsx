@@ -14,14 +14,18 @@ const Home = () => {
   const [allIncome, setAllIncome] = useState([]);
   const [allOutcome, setAllOutcome] = useState([]);
   const [sumKategori, sumAllKategori] = useState([]);
+  const username = Cookies.get("username");
   const currentDate = new Date();
   const start = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
   const end = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
+  const startSTR = start.getFullYear() + '-' + (String(start.getMonth() + 1).padStart(2, '0')) + '-' + String(start.getDate()).padStart(2, '0');
+  const endSTR = end.getFullYear() + '-' + (String(end.getMonth() + 1).padStart(2, '0')) + '-' + String(end.getDate()).padStart(2, '0');
 
   useEffect(() => {
       loadIncome();
       loadOutcome();
       sumAll();
+      console.log(sumKategori);
   }, []);
 
   const loadIncome = async () => {
@@ -29,10 +33,12 @@ const Home = () => {
       const result = await axios.get(`http://localhost:5000/income/totalincomeperiode`, {
         params: {
           username: Cookies.get("username"),
-          startDate: start,
-          endDate: end,
+          startDate: startSTR,
+          endDate: endSTR,
         }
       }, { validateStatus: false });
+      console.log(start);
+      console.log(end);
       setAllIncome(result.data);
     } catch (error) {
       console.error("Error loading income data:", error);
@@ -44,12 +50,11 @@ const Home = () => {
       const result = await axios.get(`http://localhost:5000/outcome/total`, {
         params: {
           username: Cookies.get("username"),
-          startDate: start,
-          endDate: end,
+          startDate: startSTR,
+          endDate: endSTR,
         }
       }, { validateStatus: false });
       setAllOutcome(result.data);
-      console.log(result.data)
     } catch (error) {
       console.error("Error loading outcome data:", error);
     }
@@ -87,9 +92,11 @@ const Home = () => {
 
     const sumAll = async () => {
       try {
-        const result = await axios.get(`http://localhost:5000/outcome/sumall/${Cookies.get("username")}`, {
+        const result = await axios.get(`http://localhost:5000/outcome/sumall/${username}`, {
     }, {validateStatus : false});
       sumAllKategori(result.data);
+      console.log(result.data);
+      console.log(username);
     } catch (error) {
       console.error("Error loading outcome data:", error);
     }

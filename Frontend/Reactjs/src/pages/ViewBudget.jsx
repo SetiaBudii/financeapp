@@ -175,7 +175,7 @@ const ViewBudget = () => {
                                 </div>
                                 <div className="card-body">
                                     <button type="button" className="btn btn-primary mb-4" data-toggle="modal" data-target="#addkategorimodal">Add Category</button>
-                                    <div className="table-responsive">
+                                    {/* <div className="table-responsive">
                                         <table className="table table-bordered text-center" id="dataTable">
                                             <thead>
                                                 <tr>
@@ -197,7 +197,7 @@ const ViewBudget = () => {
                                                 ))}
                                             </tbody>
                                         </table>
-                                    </div>
+                                    </div> */}
                                 <TableKategori allCategory={allKategori} handleDeleteClick={handleDeleteClickk} handleUpdateClick={handleUpdateClickk} />
                                 </div>
                             </div>

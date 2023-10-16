@@ -16,6 +16,7 @@ const CardInfo = () => {
     const [Actually, setActually] = useState(0);
     const username = Cookies.get("username");
     const date = new Date();
+    const dateNow = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
 
     const handleKategoriChange = (value) => {
         setSelectedKategoriId(value);
@@ -84,8 +85,8 @@ const CardInfo = () => {
             const result = await axios.get(`http://localhost:5000/income/periode`, {
                 params: {
                     username: username,
-                    startDate: date,
-                    endDate: date,
+                    startDate: dateNow,
+                    endDate: dateNow,
                 }
             }, { validateStatus: false });
             setAllIncome(result.data);
@@ -99,8 +100,8 @@ const CardInfo = () => {
             const result = await axios.get(`http://localhost:5000/outcome/periode`, {
                 params: {
                     username: username,
-                    startDate: date,
-                    endDate: date,
+                    startDate: dateNow,
+                    endDate: dateNow,
                 }
             }, { validateStatus: false });
             setAllOutcome(result.data);

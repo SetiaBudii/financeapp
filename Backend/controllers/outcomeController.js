@@ -166,7 +166,6 @@ export const getOutcomeByday = async (req, res) => {
   export const getTotalOutcomeInPeriod = async (req, res) => {
     try {
       const { startDate, endDate, username } = req.query;
-  
       const incomeInPeriod = await prisma.outcome.findMany({
         where: {
           time_stamp: {
@@ -185,7 +184,6 @@ export const getOutcomeByday = async (req, res) => {
         },
       });
   
-      console.log(incomeInPeriod);
       const incomeByDay = {};
       let currentId = 0;
   
@@ -214,6 +212,7 @@ export const getOutcomeByday = async (req, res) => {
       }
   
       res.json(result);
+      console.log(result);
     } catch (error) {
       console.error('Error retrieving income in period:', error);
       res.status(500).json({ msg: error.message });
@@ -234,9 +233,7 @@ export const getOutcomeByday = async (req, res) => {
           amount: true,
         },
       });
-  
-      console.log(categorySum);
-      console.log(id_kategori)
+
       res.json({ totalOutcome: categorySum._sum.amount });
     } catch (error) {
       console.error('Error retrieving total outcome by category:', error);
@@ -260,7 +257,20 @@ export const getOutcomeByday = async (req, res) => {
           amount: true,
         },
       });
-  
+      
+      console.log(outcomeByWallet);
+      console.log(req.params.username);
+
+      const wallet = await prisma.wallet.findMany({
+        where: {
+          username: username,
+        },
+        select: {
+          id_wallet: true,
+          username: true,
+        },
+      });
+
       const nama = await prisma.kategori.findMany({
         where: {
           username: username,
@@ -268,15 +278,24 @@ export const getOutcomeByday = async (req, res) => {
         select: {
           nama_kategori: true,
           id_kategori: true,
+          username: true,
         },
       });
-  
+
       const result = [];
+      let x = 0;
       outcomeByWallet.forEach((outcome) => {
+        console.log(outcome.id_kategori);
         for (let i = 0; i < nama.length; i++) {
-          if (outcome.id_kategori === nama[i].id_kategori) {
+          console.log("nama:",nama[i].id_kategori);
+          console.log("outcome:",outcome.id_kategori);
+          console.log("username:",nama[i].username);
+          
+          if ((parseInt(outcome.id_kategori) === parseInt(nama[i].id_kategori)) && (nama[i].username === username)) {
+            console.log("masuk");
             const modifiedoutcome = {
               amount: outcome._sum.amount,
+              username: nama[i].username,
               nama_kategori: nama[i].nama_kategori}
             result.push(modifiedoutcome);
             break;
@@ -284,6 +303,7 @@ export const getOutcomeByday = async (req, res) => {
         }
       });
       res.json(result);
+      console.log(result);
     } catch (error) {
       console.error('Error retrieving outcome in period:', error);
       res.status(500).json({ msg: error.message });
