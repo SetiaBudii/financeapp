@@ -5,7 +5,7 @@ const CategoryReactTable = ({ allCategory,handleDeleteClick, handleUpdateClick})
     const columns = useMemo(
         () => [
             {
-                name: 'Nama Kategori',
+                name: 'Category Name',
                 selector: row => row.nama_kategori,
                 cell: (row) => row.nama_kategori,
             },

@@ -245,5 +245,49 @@ export const getOutcomeByday = async (req, res) => {
       await prisma.$disconnect();
     }
   };
+
+  export const getsumalloutcomebycategory = async (req, res) => {
+    try {
+      const { username } = req.params.username;
+      const outcomeByWallet = await prisma.outcome.groupBy({
+        by: ['id_kategori'],
+        where: {
+          wallet: {
+            username: username,
+          },
+        },
+        _sum: {
+          amount: true,
+        },
+      });
   
+      const nama = await prisma.kategori.findMany({
+        where: {
+          username: username,
+        },
+        select: {
+          nama_kategori: true,
+          id_kategori: true,
+        },
+      });
   
+      const result = [];
+      outcomeByWallet.forEach((outcome) => {
+        for (let i = 0; i < nama.length; i++) {
+          if (outcome.id_kategori === nama[i].id_kategori) {
+            const modifiedoutcome = {
+              amount: outcome._sum.amount,
+              nama_kategori: nama[i].nama_kategori}
+            result.push(modifiedoutcome);
+            break;
+          }
+        }
+      });
+      res.json(result);
+    } catch (error) {
+      console.error('Error retrieving outcome in period:', error);
+      res.status(500).json({ msg: error.message });
+    } finally {
+      await prisma.$disconnect();
+    }
+  };
