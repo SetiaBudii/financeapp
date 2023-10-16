@@ -290,8 +290,8 @@ export const getOutcomeByday = async (req, res) => {
           console.log("nama:",nama[i].id_kategori);
           console.log("outcome:",outcome.id_kategori);
           console.log("username:",nama[i].username);
-          
-          if ((parseInt(outcome.id_kategori) === parseInt(nama[i].id_kategori)) && (nama[i].username === username)) {
+
+          if ((parseInt(outcome.id_kategori) === parseInt(nama[i].id_kategori))) {
             console.log("masuk");
             const modifiedoutcome = {
               amount: outcome._sum.amount,

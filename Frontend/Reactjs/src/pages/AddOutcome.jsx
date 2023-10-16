@@ -208,38 +208,6 @@ const AddOutcome = () => {
                                 </div>
                                 <div className="card-body">
                                     <button type="button" className="btn btn-primary mb-4" data-toggle="modal" data-target="#addoutcomemodal">Add Outcome</button>
-                                    <div className="table-responsive">
-                                        <table className="table table-bordered text-center" id="dataTable">
-                                            <thead>
-                                                <tr>
-                                                    <th>Date</th>
-                                                    <th>Wallet</th>
-                                                    <th>Category</th>
-                                                    <th>Amount</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                            {sortedOutcomes.map((outcome) => {
-                                                const walletType = outcome.wallet ? outcome.wallet.tipe : 'N/A';
-                                                const amount = outcome.amount ? parseFloat(outcome.amount).toLocaleString('de-DE', { minimumFractionDigits: 2 }) : 'N/A';
-
-                                                const date = outcome.time_stamp ? new Date(outcome.time_stamp) : null;
-                                                const formattedDate = date ? date.toLocaleDateString('en-UK') : 'N/A';
-
-                                                const categoryName = outcome.kategori ? outcome.kategori.nama_kategori : 'N/A';
-
-                                                return (
-                                                    <tr key={outcome.id_outcome}>
-                                                        <td>{formattedDate}</td>
-                                                        <td>{walletType}</td>
-                                                        <td>{categoryName}</td>
-                                                        <td style={{ textAlign: 'right' }}>{amount}</td>
-                                                    </tr>
-                                                );
-                                            })}
-                                        </tbody>
-                                        </table>
-                                    </div>
                                     <TableReactOutcome allOutcome={userOutcomes} handleDeleteClick={handleDeleteOnClick} />
                                 </div>
                             </div>

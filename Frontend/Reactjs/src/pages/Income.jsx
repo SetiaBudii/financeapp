@@ -125,54 +125,12 @@ const Income = () => {
                             <h1 className="h3 mb-0 text-gray-800">Income</h1>
                         </div>
                         <div className="container-fluid">
-                            <div className="card shadow mb-4">
-                                <a href="#collapseCardExample" className="d-block card-header py-3" data-toggle="collapse"
-                                    role="button" aria-expanded="true" aria-controls="collapseCardExample">
-                                    <h6 className="m-0 font-weight-bold text-primary">ADD INCOME</h6>
-                                </a>
-                                <div className="collapse show" id="collapseCardExample">
-                                    <div className="card-body">
-                                        {/* <ShowTipe onTipeChange={handleDataFromChild} /> */}
-                                        <label >Select Wallet</label>
-                                        <WalletTypeDropdown onWalletChange={handleWalletChange}/>
-                                        <form onSubmit={addIncome}>
-                                            <div className="form-group">
-                                                <label htmlFor="amount">Amount</label>
-                                                <input
-                                                    type="number"
-                                                    className="form-control"
-                                                    id="amount"
-                                                    name="amount"
-                                                    value={newIncome.amount}
-                                                    min={0}
-                                                    onChange={handleInputChange}
-                                                    style={{ width: "50%" }}
-                                                />
-                                            </div>
-                                            <div className="form-group">
-                                                <label htmlFor="time_stamp">Time Stamp</label>
-                                                <input
-                                                    type="date"
-                                                    className="form-control"
-                                                    id="time_stamp"
-                                                    name="time_stamp"
-                                                    value={newIncome.time_stamp}
-                                                    onChange={handleInputChange}
-                                                    style={{ width: "50%" }}
-                                                />
-                                            </div>
-                                            <button type="submit" className="btn btn-primary m-1">Submit</button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="container-fluid">
                             <div className="card shadow mb-4 mt-5">
                                 <div className="card-header py-3">
                                     <h6 className="m-0 font-weight-bold text-primary text-center">LIST INCOME</h6>
                                 </div>
                                 <div className="card-body">
+                                <button type="button" className="btn btn-primary mb-4" data-toggle="modal" data-target="#addincomemodal">Add Income</button>
                                     {/* <IncomeTable allIncome={allIncome} handleDeleteClick={handleDeleteOnClick}/> */}
                                     <IncomeReactTable allIncome={allIncome} handleDeleteClick={handleDeleteOnClick}/>
                                 </div>
@@ -194,7 +152,9 @@ const Income = () => {
                             </button>
                         </div>
                         <div className="modal-body">
-                            <ShowTipe onTipeChange={handleDataFromChild} />
+                                                                    {/* <ShowTipe onTipeChange={handleDataFromChild} /> */}
+                            <label >Select Wallet</label>
+                            <WalletTypeDropdown onWalletChange={handleWalletChange}/>
                             <form onSubmit={addIncome}>
                                 <div className="form-group">
                                     <label htmlFor="amount">Amount</label>

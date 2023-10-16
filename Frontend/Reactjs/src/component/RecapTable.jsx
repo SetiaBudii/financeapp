@@ -29,7 +29,7 @@ const RecapTable = ({ data }) => {
 
     return (
         <>
-            <div className="table-responsive">
+            {/* <div className="table-responsive">
                 <table className="table table-bordered text-center" id="mytable">
                     <thead>
                         <tr>
@@ -54,7 +54,7 @@ const RecapTable = ({ data }) => {
                     </tbody>
                 </table>
             </div>
-            <br />
+            <br /> */}
             <DataTable
                 columns={columns}
                 data={data}
