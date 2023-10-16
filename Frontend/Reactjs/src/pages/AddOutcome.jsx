@@ -125,11 +125,13 @@ const AddOutcome = () => {
         const day = parts[2];
     
         // Create a new Date object with the given year, month, and day
-        const dateObject = new Date(year, month - 1, day);
+        const dateObject = new Date(Date.UTC(year, month - 1, day));
     
         // Use the toISOString() method to get the ISO-8601 formatted string
         return dateObject.toISOString();
     };
+    
+    
 
     const sortedOutcomes = userOutcomes.slice().sort((a, b) => {
         const dateA = a.time_stamp ? new Date(a.time_stamp) : null;

@@ -8,6 +8,9 @@ import Cookies from "js-cookie"
 const Wallet = () => {
     const [allWallet, setAllWallet] = useState([]);
     const [username, setUsername] = useState('');
+    const [newTipe, setNewTipe] = useState({
+        tipe:"",
+    });
   
     // const [newKategori, setNewKategori] = useState({
     //     nama_kategori: 0,
@@ -38,8 +41,44 @@ const Wallet = () => {
             console.error("Error loading outcome data:", error);
         }
     }
+    const AddNewTipe = async (e) => {
+        e.preventDefault(); // Prevent the default form submission behavior
 
-    
+        try {
+            // Send a POST request to add the new income data
+            const data = await axios.post("http://localhost:5000/tipe_wallet", newTipe, { validateStatus: false });
+
+            if (data.status === 201) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Tipe Wallet Added!',
+                    text: data.data.msg,
+                });
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Income Failed!',
+                    text: data.data.msg,
+                });
+            }
+
+            // Reload the income data after adding
+            if(username){
+                loadKategori(username);
+            }
+            
+
+            // Clear the input fields
+            setNewTipe({ tipe:""});
+        } catch (error) {
+            console.error("Error adding outcome:", error);
+        }
+    };
+
+    const handleInputChange = (e) => {
+        const { name, value } = e.target; // Use "name" to access the input field's name attribute
+        setNewTipe({ ...newTipe, [name]: value });
+      };
 
     return (
         <div id="wrapper">
@@ -63,6 +102,7 @@ const Wallet = () => {
                                     </div>
                                 </div>
                                 <div className="card-body">
+                                <button type="button" className="btn btn-primary mb-4" data-toggle="modal" data-target="#addoutcomemodal">Add Tipe</button>
                                     <div className="table-responsive">
                                         <table className="table table-bordered text-center" id="dataTable">
                                             <thead>
@@ -89,62 +129,28 @@ const Wallet = () => {
                     </div>
                 </div>
             </div>
-            
-            {/* <div className="modal fade" id="addoutcomemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            <div className="modal fade" id="addoutcomemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
                 <div className="modal-dialog" role="document">
                     <div className="modal-content">
                         <div className="modal-header">
-                            <h5 className="modal-title" id="exampleModalLabel">Add income</h5>
+                            <h5 className="modal-title" id="exampleModalLabel">Add Outcome</h5>
                             <button className="close" type="button" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">×</span>
                             </button>
                         </div>
                         <div className="modal-body">                            
-                        <form onSubmit={AddNewOutcome}>
-                            <div className="form-group">
-                                <label htmlFor="id_wallet">Id Wallet</label>
-                                <input
-                                    type="number"
-                                    className="form-control"
-                                    id="id_wallet"
-                                    name="id_wallet"
-                                    value={newOutcome.id_wallet}
-                                    onChange={handleInputChange}
-                                />
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="amount">Amount</label>
-                                <input
-                                    type="number"
-                                    className="form-control"
-                                    id="amount"
-                                    name="amount"
-                                    value={newOutcome.amount}
-                                    onChange={handleInputChange}
-                                />
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="time_stamp">ID Kategori</label>
-                                <input
-                                    type="number"
-                                    className="form-control"
-                                    id="id_kategori"
-                                    name="id_kategori"
-                                    value={newOutcome.id_kategori}
-                                    onChange={handleInputChange}
-                                />
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="time_stamp">Time Stamp</label>
-                                <input
-                                    type="date"
-                                    className="form-control"
-                                    id="time_stamp"
-                                    name="time_stamp"
-                                    value={newOutcome.time_stamp}
-                                    onChange={handleInputChange}
-                                />
+                        <form onSubmit={AddNewTipe}>
+                        <div className="form-group">
+                            <label htmlFor="tipe">Nama Tipe</label>
+                            <input
+                                type="text" // Change the type to "text" for string input
+                                className="form-control"
+                                id="tipe" // Make sure the ID matches the name
+                                name="tipe" // Update the name to match the state variable
+                                value={newTipe.tipe} // Update the value to match the state variable
+                                onChange={handleInputChange}
+                            />
                             </div>
                             <button type="submit" className="btn btn-primary m-1">Submit</button>
                             <button className="btn btn-secondary m-1 " type="button" data-dismiss="modal">Cancel</button>
@@ -152,7 +158,8 @@ const Wallet = () => {
                         </div>
                     </div>
                 </div>
-            </div> */}
+            </div>
+
         </div>
     );
 }
