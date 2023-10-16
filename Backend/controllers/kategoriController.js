@@ -92,5 +92,20 @@ export const deleteKategori = async (req, res) => {
     }
 }
 
-
+export const getKategoriById = async (req, res) => {
+    try{
+        const response = await prisma.kategori.findUnique({
+            where: {
+                id_kategori: parseInt(req.params.id_kategori),
+            },
+        });
+        if (!response) {
+            res.status(404).json({ msg: 'Kategori not found' });
+        } else {
+            res.status(200).json({msg: 'Kategori found', data: response});
+        }
+    } catch (error) {
+        res.status(500).json({ msg: error.message });
+    }
+}
 

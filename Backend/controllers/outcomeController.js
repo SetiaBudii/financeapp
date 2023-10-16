@@ -221,3 +221,33 @@ export const getOutcomeByday = async (req, res) => {
       await prisma.$disconnect();
     }
   };
+
+  export const getSumOutcomeByCategory = async (req, res) => {
+    try {
+      const { id_kategori } = req.params;
+  
+      const categorySum = await prisma.outcome.aggregate({
+        where: {
+          id_kategori: parseInt(id_kategori),
+        },
+        _sum: {
+          amount: true,
+        },
+      });
+  
+      console.log(categorySum);
+      console.log(id_kategori)
+      res.json({ totalOutcome: categorySum._sum.amount });
+    } catch (error) {
+      console.error('Error retrieving total outcome by category:', error);
+      res.status(500).json({ error: 'Internal server error' });
+    } finally {
+      await prisma.$disconnect();
+    }
+  };
+  
+  
+  
+  
+  
+  

@@ -120,3 +120,20 @@ export const deleteWallet = async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 };
+
+export const getWalletbyId = async (req, res) => {
+  try{
+      const response = await prisma.wallet.findUnique({
+          where: {
+              id_wallet: parseInt(req.params.id_wallet),
+          },
+      });
+      if (!response) {
+          res.status(404).json({ msg: 'Wallet not found' });
+      } else {
+          res.status(200).json({msg: 'Wallet found', data: response});
+      }
+  } catch (error) {
+      res.status(500).json({ msg: error.message });
+  }
+}
