@@ -70,9 +70,9 @@ const Sidebar = () => {
                 </li>
 
                 <li className="nav-item">
-                    <a className="nav-link" href="tables.html">
+                <Link className="nav-link" to="/report">
                         <i className="fas fa-fw fa-file-invoice-dollar"></i>
-                        <span>Report</span></a>
+                        <span>Report</span></Link>
                 </li>
                 <hr className="sidebar-divider d-none d-md-block" />
 

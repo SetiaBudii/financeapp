@@ -181,7 +181,6 @@ const Home = () => {
             </div>
           </div>
         </div>
-        <Welcome />
       </div>
     </div>
   )

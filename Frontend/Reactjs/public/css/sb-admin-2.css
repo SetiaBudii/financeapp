@@ -11304,3 +11304,16 @@ body.sidebar-toggled footer.sticky-footer {
   text-align: center;
   border-width: thin;
 }
+
+.budget-safe{
+  background-color: #17a673;
+  color: white;
+  border-radius: 5px;
+}
+
+
+.budget-danger{
+  background-color: #be2617;
+  color: white;
+  border-radius: 5px;
+}

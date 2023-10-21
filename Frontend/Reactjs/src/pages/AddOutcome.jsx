@@ -45,7 +45,7 @@ const AddOutcome = () => {
             console.error('Error fetching outcomes:', error);
             setLoading(false);
         });
-
+        console.log(userOutcomes);
       }, []);
       
 

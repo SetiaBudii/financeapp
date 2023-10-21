@@ -21,6 +21,12 @@ const OutcomeReactTable = ({ allOutcome,handleDeleteClick }) => {
                 cell: (row) => formatterIDR.format(row.amount),
             },
             {
+                name: 'Category',
+                selector: row => row.kategori.nama_kategori,
+                sortable: true,
+                cell: (row) =>  row.kategori.nama_kategori,
+            },
+            {
                 name: 'Action',
                 selector: row => row.id_outcome,
                 cell: (row) => <button className="btn btn-danger btn-sm" data-id={row.id_outcome} data-toggle="modal" data-target="#deleteoutcomemodal" onClick={() => handleDeleteClick(row.id_outcome)}>Delete</button>,
