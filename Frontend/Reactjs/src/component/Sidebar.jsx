@@ -19,7 +19,6 @@ const Sidebar = () => {
                     <div className="sidebar-brand-text mx-1">M5-FinanceWeb</div>
                 </a>
                 <hr className="sidebar-divider my-0" />
-
                 <li className='nav-item'>
                     <a className="nav-link" href="/home">
                         <i className="fas fa-fw fa-tachometer-alt"></i>
@@ -41,11 +40,9 @@ const Sidebar = () => {
                             <a className="collapse-item" href="/wallet">View</a>
                             <a className="collapse-item" href="/newWallet">Add</a>
                             <a className="collapse-item" href="/deleteWallet">Remove Wallet</a>
-
                         </div>
                     </div>
                 </li>
-
                 <li className="nav-item">
                     <a className="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
                         aria-expanded="true" aria-controls="collapseUtilities">
@@ -61,21 +58,13 @@ const Sidebar = () => {
                         </div>
                     </div>
                 </li>
-
                 <hr className="sidebar-divider" />
                 <li className="nav-item">
                     <Link className="nav-link" to="/recap">
                         <i className="fas fa-fw fa-receipt"></i>
                         <span>Recap</span></Link>
                 </li>
-
-                <li className="nav-item">
-                <Link className="nav-link" to="/report">
-                        <i className="fas fa-fw fa-file-invoice-dollar"></i>
-                        <span>Report</span></Link>
-                </li>
                 <hr className="sidebar-divider d-none d-md-block" />
-
                 <div className="text-center d-none d-md-inline">
                     <button className="rounded-circle border-0" id="sidebarToggle" name="sidebarToggle" onClick={toggleSidebar}></button>
                 </div>

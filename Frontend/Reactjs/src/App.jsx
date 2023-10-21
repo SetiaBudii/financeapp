@@ -11,7 +11,6 @@ import ViewBudget from './pages/ViewBudget';
 import Recap from './pages/Recap';
 import Wallet from './pages/wallet';
 import DelWal from './pages/deleteWallet';
-import Report from './pages/Report';
 
 function App() {
   return (
@@ -29,7 +28,6 @@ function App() {
         <Route path="/wallet" element={<ProtectedRoute><Wallet /></ProtectedRoute>} />
         <Route path="/" element={<Navigate to="/home" />} />
         <Route path="/recap" element={<ProtectedRoute><Recap /></ProtectedRoute>} />
-        <Route path="/report" element={<ProtectedRoute><Report /></ProtectedRoute>} />
       </Routes>
     </Router>
   );
