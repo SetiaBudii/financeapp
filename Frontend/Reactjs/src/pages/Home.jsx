@@ -18,15 +18,48 @@ const Home = () => {
   const currentDate = new Date();
   const start = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
   const end = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
-  const startSTR = start.getFullYear() + '-' + (String(start.getMonth() + 1).padStart(2, '0')) + '-' + String(start.getDate()).padStart(2, '0');
-  const endSTR = end.getFullYear() + '-' + (String(end.getMonth() + 1).padStart(2, '0')) + '-' + String(end.getDate()).padStart(2, '0');
+  let startSTR = start.getFullYear() + '-' + (String(start.getMonth() + 1).padStart(2, '0')) + '-' + String(start.getDate()).padStart(2, '0');
+  let endSTR = end.getFullYear() + '-' + (String(end.getMonth() + 1).padStart(2, '0')) + '-' + String(end.getDate()).padStart(2, '0');
+
+  const months = [
+    'January', 'February', 'March', 'April', 'May', 'June',
+    'July', 'August', 'September', 'October', 'November', 'December'
+  ];
+
+  // Initial values for month and year
+  const [selectedMonth, setSelectedMonth] = useState(months[new Date().getMonth()]);
+  const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
+
+  // Define a list of months and years
+
+
+  console.log(months[selectedMonth])
+  const years = [];
+  const currentYear = new Date().getFullYear();
+  for (let year = currentYear; year >= currentYear - 10; year--) {
+    years.push(year);
+  }
+  // Event handler for month dropdown
+  const handleMonthChange = (e) => {
+    setSelectedMonth(e.target.value);
+  }
+
+  // Event handler for year dropdown
+  const handleYearChange = (e) => {
+    setSelectedYear(parseInt(e.target.value, 10));
+  }
 
   useEffect(() => {
-      loadIncome();
-      loadOutcome();
-      sumAll();
-      console.log(sumKategori);
-  }, []);
+    const startDate = new Date(selectedYear, months.indexOf(selectedMonth));
+    const endDate = new Date(startDate.getFullYear(), startDate.getMonth() + 1, 0);
+    startSTR = startDate.getFullYear() + '-' + (String(startDate.getMonth() + 1).padStart(2, '0')) + '-' + String(startDate.getDate()).padStart(2, '0');
+    endSTR = endDate.getFullYear() + '-' + (String(endDate.getMonth() + 1).padStart(2, '0')) + '-' + String(endDate.getDate()).padStart(2, '0');
+    console.log(startSTR)
+    console.log(endSTR)
+    loadIncome();
+    loadOutcome();
+    sumAll();
+  }, [selectedMonth, selectedYear]);
 
   const loadIncome = async () => {
     try {
@@ -90,10 +123,10 @@ const Home = () => {
     ],
   };
 
-    const sumAll = async () => {
-      try {
-        const result = await axios.get(`http://localhost:5000/outcome/sumall/${username}`, {
-    }, {validateStatus : false});
+  const sumAll = async () => {
+    try {
+      const result = await axios.get(`http://localhost:5000/outcome/sumall/${username}`, {
+      }, { validateStatus: false });
       sumAllKategori(result.data);
       console.log(result.data);
       console.log(username);
@@ -103,43 +136,43 @@ const Home = () => {
   }
 
   const pieChart = {
-  chart: {
+    chart: {
       plotBackgroundColor: null,
       plotBorderWidth: null,
       plotShadow: false,
       type: 'pie'
-  },
-  title: {
+    },
+    title: {
       text: '',
       align: 'left'
-  },
-  tooltip: {
+    },
+    tooltip: {
       pointFormat: '{series.name}: <b>Rp.{point.y}</b>'
-  },
-  accessibility: {
+    },
+    accessibility: {
       point: {
-          valueSuffix: '%'
+        valueSuffix: '%'
       }
-  },
-  plotOptions: {
+    },
+    plotOptions: {
       pie: {
-          allowPointSelect: true,
-          cursor: 'pointer',
-          dataLabels: {
-              enabled: true,
-              format: '<b>{point.name}</b>: {point.percentage:.1f}%'
-          }
+        allowPointSelect: true,
+        cursor: 'pointer',
+        dataLabels: {
+          enabled: true,
+          format: '<b>{point.name}</b>: {point.percentage:.1f}%'
+        }
       }
-  },
-  series: [{
-    name: 'Category',
-    colorByPoint: true,
-    data: sumKategori.map((outcome) => ({
-      name: outcome.nama_kategori,
-      y: outcome.amount,
-    })),
-  }]
-}
+    },
+    series: [{
+      name: 'Category',
+      colorByPoint: true,
+      data: sumKategori.map((outcome) => ({
+        name: outcome.nama_kategori,
+        y: outcome.amount,
+      })),
+    }]
+  }
 
 
 
@@ -158,6 +191,33 @@ const Home = () => {
               </a>
               <div class="collapse show" id="collapseCardExample">
                 <div class="card-body">
+                  <form action="" className='mb-4'>
+                    <div className="row ml-4">
+                      <div className="col">
+                        <div>
+                          <form>
+                            <label htmlFor="month" className='text-gray-900'>Month:</label>
+                            <select id="month" value={selectedMonth} onChange={handleMonthChange} className='ml-2'>
+                              {months.map((month, index) => (
+                                <option 
+                                  key={index}
+                                  value={month}
+                                  >{month}
+                                </option>
+                              ))}
+                            </select>
+
+                            <label htmlFor="year" className='ml-2 text-gray-900'>Year:</label>
+                            <select id="year" value={selectedYear} onChange={handleYearChange} className='ml-2'>
+                              {years.map((year, index) => (
+                                <option key={index} value={year}>{year}</option>
+                              ))}
+                            </select>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
                   <HighchartsReact
                     highcharts={Highcharts}
                     options={options}
@@ -172,10 +232,10 @@ const Home = () => {
               </a>
               <div class="collapse show" id="collapseCardExample">
                 <div class="card-body">
-                <HighchartsReact
-                highcharts={Highcharts}
-                options={pieChart}
-                />
+                  <HighchartsReact
+                    highcharts={Highcharts}
+                    options={pieChart}
+                  />
                 </div>
               </div>
             </div>
