@@ -185,6 +185,7 @@ const AddIncome = () => {
                                     name="amount"
                                     value={newIncome.amount}
                                     onChange={handleInputChange}
+                                    min={1}
                                 />
                             </div>
                             <div className="form-group">

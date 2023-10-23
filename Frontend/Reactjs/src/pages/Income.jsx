@@ -74,6 +74,16 @@ const Income = () => {
         e.preventDefault();
 
         try {
+
+            if(newIncome.time_stamp === ""){
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Income Failed!',
+                    text: "Please fill the time stamp",
+                });
+                return;
+            }
+
             newIncome.amount = parseInt(newIncome.amount);
             newIncome.id_wallet = parseInt(selectedWalletId);
             const date = new Date(newIncome.time_stamp);
@@ -165,6 +175,7 @@ const Income = () => {
                                         name="amount"
                                         value={newIncome.amount}
                                         onChange={handleInputChange}
+                                        min={1}
                                     />
                                 </div>
                                 <div className="form-group">

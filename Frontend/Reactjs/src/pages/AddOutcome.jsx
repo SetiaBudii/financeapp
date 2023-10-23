@@ -15,7 +15,7 @@ const AddOutcome = () => {
     const [username, setUsername] = useState('');
     const [userOutcomes, setUserOutcomes] = useState([]);
     const [loading, setLoading] = useState(true);
-
+    const [saldo, setSaldo] = useState(0);
     const [selectedCategory, setSelectedCategory] = useState('');
     const [selectedWalletId, setSelectedWalletId] = useState('');
     const [deletesOutcome, setDeletesOutcome] = useState({ id_outcome: 0 });
@@ -76,6 +76,29 @@ const AddOutcome = () => {
         e.preventDefault(); // Prevent the default form submission behavior
 
         try {
+
+            const saldoWallet = await axios.get(`http://localhost:5000/wallet/id/${selectedWalletId}`);
+
+            console.log(saldoWallet.data);
+            console.log(newOutcome.amount);
+            if (saldoWallet.data.data.saldo < parseInt(newOutcome.amount)) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Outcome Failed!',
+                    text: "Not enough balance",
+                });
+                return;
+            }
+
+            if(newOutcome.time_stamp === ""){
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Outcome Failed!',
+                    text: "Please fill the date",
+                });
+                return;
+            }
+            
             // Send a POST request to add the new income data
             newOutcome.amount = parseInt(newOutcome.amount);
             newOutcome.id_wallet = parseInt(selectedWalletId);
@@ -92,6 +115,8 @@ const AddOutcome = () => {
                     title: 'Outcome Added!',
                     text: data.data.msg,
                 });
+                $("#addoutcomemodal").modal("hide");
+
             } else {
                 Swal.fire({
                     icon: 'error',
@@ -243,6 +268,7 @@ const AddOutcome = () => {
                                     name="amount"
                                     value={newOutcome.amount}
                                     onChange={handleInputChange}
+                                    min={1}
                                 />
                             </div>
                             <div className="form-group">
