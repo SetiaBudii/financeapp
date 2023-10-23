@@ -6,8 +6,9 @@ import ShowTipe from '../component/ShowTipe';
 import WalletForm from '../component/WalletComp';
 
 import Cookies from 'js-cookie';
+import WalletDel from '../component/WalletDel';
 
-const NewWallet = () => {
+const DelWal = () => {
   const [selectedTipe, setSelectedTipe] = useState('');
   const [username, setUsername] = useState('');
 
@@ -32,10 +33,8 @@ const NewWallet = () => {
           <Navbar />
           <ShowTipe onTipeChange={handleTipeChange} />
           <div className='mt-5'>
-          <WalletForm username={username} selectedTipe={selectedTipe} />
-
+          <WalletDel username={username} selectedTipe={selectedTipe} />
           </div>
-          
         </div>
         <Welcome selectedTipe={selectedTipe} />
       </div>
@@ -43,4 +42,4 @@ const NewWallet = () => {
   );
 };
 
-export default NewWallet;
+export default DelWal;

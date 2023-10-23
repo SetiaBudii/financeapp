@@ -10861,7 +10861,7 @@ a:focus {
 }
 
 .bg-login-image {
-  background: url("https://source.unsplash.com/K4mSJ7kc0As/600x800");
+  background: url("../img/jason-leung-SAYzxuS1O3M-unsplash.jpg");
   background-position: center;
   background-size: cover;
 }
@@ -11278,4 +11278,42 @@ footer.sticky-footer .copyright {
 
 body.sidebar-toggled footer.sticky-footer {
   width: 100%;
+}
+/* Optionally, add styles to the header cells or other elements */
+.card-body .rdt_TableHeadRow {
+  background-color: #74807e;
+  border-radius: 2px;
+  border: #000 hidden 1px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-body .rdt_TableRow {
+  font-size: 14px;
+  border-left: #9ba6a52b solid 1px;
+  border-right: #9ba6a52b solid 1px;
+  border-bottom: #9ba6a52b solid 1px;
+  border-width: thin;
+}
+
+.card-body .rdt_TableCol{
+  font-size: 14px;
+  color: white;
+  font-weight: bold;
+  text-align: center;
+  border-width: thin;
+}
+
+.budget-safe{
+  background-color: #17a673;
+  color: white;
+  border-radius: 5px;
+}
+
+
+.budget-danger{
+  background-color: #be2617;
+  color: white;
+  border-radius: 5px;
 }

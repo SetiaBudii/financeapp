@@ -1,14 +1,15 @@
 // Import necessary modules
 import express from 'express';
-import {createWallet,getIDWalletByUnameTipe, getTipeByid} from '../controllers/walletController.js'
+import {createWallet,getWalletbyUsername,getWalletbyUsernamed,deleteWallet,getWalletbyId} from '../controllers/walletController.js'
 
 // Create an Express Router
 const router = express.Router();
 
 router.post('/wallet',createWallet);
-router.post('/wallet/getid',getIDWalletByUnameTipe);
-router.get('/wallet/:username/:idWallet',getTipeByid);
+router.get('/wallet/:username',getWalletbyUsername);
+router.get('/wallets/:username',getWalletbyUsernamed);
+router.delete('/wallet/:username/:tipe',deleteWallet);
+router.get('/wallet/id/:id_wallet',getWalletbyId);
 
 export default router;
-
 
