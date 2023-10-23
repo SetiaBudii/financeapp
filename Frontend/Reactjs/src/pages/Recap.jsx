@@ -3,32 +3,31 @@ import { useState } from "react";
 import Cookies from "js-cookie";
 import Sidebar from "../component/Sidebar";
 import Navbar from "../component/Navbar";
-import Table from "../component/RecapTable";
+import Table from "../component/ReportTable";
 import axios from "axios";
 
 const Recap = () => {
   const [allIncome, setAllIncome] = useState([]);
   const [allOutcome, setAllOutcome] = useState([]);
-  const username = Cookies.get("username");
-  const date = new Date();
-  const dateNow = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
-  console.log(dateNow);
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date());
+
   useEffect(() => {
     loadIncome();
     loadOutcome();
-  }, []);
+  }, [startDate, endDate]);
 
   const loadIncome = async () => {
     try {
-      const result = await axios.get(`http://localhost:5000/income/periode`, {
+      const result = await axios.get(`http://localhost:5000/income/totalincomeperiode`, {
         params: {
-          username: username,
-          startDate: dateNow,
-          endDate: dateNow,
+          username: Cookies.get("username"),
+          startDate: startDate,
+          endDate: endDate,
         }
       }, { validateStatus: false });
+      console.log(result.data)
       setAllIncome(result.data);
-      console.log(result.data);
     } catch (error) {
       console.error("Error loading income data:", error);
     }
@@ -36,17 +35,25 @@ const Recap = () => {
 
   const loadOutcome = async () => {
     try {
-      const result = await axios.get(`http://localhost:5000/outcome/periode`, {
+      const result = await axios.get(`http://localhost:5000/outcome/total`, {
         params: {
-          username: username,
-          startDate: dateNow,
-          endDate: dateNow,
+          username: Cookies.get("username"),
+          startDate: startDate,
+          endDate: endDate,
         }
       }, { validateStatus: false });
       setAllOutcome(result.data);
     } catch (error) {
       console.error("Error loading outcome data:", error);
     }
+  }
+
+  const handleDate = (e) => {
+    e.preventDefault(); // Prevent the default form submission.
+    const selectedStartDate = e.target.dateStart.value;
+    const selectedEndDate = e.target.dateEnd.value;
+    setStartDate(selectedStartDate);
+    setEndDate(selectedEndDate);
   }
 
   return (
@@ -57,10 +64,35 @@ const Recap = () => {
           <div id="content">
             <Navbar />
             <div className="container-fluid">
+              <div className="row">
+                <div className="col-4">
+                  <div className="card shadow mb-4">
+                    <a href="#collapseIncomeCards" className="d-block card-header py-3" data-toggle="collapse"
+                      role="button" aria-expanded="true" aria-controls="collapseIncomeCards">
+                      <h6 className="m-0 font-weight-bold text-primary text-center">Select Date</h6>
+                    </a>
+                    <div className="collapse show" id="collapseIncomeCards">
+                      <div className="card-body">
+                        <form onSubmit={handleDate} className="m-3">
+                          <label htmlFor="" style={{color:'black'}}>Start Date: </label>
+                          <input type="date" name="dateStart" id="dateStart" className="mx-2" />
+                          <br />
+                          <label htmlFor="" style={{color:'black'}}>End Date: </label>
+                          <input type="date" name="dateEnd" id="dateEnd" className="mx-3 my-2 " />
+                          <br />
+                          <div className="text-center"></div>
+                          <button type="submit" className="btn btn-primary mt-3">Generate</button>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
               <div className="card shadow mb-4">
                 <a href="#collapseIncomeCard" className="d-block card-header py-3" data-toggle="collapse"
                   role="button" aria-expanded="true" aria-controls="collapseIncomeCard">
-                  <h6 className="m-0 font-weight-bold text-primary text-center">Today's Income</h6>
+                  <h6 className="m-0 font-weight-bold text-primary text-center">Recap Income</h6>
                 </a>
                 <div className="collapse show" id="collapseIncomeCard">
                   <div className="card-body">
@@ -71,7 +103,7 @@ const Recap = () => {
               <div className="card shadow mb-4">
                 <a href="#collapseOutcomeCard" className="d-block card-header py-3" data-toggle="collapse"
                   role="button" aria-expanded="true" aria-controls="collapseOutcomeCard">
-                  <h6 className="m-0 font-weight-bold text-primary text-center">Today's Outcome</h6>
+                  <h6 className="m-0 font-weight-bold text-primary text-center">Recap Outcome</h6>
                 </a>
                 <div className="collapse show" id="collapseOutcomeCard">
                   <div className="card-body">
