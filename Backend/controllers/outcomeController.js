@@ -257,13 +257,9 @@ export const getOutcomeByday = async (req, res) => {
           amount: true,
         },
       });
-      
-      console.log(outcomeByWallet);
-      console.log(req.params.username);
-
       const wallet = await prisma.wallet.findMany({
         where: {
-          username: username,
+          username: req.params.username,
         },
         select: {
           id_wallet: true,
@@ -273,7 +269,7 @@ export const getOutcomeByday = async (req, res) => {
 
       const nama = await prisma.kategori.findMany({
         where: {
-          username: username,
+          username: req.params.username,
         },
         select: {
           nama_kategori: true,
@@ -282,15 +278,12 @@ export const getOutcomeByday = async (req, res) => {
         },
       });
 
+      console.log(nama);
+
       const result = [];
       let x = 0;
       outcomeByWallet.forEach((outcome) => {
-        console.log(outcome.id_kategori);
         for (let i = 0; i < nama.length; i++) {
-          console.log("nama:",nama[i].id_kategori);
-          console.log("outcome:",outcome.id_kategori);
-          console.log("username:",nama[i].username);
-
           if ((parseInt(outcome.id_kategori) === parseInt(nama[i].id_kategori))) {
             console.log("masuk");
             const modifiedoutcome = {
