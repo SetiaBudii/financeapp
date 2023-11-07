@@ -1,5 +1,8 @@
 {
   "dependencies": {
     "react-router-dom": "^6.16.0"
+  },
+  "devDependencies": {
+    "vite-plugin-pwa": "^0.16.7"
   }
 }
