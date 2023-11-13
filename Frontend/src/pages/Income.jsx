@@ -14,7 +14,7 @@ const Income = () => {
   const [selectedWalletId, setSelectedWalletId] = useState("");
   const [newIncome, setNewIncome] = useState({
     id_wallet: 0,
-    amount: 0,
+    amount: "",
     time_stamp: "",
   });
 
@@ -108,6 +108,7 @@ const Income = () => {
           text: data.data.msg,
         });
       }
+      $("#addincomemodal").modal("hide");
 
       // Reload the income data after adding
       loadIncome();
@@ -175,7 +176,7 @@ const Income = () => {
         aria-labelledby="exampleModalLabel"
         aria-hidden="true"
       >
-        <div className="modal-dialog" role="document">
+        <div className="modal-dialog modal-dialog-centered" role="document">
           <div className="modal-content">
             <div className="modal-header">
               <h5 className="modal-title" id="exampleModalLabel">
@@ -208,6 +209,7 @@ const Income = () => {
                       value={newIncome.amount}
                       onChange={handleInputChange}
                       min={1}
+                      placeholder="0"
                     />
                     <span class="input-group-text rounded-0">.00</span>
                   </div>
@@ -248,7 +250,7 @@ const Income = () => {
         aria-labelledby="exampleModalLabel"
         aria-hidden="true"
       >
-        <div className="modal-dialog" role="document">
+        <div className="modal-dialog modal-dialog-centered" role="document">
           <div className="modal-content">
             <div className="modal-header">
               <h5 className="modal-title" id="exampleModalLabel">

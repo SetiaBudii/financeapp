@@ -19,7 +19,7 @@ const AddOutcome = () => {
 
   const [newOutcome, setNewOutcome] = useState({
     id_wallet: 0,
-    amount: 0,
+    amount: "",
     time_stamp: "",
     id_kategori: 0,
   });
@@ -264,7 +264,7 @@ const AddOutcome = () => {
           </div>
         </div>
       </div>
-      {/* add income Modal*/}
+      {/* add outcome Modal*/}
       <div
         className="modal fade"
         id="addoutcomemodal"
@@ -273,7 +273,7 @@ const AddOutcome = () => {
         aria-labelledby="exampleModalLabel"
         aria-hidden="true"
       >
-        <div className="modal-dialog" role="document">
+        <div className="modal-dialog modal-dialog-centered" role="document">
           <div className="modal-content">
             <div className="modal-header">
               <h5 className="modal-title" id="exampleModalLabel">
@@ -308,6 +308,7 @@ const AddOutcome = () => {
                       name="amount"
                       value={newOutcome.amount}
                       onChange={handleInputChange}
+                      placeholder="0"
                       min={1}
                     />
                     <span class="input-group-text rounded-0">.00</span>
@@ -348,7 +349,7 @@ const AddOutcome = () => {
         aria-labelledby="exampleModalLabel"
         aria-hidden="true"
       >
-        <div className="modal-dialog" role="document">
+        <div className="modal-dialog modal-dialog-centered" role="document">
           <div className="modal-content">
             <div className="modal-header">
               <h5 className="modal-title" id="exampleModalLabel">

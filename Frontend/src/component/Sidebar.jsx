@@ -43,16 +43,20 @@ const Sidebar = () => {
                         </div>
                     </div>
                 </li>
+                <li className='nav-item'>
+                    <a className="nav-link" href="/budgeting">
+                        <i className="fas fa-fw fa-tachometer-alt"></i>
+                        <span>Budgeting</span></a>
+                </li>
                 <li className="nav-item">
                     <a className="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
                         aria-expanded="true" aria-controls="collapseUtilities">
                         <i className="fas fa-fw fa-donate"></i>
-                        <span>Budgeting</span>
+                        <span>Cashflow</span>
                     </a>
                     <div id="collapseUtilities" className="collapse" aria-labelledby="headingUtilities"
                         data-parent="#accordionSidebar">
                         <div className="bg-white py-2 collapse-inner rounded">
-                            <Link to="/budgeting" className='collapse-item'>Category</Link>
                             <Link to="/income" className='collapse-item'>Income</Link>
                             <Link to="/outcome" className='collapse-item'>Outcome</Link>
                         </div>
