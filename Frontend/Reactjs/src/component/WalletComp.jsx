@@ -75,7 +75,7 @@ const WalletForm = ({ username, selectedTipe }) => {
       className="card"
       style={{
         maxWidth: "500px",
-        height: "300px",
+        height: "350px",
         margin: "0 auto",
         marginTop: "50px",
         display: "flex",
