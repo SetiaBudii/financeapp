@@ -144,14 +144,14 @@ const CardInfo = () => {
                             </div>
                             <div className="card-body">
                                 <div className="row">
-                                    <div className="col-6">
+                                    <div className="col-sm-6 col-xs-12">
                                         <WalletTypeDropdown onWalletChange={handleWalletChange} />
                                     </div>
                                 </div>
                                 <div className="card py-2 mt-3">
                                     <div className="card-body mb-1">
                                         <div className="row no-gutters align-items-center">
-                                            <div className="col mr-2">
+                                            <div className="col-10 mr-2">
                                                 <div className="h5 mb-0 font-weight-bold text-gray-800">{formatterIDR.format(saldo)}</div>
                                             </div>
                                             <div className="col-auto">
@@ -214,7 +214,7 @@ const CardInfo = () => {
                             </div>
                             <div className="card-body">
                                 <div className="row">
-                                    <div className="col-4">
+                                    <div className="col-sm-4 col-xs-12">
                                         <KategoriDropdown onKategoriChange={handleKategoriChange} />
                                     </div>
                                 </div>
@@ -237,7 +237,7 @@ const CardInfo = () => {
                                             </div>
                                         </div>
                                         <div className="row justify-content-center text-center mt-3">
-                                            <div className="col-5  mt-3 align-items-center">
+                                            <div className="col-sm-6  mt-3 align-items-center">
                                                 <p className={` mt-0 mb-0 ${Actually > Budget ? 'budget-danger' : 'budget-safe'}`}>{Actually > Budget ? `Your Budget is over ${formatterIDR.format(((-1) * (Budget - Actually)))}` : ` Your are saving ${formatterIDR.format(Budget - Actually)}`}</p>
                                             </div>
                                         </div>
