@@ -147,7 +147,7 @@ const CardInfo = () => {
                                         <WalletTypeDropdown onWalletChange={handleWalletChange} />
                                     </div>
                                 </div>
-                                <div className="card shadow py-2 mt-3">
+                                <div className="card py-2 mt-3">
                                     <div className="card-body mb-1">
                                         <div className="row no-gutters align-items-center">
                                             <div className="col mr-2">
@@ -174,26 +174,24 @@ const CardInfo = () => {
                                 </div>
                             </div>
                             <div className="card-body">
-                                <div className="card shadow">
+                                <div className="card">
                                     <div className="card-body">
+                                    <h5 className='font-weight-bold text-success'>Income  <i className="far fa-plus-square fa text-success"></i></h5>
+                                    
                                         <div className="row no-gutters align-items-center">
                                             <div className="col mr-2">
                                                 <div className="h5 mb-0 font-weight-bold text-gray-800">{formatterIDR.format(TotalIncome)}</div>
-                                            </div>
-                                            <div className="col-auto">
-                                                <i className="far fa-plus-square fa-2x text-success"></i>
                                             </div>
                                         </div>
                                     </div>
                                     <hr className="sidebar-divider"></hr>
                                     <div className="card-body">
+                                    <h5 className='font-weight-bold text-danger'>Outcome  <i className="fas far fa-minus-square fa text-danger"></i></h5>
                                         <div className="row no-gutters align-items-center">
                                             <div className="col mr-2">
                                                 <div className="h5 mb-0 font-weight-bold text-gray-800">{formatterIDR.format(TotalOutcome)}</div>
                                             </div>
-                                            <div className="col-auto">
-                                                <i className="fas far fa-minus-square fa-2x text-danger"></i>
-                                            </div>
+
                                         </div>
                                     </div>
                                 </div>
@@ -202,7 +200,7 @@ const CardInfo = () => {
                     </div>
                 </div>
                 <div className="row justify-content-center">
-                    <div className="col-9 mb-4">
+                    <div className="col-12 mb-4">
                         <div className="card shadow mb-4 h-100">
                             <div
                                 className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
@@ -219,7 +217,7 @@ const CardInfo = () => {
                                         <KategoriDropdown onKategoriChange={handleKategoriChange} />
                                     </div>
                                 </div>
-                                <div className="card shadow py-2 mt-3">
+                                <div className="card py-2 mt-3 border-0 ">
                                     <div className="card-body mb-1">
                                         <div className="row no-gutters align-items-center text-center">
                                             <div className="col border-right border-danger ">

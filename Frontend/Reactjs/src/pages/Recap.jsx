@@ -65,7 +65,7 @@ const Recap = () => {
             <Navbar />
             <div className="container-fluid">
               <div className="row">
-                <div className="col-4">
+                <div className="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                   <div className="card shadow mb-4">
                     <a href="#collapseIncomeCards" className="d-block card-header py-3" data-toggle="collapse"
                       role="button" aria-expanded="true" aria-controls="collapseIncomeCards">

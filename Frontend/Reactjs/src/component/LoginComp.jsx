@@ -5,8 +5,10 @@ import { Link } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import Swal from 'sweetalert2';
 
+
 const LoginForm = () => {
   setPageAttributes();
+
   const navigate = useNavigate(); // Use useNavigate
   const [formData, setFormData] = useState({
     username: '',
@@ -32,13 +34,13 @@ const LoginForm = () => {
         setDefaultPageAttributes();
         Cookies.set('username', response.data.username, { expires: 1 }); // Save username to cookie with expiry of 1 day
         navigate('/home'); // Navigate to home page
-      } else if (response.status === 400){
+      } else if (response.status === 400) {
         Swal.fire({
           icon: 'error',
           title: 'Login Failed!',
           text: response.data.error,
         });
-      }else if (response.status === 404){
+      } else if (response.status === 404) {
         Swal.fire({
           icon: 'error',
           title: 'Login Failed!',
