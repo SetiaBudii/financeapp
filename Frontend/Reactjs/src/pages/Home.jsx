@@ -196,23 +196,25 @@ const Home = () => {
                       <div className="col">
                         <div>
                           <form>
-                            <label htmlFor="month" className='text-gray-900'>Month:</label>
-                            <select id="month" value={selectedMonth} onChange={handleMonthChange} className='ml-2'>
-                              {months.map((month, index) => (
-                                <option 
-                                  key={index}
-                                  value={month}
+                            <div className="row align-items-center">
+                              <label htmlFor="month" className='text-gray-900 mt-2'>Month:</label>
+                              <select id="month" value={selectedMonth} onChange={handleMonthChange} className='ml-2'>
+                                {months.map((month, index) => (
+                                  <option
+                                    key={index}
+                                    value={month}
                                   >{month}
-                                </option>
-                              ))}
-                            </select>
+                                  </option>
+                                ))}
+                              </select>
 
-                            <label htmlFor="year" className='ml-2 text-gray-900'>Year:</label>
-                            <select id="year" value={selectedYear} onChange={handleYearChange} className='ml-2'>
-                              {years.map((year, index) => (
-                                <option key={index} value={year}>{year}</option>
-                              ))}
-                            </select>
+                              <label htmlFor="year" className='ml-2 text-gray-900 mt-2'>Year:</label>
+                              <select id="year" value={selectedYear} onChange={handleYearChange} className='ml-2'>
+                                {years.map((year, index) => (
+                                  <option key={index} value={year}>{year}</option>
+                                ))}
+                              </select>
+                            </div>
                           </form>
                         </div>
                       </div>
