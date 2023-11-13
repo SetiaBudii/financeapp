@@ -35,7 +35,7 @@ const Income = () => {
         try {
             const result = await axios.get(`http://localhost:5000/income/per/${Cookies.get("username")}`, { validateStatus: false });
             setAllIncome(result.data.data);
-            
+
         } catch (error) {
             console.error("Error loading income data:", error);
         }
@@ -43,7 +43,7 @@ const Income = () => {
 
     const handleWalletChange = (value) => {
         setSelectedWalletId(value);
-      };
+    };
 
     const deleteIncome = async (e) => {
         e.preventDefault();
@@ -75,7 +75,7 @@ const Income = () => {
 
         try {
 
-            if(newIncome.time_stamp === ""){
+            if (newIncome.time_stamp === "") {
                 Swal.fire({
                     icon: 'error',
                     title: 'Income Failed!',
@@ -137,12 +137,50 @@ const Income = () => {
                         <div className="container-fluid">
                             <div className="card shadow mb-4 mt-5">
                                 <div className="card-header py-3">
+                                    <h6 className="m-0 font-weight-bold text-primary text-center">Add Income</h6>
+                                </div>
+                                <div className="card-body">
+                                    <label >Select Wallet</label>
+                                    <WalletTypeDropdown onWalletChange={handleWalletChange} />
+                                    <form onSubmit={addIncome}>
+                                        <div className="form-group">
+                                            <label htmlFor="amount">Amount</label>
+                                            <input
+                                                type="number"
+                                                className="form-control"
+                                                id="amount"
+                                                name="amount"
+                                                value={newIncome.amount}
+                                                onChange={handleInputChange}
+                                                min={1}
+                                            />
+                                        </div>
+                                        <div className="form-group">
+                                            <label htmlFor="time_stamp">Time Stamp</label>
+                                            <input
+                                                type="date"
+                                                className="form-control"
+                                                id="time_stamp"
+                                                name="time_stamp"
+                                                value={newIncome.time_stamp}
+                                                onChange={handleInputChange}
+                                            />
+                                        </div>
+                                        <button type="submit" className="btn btn-primary m-1">Submit</button>
+                                        <button className="btn btn-secondary m-1 " type="button" data-dismiss="modal">Cancel</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="container-fluid">
+                            <div className="card shadow mb-4 mt-5">
+                                <div className="card-header py-3">
                                     <h6 className="m-0 font-weight-bold text-primary text-center">LIST INCOME</h6>
                                 </div>
                                 <div className="card-body">
-                                <button type="button" className="btn btn-primary mb-4" data-toggle="modal" data-target="#addincomemodal">Add Income</button>
+                                    <button type="button" className="btn btn-primary mb-4" data-toggle="modal" data-target="#addincomemodal">Add Income</button>
                                     {/* <IncomeTable allIncome={allIncome} handleDeleteClick={handleDeleteOnClick}/> */}
-                                    <IncomeReactTable allIncome={allIncome} handleDeleteClick={handleDeleteOnClick}/>
+                                    <IncomeReactTable allIncome={allIncome} handleDeleteClick={handleDeleteOnClick} />
                                 </div>
                             </div>
                         </div>
@@ -162,9 +200,9 @@ const Income = () => {
                             </button>
                         </div>
                         <div className="modal-body">
-                                                                    {/* <ShowTipe onTipeChange={handleDataFromChild} /> */}
+                            {/* <ShowTipe onTipeChange={handleDataFromChild} /> */}
                             <label >Select Wallet</label>
-                            <WalletTypeDropdown onWalletChange={handleWalletChange}/>
+                            <WalletTypeDropdown onWalletChange={handleWalletChange} />
                             <form onSubmit={addIncome}>
                                 <div className="form-group">
                                     <label htmlFor="amount">Amount</label>

@@ -16,7 +16,7 @@ const CategoryReactTable = ({ allCategory,handleDeleteClick, handleUpdateClick})
             {
                 name: 'Action',
                 selector: row => row.id_kategori,
-                cell: (row) => <><button className="btn btn-warning btn-sm" data-id={row.id_kategori} data-toggle="modal" data-target="#updatekategorimodal" onClick={() => handleUpdateClick(row.id_kategori)}>Update</button><button className="btn btn-danger btn-sm ml-2" data-id={row.id_kategori} data-toggle="modal" data-target="#deletekategorimodal" onClick={() => handleDeleteClick(row.id_kategori)}>Delete</button></>,
+                cell: (row) => <><button className="btn btn-primary btn-sm" data-id={row.id_kategori} data-toggle="modal" data-target="#updatekategorimodal" onClick={() => handleUpdateClick(row.id_kategori)}><i className="fas fa-edit" style= {{'color': '#fff'}}></i></button><button className="btn btn-danger btn-sm ml-2" data-id={row.id_kategori} data-toggle="modal" data-target="#deletekategorimodal" onClick={() => handleDeleteClick(row.id_kategori)}><i className="fas fa-trash" style= {{'color': '#fff'}}></i></button></>,
             },
         ],
         []

@@ -137,3 +137,5 @@ export const getWalletbyId = async (req, res) => {
       res.status(500).json({ msg: error.message });
   }
 }
+
+//fungsi total saldo walet

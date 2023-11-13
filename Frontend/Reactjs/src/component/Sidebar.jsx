@@ -9,14 +9,17 @@ const Sidebar = () => {
     };
 
     const sidebarClassName = isSidebarOpen
-        ? 'navbar-nav bg-gradient-dark sidebar sidebar-dark accordion'
+        ? 'navbar-nav bg-gradient-dark sidebar sidebar-dark accordion sticky-top sticky-offset'
         : 'navbar-nav bg-gradient-dark sidebar sidebar-dark accordion toggled';
 
     return (
         <>
             <ul className={sidebarClassName} id="accordionSidebar">
                 <a className="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-                    <div className="sidebar-brand-text mx-1">M5-FinanceWeb</div>
+                <div class="sidebar-brand-icon rotate-n-15">
+                    <i class="fas fa-window-restore"></i>
+                </div>
+                    <div className="sidebar-brand-text mx-3">PWA-04</div>
                 </a>
                 <hr className="sidebar-divider my-0" />
                 <li className='nav-item'>
@@ -43,16 +46,20 @@ const Sidebar = () => {
                         </div>
                     </div>
                 </li>
+                <li className='nav-item'>
+                    <a className="nav-link" href="/budgeting">
+                        <i className="fas fa-fw fa-tachometer-alt"></i>
+                        <span>Budgeting</span></a>
+                </li>
                 <li className="nav-item">
                     <a className="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
                         aria-expanded="true" aria-controls="collapseUtilities">
                         <i className="fas fa-fw fa-donate"></i>
-                        <span>Budgeting</span>
+                        <span>Cashflow</span>
                     </a>
                     <div id="collapseUtilities" className="collapse" aria-labelledby="headingUtilities"
                         data-parent="#accordionSidebar">
                         <div className="bg-white py-2 collapse-inner rounded">
-                            <Link to="/budgeting" className='collapse-item'>Category</Link>
                             <Link to="/income" className='collapse-item'>Income</Link>
                             <Link to="/outcome" className='collapse-item'>Outcome</Link>
                         </div>

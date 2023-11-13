@@ -29,7 +29,7 @@ const OutcomeReactTable = ({ allOutcome,handleDeleteClick }) => {
             {
                 name: 'Action',
                 selector: row => row.id_outcome,
-                cell: (row) => <button className="btn btn-danger btn-sm" data-id={row.id_outcome} data-toggle="modal" data-target="#deleteoutcomemodal" onClick={() => handleDeleteClick(row.id_outcome)}>Delete</button>,
+                cell: (row) => <button className="btn btn-danger btn-sm" data-id={row.id_outcome} data-toggle="modal" data-target="#deleteoutcomemodal" onClick={() => handleDeleteClick(row.id_outcome)}><i className="fas fa-trash" style= {{'color': '#fff'}}></i></button>,
             },
         ],
         []
