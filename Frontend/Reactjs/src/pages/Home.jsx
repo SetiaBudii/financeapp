@@ -101,7 +101,7 @@ const Home = () => {
       text: '',
     },
     xAxis: {
-      categories: allIncome.map((income, index) => index + 1), // Extract the date from your allIncome data
+      categories: allIncome.map((income, index) => index + 1),
       title: {
         text: 'Day of the Month',
       },
@@ -114,14 +114,41 @@ const Home = () => {
     series: [
       {
         name: 'Income',
-        data: allIncome.map((income) => income.amount), // Extract the amount from your allIncome data
+        data: allIncome.map((income) => income.amount),
       },
       {
         name: 'Outcome',
-        data: allOutcome.map((outcome) => outcome.amount), // Extract the amount from your allOutcome data
+        data: allOutcome.map((outcome) => outcome.amount),
       },
     ],
+    responsive: {
+      rules: [
+        {
+          condition: {
+            maxWidth: 700, // Adjust the maximum width as needed
+          },
+          chartOptions: {
+            legend: {
+              layout: 'horizontal',
+              align: 'center',
+              verticalAlign: 'bottom',
+            },
+            xAxis: {
+              title: {
+                enabled: false, // Disable x-axis title on small screens
+              },
+            },
+            yAxis: {
+              title: {
+                enabled: false, // Disable y-axis title on small screens
+              },
+            },
+          },
+        },
+      ],
+    },
   };
+
 
   const sumAll = async () => {
     try {
@@ -140,19 +167,19 @@ const Home = () => {
       plotBackgroundColor: null,
       plotBorderWidth: null,
       plotShadow: false,
-      type: 'pie'
+      type: 'pie',
     },
     title: {
       text: '',
-      align: 'left'
+      align: 'left',
     },
     tooltip: {
-      pointFormat: '{series.name}: <b>Rp.{point.y}</b>'
+      pointFormat: '{series.name}: <b>Rp.{point.y}</b>',
     },
     accessibility: {
       point: {
-        valueSuffix: '%'
-      }
+        valueSuffix: '%',
+      },
     },
     plotOptions: {
       pie: {
@@ -160,21 +187,45 @@ const Home = () => {
         cursor: 'pointer',
         dataLabels: {
           enabled: true,
-          format: '<b>{point.name}</b>: {point.percentage:.1f}%'
-        }
-      }
+          format: '<b>{point.name}</b>: {point.percentage:.1f}%',
+        },
+      },
     },
-    series: [{
-      name: 'Category',
-      colorByPoint: true,
-      data: sumKategori.map((outcome) => ({
-        name: outcome.nama_kategori,
-        y: outcome.amount,
-      })),
-    }]
-  }
-
-
+    series: [
+      {
+        name: 'Category',
+        colorByPoint: true,
+        data: sumKategori.map((outcome) => ({
+          name: outcome.nama_kategori,
+          y: outcome.amount,
+        })),
+      },
+    ],
+    responsive: {
+      rules: [
+        {
+          condition: {
+            maxWidth: 700, // Adjust the maximum width as needed
+          },
+          chartOptions: {
+            plotOptions: {
+              pie: {
+                dataLabels: {
+                  enabled: false,
+                },
+                showInLegend: true,
+              },
+            },
+            legend: {
+              align: 'center',
+              verticalAlign: 'bottom',
+              layout: 'horizontal',
+            },
+          },
+        },
+      ],
+    },
+  };
 
   return (
     <div id="wrapper">
@@ -193,27 +244,30 @@ const Home = () => {
                 <div class="card-body">
                   <form action="" className='mb-4'>
                     <div className="row ml-4">
-                      <div className="col">
+                      <div className="col-12">
                         <div>
                           <form>
                             <div className="row align-items-center">
-                              <label htmlFor="month" className='text-gray-900 mt-2'>Month:</label>
-                              <select id="month" value={selectedMonth} onChange={handleMonthChange} className='ml-2'>
-                                {months.map((month, index) => (
-                                  <option
-                                    key={index}
-                                    value={month}
-                                  >{month}
-                                  </option>
-                                ))}
-                              </select>
-
-                              <label htmlFor="year" className='ml-2 text-gray-900 mt-2'>Year:</label>
-                              <select id="year" value={selectedYear} onChange={handleYearChange} className='ml-2'>
-                                {years.map((year, index) => (
-                                  <option key={index} value={year}>{year}</option>
-                                ))}
-                              </select>
+                              <div className="col-lg-3">
+                                <label htmlFor="month" className='text-gray-900 mt-2'>Month:</label>
+                                <select id="month" value={selectedMonth} onChange={handleMonthChange} className='ml-2'>
+                                  {months.map((month, index) => (
+                                    <option
+                                      key={index}
+                                      value={month}
+                                    >{month}
+                                    </option>
+                                  ))}
+                                </select>
+                              </div>
+                              <div className="col-lg-3">
+                                <label htmlFor="year" className='text-gray-900 mt-2 mr-3'>Year:</label>
+                                <select id="year" value={selectedYear} onChange={handleYearChange} className='ml-2'>
+                                  {years.map((year, index) => (
+                                    <option key={index} value={year}>{year}</option>
+                                  ))}
+                                </select>
+                              </div>
                             </div>
                           </form>
                         </div>

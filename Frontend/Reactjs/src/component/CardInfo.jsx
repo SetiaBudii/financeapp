@@ -151,11 +151,11 @@ const CardInfo = () => {
                                 <div className="card py-2 mt-3">
                                     <div className="card-body mb-1">
                                         <div className="row no-gutters align-items-center">
-                                            <div className="col-10 mr-2">
+                                            <div className="col-10 col-sm-10 p-0 m-0">
                                                 <div className="h5 mb-0 font-weight-bold text-gray-800">{formatterIDR.format(saldo)}</div>
                                             </div>
-                                            <div className="col-auto">
-                                                <i className="fas fa-wallet fa-2x text-gray-700"></i>
+                                            <div className="col-2 col-sm-2">
+                                                <i className="fas fa-wallet fa-2x fa-lg fa-sm text-gray-700"></i>
                                             </div>
                                         </div>
                                     </div>
@@ -237,8 +237,8 @@ const CardInfo = () => {
                                             </div>
                                         </div>
                                         <div className="row justify-content-center text-center mt-3">
-                                            <div className="col-sm-6  mt-3 align-items-center">
-                                                <p className={` mt-0 mb-0 ${Actually > Budget ? 'budget-danger' : 'budget-safe'}`}>{Actually > Budget ? `Your Budget is over ${formatterIDR.format(((-1) * (Budget - Actually)))}` : ` Your are saving ${formatterIDR.format(Budget - Actually)}`}</p>
+                                            <div className="col-12 col-sm-6 col-xs-12 mt-3 align-items-center">
+                                                <p className={` mt-0 mb-0 h7 ${Actually > Budget ? 'budget-danger' : 'budget-safe'}`}>{Actually > Budget ? `Your Budget is over ${formatterIDR.format(((-1) * (Budget - Actually)))}` : ` Your are saving ${formatterIDR.format(Budget - Actually)}`}</p>
                                             </div>
                                         </div>
                                     </div>
