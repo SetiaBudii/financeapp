@@ -75,6 +75,7 @@ const CardInfo = () => {
             }
             else {
                 setSaldo(result.data.data.saldo);
+                console.log(result.data.data);
             }
         } catch (error) {
             setSaldo(0);
