@@ -71,30 +71,14 @@ const WalletForm = ({ username, selectedTipe }) => {
   };
 
   return (
-    <div
-      className="card"
-      style={{
-        maxWidth: "500px",
-        height: "350px",
-        margin: "0 auto",
-        marginTop: "50px",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
-      }}
-    >
-      <div className="card-body" style={{ textAlign: "center", width: "80%" }}>
-        <h2>Create Wallet</h2>
-        <form onSubmit={handleSubmit}>
+    <div>
+      <form onSubmit={handleSubmit}>
+        <div className="mb-3 d-flex flex-column">
+          <label htmlFor="saldo" className="form-label">
+            Saldo :
+          </label>
+
           <div className="mb-3">
-            <label
-              htmlFor="saldo"
-              className="form-label"
-              style={{ marginTop: "45px", fontSize: "18px" }}
-            >
-              Saldo:
-            </label>
             <input
               type="number"
               className="form-control"
@@ -103,14 +87,16 @@ const WalletForm = ({ username, selectedTipe }) => {
               value={saldo}
               onChange={(e) => setSaldo(e.target.value)}
               required
-              style={{ textAlign: "center" }}
             />
           </div>
-          <button type="submit" className="btn btn-primary">
-            Create Wallet
-          </button>
-        </form>
-      </div>
+
+          <div className="d-flex justify-content-end">
+            <button type="submit" className="btn btn-primary">
+              Create Wallet
+            </button>
+          </div>
+        </div>
+      </form>
     </div>
   );
 };

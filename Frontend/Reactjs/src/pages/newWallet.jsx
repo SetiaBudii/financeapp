@@ -4,7 +4,6 @@ import Navbar from "../component/Navbar";
 import Welcome from "../component/Welcome";
 import ShowTipe from "../component/ShowTipe";
 import WalletForm from "../component/WalletComp";
-
 import Cookies from "js-cookie";
 
 const NewWallet = () => {
@@ -29,12 +28,56 @@ const NewWallet = () => {
       <div id="content-wrapper" className="d-flex flex-column">
         <div id="content">
           <Navbar />
-          <ShowTipe onTipeChange={handleTipeChange} />
-          <div className="mt-5">
-            <WalletForm username={username} selectedTipe={selectedTipe} />
+          <div>
+            <h2
+              className="h3 mb-0 text-gray-800"
+              style={{
+                marginLeft: "20px",
+                paddingBottom: "20px",
+              }}
+            >
+              Create Wallet
+            </h2>
+
+            <div className="card shadow mb-4 mx-4">
+              <a
+                href="#collapseCardExample"
+                className="d-block card-header py-3"
+                role="button"
+                aria-expanded="true"
+                aria-controls="collapseCardExample"
+              >
+                <h6 className="m-0 font-weight-bold text-primary text-center">
+                  Create Wallet
+                </h6>
+              </a>
+              <div className="collapse show" id="collapseCardExample">
+                <div className="card-body ">
+                  <div className="row ">
+                    <div className="col-lg-6 col-xs">
+                      <ShowTipe onTipeChange={handleTipeChange} />
+                    </div>
+                    <div className="col-lg-6 col-xs">
+                      <WalletForm
+                        username={username}
+                        selectedTipe={selectedTipe}
+                      />
+                    </div>
+                    {/* <div className="">
+                      <ShowTipe onTipeChange={handleTipeChange} />
+                      <div className="mt-5">
+                        <WalletForm
+                          username={username}
+                          selectedTipe={selectedTipe}
+                        />
+                      </div>
+                    </div> */}
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-        <Welcome selectedTipe={selectedTipe} />
       </div>
     </div>
   );

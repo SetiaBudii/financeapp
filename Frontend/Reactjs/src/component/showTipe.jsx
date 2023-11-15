@@ -23,26 +23,19 @@ function ShowTipe({ onTipeChange }) {
   };
 
   return (
-    <div
-      className="card"
-      style={{
-        maxWidth: "300px",
-        marginLeft: "20px",
-        boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
-      }}
-    >
-      <div className="card-body">
-        <label className="mr-2 mb-3">Pilih tipe Wallet : </label>
+    <div>
+      <label htmlFor="saldo" className="form-label mx-2 ">
+        Pilih Tipe Wallet :
+      </label>
+      <div className="row pl-3">
         <select
           onChange={handleTipeChange}
           value={selectedTipe}
-          className="form-select"
-          style={{
-            padding: "8px",
-            borderRadius: "5px",
-            border: "1px solid #ccc",
-            width: "100%",
-          }}
+          className="btn border dropdown-toggle w-100"
+          data-toggle="dropdown"
+          data-display="static"
+          aria-haspopup="true"
+          aria-expanded="false"
         >
           <option value="">- -</option> {/* Blank default option */}
           {tipeWallets.map((tipeWallet) => (

@@ -24,7 +24,7 @@ const IncomeReactTable = ({ allIncome,handleDeleteClick }) => {
             {
                 name: 'Action',
                 selector: row => row.id_income,
-                cell: (row) => <button className="btn btn-danger btn-sm" data-id={row.id_income} data-toggle="modal" data-target="#deleteincomemodal" onClick={() => handleDeleteClick(row.id_income)}>Delete</button>,
+                cell: (row) => <button className="btn btn-danger btn-sm" data-id={row.id_income} data-toggle="modal" data-target="#deleteincomemodal" onClick={() => handleDeleteClick(row.id_income)}><i className="fas fa-trash" style= {{'color': '#fff'}}></i></button>,
             },
         ],
         []
