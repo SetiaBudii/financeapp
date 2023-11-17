@@ -71,37 +71,31 @@ const WalletForm = ({ username, selectedTipe }) => {
   };
 
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        textAlign: "center",
-      }}
-    >
-      <h2 style={{ color: "black" }}>Create Wallet</h2>
+    <div>
       <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="saldo">Saldo:</label>
+        <div className="mb-3 d-flex flex-column">
+          <label htmlFor="saldo" className="form-label">
+            Saldo :
+          </label>
 
-          <div class="input-group mb-3">
-            <span class="input-group-text rounded-0">Rp.</span>
+          <div className="mb-3">
             <input
               type="number"
-              class="form-control"
+              className="form-control"
               id="saldo"
               name="saldo"
               value={saldo}
               onChange={(e) => setSaldo(e.target.value)}
-              placeholder="0"
               required
             />
-            <span class="input-group-text rounded-0">.00</span>
+          </div>
+
+          <div className="d-flex justify-content-end">
+            <button type="submit" className="btn btn-primary">
+              Create Wallet
+            </button>
           </div>
         </div>
-        <button type="submit" className="btn btn-primary ml-4">
-          Create Wallet
-        </button>
       </form>
     </div>
   );

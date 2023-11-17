@@ -11318,13 +11318,13 @@ body.sidebar-toggled footer.sticky-footer {
   border-radius: 5px;
 }
 
-.sidebar{
+/* .sidebar{
   position: sticky;
   top: 0;
   height: 100vh;
   overflow-y: auto;
   overflow-x: hidden;
-}
+} */
 
 @media (max-width: 576px) { 
   .sidebar {
