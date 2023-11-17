@@ -12,6 +12,13 @@ export default defineConfig({
       devOptions: {
         enabled: true,
       },
+      // add this to cache all the imports
+      workbox: {
+        globPatterns: ["**/*"],
+      },
+      // add this to cache all the
+      // static assets in the public folder
+      includeAssets: ["**/*"],
       manifest: {
         name: "BudgetBuddy",
         short_name: "budgetbuddy",
@@ -39,22 +46,22 @@ export default defineConfig({
           },
         ],
       },
-      workbox: {
-        runtimeCaching: [
-          {
-            urlPattern: ({ url }) => {
-              return url.pathname.startsWith("/api");
-            },
-            handler: "CacheFirst",
-            options: {
-              cacheName: "api-cache",
-              cacheableResponse: {
-                statuses: [0, 200],
-              },
-            },
-          },
-        ],
-      },
+      // workbox: {
+      //   runtimeCaching: [
+      //     {
+      //       urlPattern: ({ url }) => {
+      //         return url.pathname.startsWith("/api");
+      //       },
+      //       handler: "CacheFirst",
+      //       options: {
+      //         cacheName: "api-cache",
+      //         cacheableResponse: {
+      //           statuses: [0, 200],
+      //         },
+      //       },
+      //     },
+      //   ],
+      // },
     }),
   ],
 });
