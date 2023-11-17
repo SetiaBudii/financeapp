@@ -9,6 +9,7 @@ export default defineConfig({
     VitePWA({
       registerType: "autoUpdate",
       injectRegister: "auto",
+      includeAssets: ["*/**"],
       devOptions: {
         enabled: true,
       },
@@ -21,13 +22,11 @@ export default defineConfig({
       includeAssets: ["**/*"],
       manifest: {
         name: "BudgetBuddy",
-        short_name: "budgetbuddy",
+        short_name: "BudgetBuddy",
         display: "standalone",
         background_color: "#ffffff",
         theme_color: "#007bff",
-        description: "Budget Buddy is finance application",
-        lang: "en",
-        scope: "/",
+        description: "Budget Buddy is a finance application",
         icons: [
           {
             src: "/img/android-chrome-512x512.png",
@@ -46,22 +45,21 @@ export default defineConfig({
           },
         ],
       },
-      // workbox: {
-      //   runtimeCaching: [
-      //     {
-      //       urlPattern: ({ url }) => {
-      //         return url.pathname.startsWith("/api");
-      //       },
-      //       handler: "CacheFirst",
-      //       options: {
-      //         cacheName: "api-cache",
-      //         cacheableResponse: {
-      //           statuses: [0, 200],
-      //         },
-      //       },
-      //     },
-      //   ],
-      // },
+      workbox: {
+        globPatterns: ["**/*.{js,css,html,ico,png,svg}"],
+        runtimeCaching: [
+          {
+            urlPattern: ({ url }) => true,
+            handler: "NetworkFirst",
+            options: {
+              cacheName: "api-cache",
+              cacheableResponse: {
+                statuses: [0, 200],
+              },
+            },
+          },
+        ],
+      },
     }),
   ],
 });

@@ -16,7 +16,10 @@ const Sidebar = () => {
         <>
             <ul className={sidebarClassName} id="accordionSidebar">
                 <a className="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-                    <div className="sidebar-brand-text mx-1">M5-FinanceWeb</div>
+                <div class="sidebar-brand-icon rotate-n-15">
+                    <i class="fas fa-window-restore"></i>
+                </div>
+                    <div className="sidebar-brand-text mx-3">PWA-04</div>
                 </a>
                 <hr className="sidebar-divider my-0" />
                 <li className='nav-item'>

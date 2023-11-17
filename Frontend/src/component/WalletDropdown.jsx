@@ -16,6 +16,8 @@ function WalletTypeDropdown({ onWalletChange }) {
     axios.get(`http://localhost:5000/wallet/${storedUsername}`) // Adjust the URL to match your API endpoint
       .then((response) => {
         setWalletTypes(response.data);
+        setSelectedWalletId(response.data[0].id_wallet);
+        onWalletChange(response.data[0].id_wallet);
       })
       .catch((error) => {
         console.error(error);
