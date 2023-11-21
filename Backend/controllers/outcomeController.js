@@ -21,9 +21,13 @@ export const createOutcome = async (req, res) => {
 export const getAllOutcome = async (req, res) => {
     try{
         const response = await prisma.outcome.findMany();
+        if (!response) {
+            res.status(404).json({ msg: 'Outcome not found' });
+        } else {
         res.status(200).json({ msg: 'All outcomes', data: response });
+      }
     }catch (error) {
-        res.status(500).json({ msg: error.message });
+        res.status(500).json({ msg: 'note found' });
     }
 }
 
@@ -107,7 +111,7 @@ export const getUserOutcomes = async (req, res) => {
         }
     }
     catch (error) {
-        res.status(500).json({ msg: error.message });
+        res.status(500).json({ msg: 'Outcome not found' });
     }
 }
   

@@ -77,8 +77,6 @@ const Wallet = () => {
         `http://localhost:5000/wallet/${username}/${selectedTipe}`
       );
 
-      console.log("Wallet deleted successfully");
-
       Swal.fire({
         icon: "success",
         title: "Success!",

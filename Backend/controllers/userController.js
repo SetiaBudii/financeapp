@@ -39,7 +39,8 @@ export const createUser = async (req, res) => {
 export const getAllUsers = async (req, res) => {
   try {
     const users = await prisma.users.findMany();
-    res.json(users);
+    // res.json(users);
+    res.status(200).json({msg: 'All users', data: users});
   } catch (error) {
     console.error('Error fetching users:', error);
     res.status(500).json({ error: 'Internal server error' });

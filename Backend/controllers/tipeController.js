@@ -5,7 +5,7 @@ const prisma = new PrismaClient();
 export const getTipe = async (req, res) => {
     try {
       const tipe_wallet = await prisma.tipe_wallet.findMany();
-      res.json(tipe_wallet);
+      res.status(200).json({msg: 'tipe_wallet found', data: tipe_wallet});
     } catch (error) {
       console.error('Error fetching tipe_wallet:', error);
       res.status(500).json({ error: 'Internal server error' });
@@ -22,16 +22,16 @@ export const getTipe = async (req, res) => {
       });
   
       if (existingTipeWallet) {
-        return res.status(400).json({ error: 'tipe_wallet already exists' });
+        return res.status(400).json({ msg: 'tipe_wallet already exists' });
       }
   
       const newTipeWallet = await prisma.tipe_wallet.create({
         data: { tipe },
       });
   
-      return res.status(201).json(newTipeWallet);
+      return res.status(201).json({ msg: 'tipe_wallet created successfully', data: newTipeWallet });
     } catch (error) {
       console.error('Error creating tipe_wallet:', error);
-      return res.status(500).json({ error: 'Internal Server Error' });
+      return res.status(500).json({ msg: 'Internal Server Error' });
     }
   };
