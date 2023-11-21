@@ -27,7 +27,13 @@ const CategoryReactTable = ({
               data-id={row.id_kategori}
               data-toggle="modal"
               data-target="#updatekategorimodal"
-              onClick={() => handleUpdateClick(row.id_kategori)}
+              onClick={() =>
+                handleUpdateClick(
+                  row.id_kategori,
+                  row.nama_kategori,
+                  row.budget
+                )
+              }
             >
               <i className="fas fa-edit" style={{ color: "#fff" }}></i>
             </button>

@@ -12,6 +12,7 @@ const CardInfo = () => {
   const [allIncome, setAllIncome] = useState([]);
   const [allOutcome, setAllOutcome] = useState([]);
   const [saldo, setSaldo] = useState(0);
+  const [totalSaldo, setTotalSaldo] = useState(0);
   const [Budget, setBudget] = useState(0);
   const [Actually, setActually] = useState(0);
   const username = Cookies.get("username");
@@ -43,6 +44,7 @@ const CardInfo = () => {
     loadWallet();
     loadKategori();
     loadKategoriActually();
+    loadTotalSaldoWallet();
   }, [selectedWalletId, selectedKategoriId]);
 
   const loadKategori = async () => {
@@ -93,6 +95,35 @@ const CardInfo = () => {
       }
     } catch (error) {
       setSaldo(0);
+    }
+  };
+
+  const loadTotalSaldoWallet = async () => {
+    try {
+      const username = Cookies.get("username");
+      const result = await axios.get(
+        `http://localhost:5000/wallet/${username}`,
+        {
+          validateStatus: false,
+        }
+      );
+
+      console.log("Wallet data:", result.data);
+
+      if (result.data && result.data.length > 0) {
+        // Mengambil nilai setiap saldo dan menjumlahkannya
+        const total = result.data.reduce((accumulator, wallet) => {
+          return accumulator + wallet.saldo;
+        }, 0);
+
+        // Menetapkan total saldo ke state
+        setTotalSaldo(total);
+      } else {
+        setTotalSaldo(0);
+      }
+    } catch (error) {
+      setTotalSaldo(0);
+      console.error("Error loading wallet data:", error);
     }
   };
 
@@ -157,7 +188,7 @@ const CardInfo = () => {
         <div className="row h-100">
           <div className="col-lg-6 col-md-6 mb-4 h-auto">
             <div className="card shadow mb-4 h-100">
-              <div className="card-header py-3 d-flex flex-row align-items-center justify-content-between ">
+              <div className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                 <h6 className="m-0 font-weight-bold text-primary">
                   Saldo Wallet
                 </h6>
@@ -178,12 +209,30 @@ const CardInfo = () => {
                   <div className="card-body mb-1">
                     <div className="row no-gutters align-items-center">
                       <div className="col mr-2">
+                        <h5 className="font-weight-bold text-primary">Saldo</h5>
                         <div className="h5 mb-0 font-weight-bold text-gray-800">
                           {formatterIDR.format(saldo)}
                         </div>
                       </div>
                       <div className="col-auto">
-                        <i className="fas fa-wallet fa-2x text-gray-700"></i>
+                        <i className="fas fa-money-bill fa-2x text-success"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="card mt-1">
+                  <div className="card-body">
+                    <h5 className="font-weight-bold text-primary">
+                      Total Saldo Wallet
+                    </h5>
+                    <div className="row no-gutters align-items-center">
+                      <div className="col mr-2">
+                        <div className="h5 mb-0 font-weight-bold text-gray-800">
+                          {formatterIDR.format(totalSaldo)}
+                        </div>
+                      </div>
+                      <div className="col-auto">
+                        <i className="fas fa-wallet fa-2x text-primary"></i>
                       </div>
                     </div>
                   </div>
@@ -207,28 +256,32 @@ const CardInfo = () => {
               <div className="card-body">
                 <div className="card">
                   <div className="card-body">
-                    <h5 className="font-weight-bold text-success">
-                      Income{" "}
-                      <i className="far fa-plus-square fa text-success"></i>
-                    </h5>
-
+                    <div className="d-flex justify-content-between align-items-center mb-2">
+                      <h5 className="font-weight-bold text-success mb-0">
+                        Income
+                      </h5>
+                      <i className="fas far fa-plus-square fa-2x text-success"></i>
+                    </div>
                     <div className="row no-gutters align-items-center">
                       <div className="col mr-2">
-                        <div className="h5 mb-0 font-weight-bold text-gray-800">
+                        <div className="h4 mb-0 font-weight-bold text-gray-800">
                           {formatterIDR.format(TotalIncome)}
                         </div>
                       </div>
                     </div>
                   </div>
+
                   <hr className="sidebar-divider"></hr>
                   <div className="card-body">
-                    <h5 className="font-weight-bold text-danger">
-                      Outcome{" "}
-                      <i className="fas far fa-minus-square fa text-danger"></i>
-                    </h5>
+                    <div className="d-flex justify-content-between align-items-center mb-2">
+                      <h5 className="font-weight-bold text-danger mb-0">
+                        Outcome
+                      </h5>
+                      <i className="fas far fa-minus-square fa-2x text-danger"></i>
+                    </div>
                     <div className="row no-gutters align-items-center">
                       <div className="col mr-2">
-                        <div className="h5 mb-0 font-weight-bold text-gray-800">
+                        <div className="h4 mb-0 font-weight-bold text-gray-800">
                           {formatterIDR.format(TotalOutcome)}
                         </div>
                       </div>
@@ -240,81 +293,55 @@ const CardInfo = () => {
           </div>
         </div>
         <div className="row justify-content-center">
-          <div className="col-12 mb-4">
-            <div className="card shadow mb-4 h-100">
-              <div className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                <h6 className="m-0 font-weight-bold text-primary">
-                  Budget Condition
-                </h6>
-                <div className="dropdown no-arrow">
-                  <div
-                    className="dropdown-menu"
-                    aria-labelledby="dropdownMenuLink"
-                  ></div>
-                </div>
-              </div>
-              <div className="card-body">
-                <div className="row">
-                  <div className="col-4">
-                    <KategoriDropdown onKategoriChange={handleKategoriChange} />
-                  </div>
-                </div>
-                <div className="card py-2 mt-3 border-0 ">
-                  <div className="card-body mb-1">
-                    <div className="row no-gutters align-items-center text-center">
-                      <div className="col border-right border-danger ">
-                        <div
-                          className={`h6 mb-0 font-weight-bold ${
-                            Actually > Budget ? "text-danger" : "text-success"
-                          }`}
-                        >
-                          {formatterIDR.format(Actually)}
+                    <div className="col-12 mb-4">
+                        <div className="card shadow mb-4 h-100">
+                            <div
+                                className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                <h6 className="m-0 font-weight-bold text-primary">Budget Condition</h6>
+                                <div className="dropdown no-arrow">
+                                    <div className="dropdown-menu"
+                                        aria-labelledby="dropdownMenuLink">
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="card-body">
+                                <div className="row">
+                                    <div className="col-sm-4 col-xs-12">
+                                        <KategoriDropdown onKategoriChange={handleKategoriChange} />
+                                    </div>
+                                </div>
+                                <div className="card py-2 mt-3 border-0 ">
+                                    <div className="card-body mb-1">
+                                        <div className="row no-gutters align-items-center text-center">
+                                            <div className="col border-right border-danger ">
+                                                <div className={`h6 mb-0 font-weight-bold ${Actually > Budget ? 'text-danger' : 'text-success'}`}>{formatterIDR.format(Actually)}</div>
+                                            </div>
+                                            <div className="col">
+                                                <div className="h6 mb-0 font-weight-bold text-gray-800">{formatterIDR.format(Budget)}</div>
+                                            </div>
+                                        </div>
+                                        <div className="row no-gutters align-items-center text-center mt-2">
+                                            <div className="col-6 border-right border-dark">
+                                                <div className="h7 mb-0 font-weight-bold text-gray-800">Actually</div>
+                                            </div>
+                                            <div className="col-6">
+                                                <div className="h7 mb-0 font-weight-bold text-gray-800">Budget</div>
+                                            </div>
+                                        </div>
+                                        <div className="row justify-content-center text-center mt-3">
+                                            <div className="col-12 col-sm-6 col-xs-12 mt-3 align-items-center">
+                                                <p className={` mt-0 mb-0 h7 ${Actually > Budget ? 'budget-danger' : 'budget-safe'}`}>{Actually > Budget ? `Your Budget is over ${formatterIDR.format(((-1) * (Budget - Actually)))}` : ` Your are saving ${formatterIDR.format(Budget - Actually)}`}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                      </div>
-                      <div className="col">
-                        <div className="h6 mb-0 font-weight-bold text-gray-800">
-                          {formatterIDR.format(Budget)}
-                        </div>
-                      </div>
                     </div>
-                    <div className="row no-gutters align-items-center text-center mt-2">
-                      <div className="col-6 border-right border-dark">
-                        <div className="h7 mb-0 font-weight-bold text-gray-800">
-                          Actually
-                        </div>
-                      </div>
-                      <div className="col-6">
-                        <div className="h7 mb-0 font-weight-bold text-gray-800">
-                          Budget
-                        </div>
-                      </div>
-                    </div>
-                    <div className="row justify-content-center text-center mt-3">
-                      <div className="col-5  mt-3 align-items-center">
-                        <p
-                          className={` mt-0 mb-0 ${
-                            Actually > Budget ? "budget-danger" : "budget-safe"
-                          }`}
-                        >
-                          {Actually > Budget
-                            ? `Your Budget is over ${formatterIDR.format(
-                                -1 * (Budget - Actually)
-                              )}`
-                            : ` Your are saving ${formatterIDR.format(
-                                Budget - Actually
-                              )}`}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
                 </div>
-              </div>
             </div>
-          </div>
-        </div>
-      </div>
-    </>
-  );
-};
+        </>
+    )
+}
 
 export default CardInfo;

@@ -19,6 +19,8 @@ function CategoryDropdown({ onKategoriChange }) {
         console.log(storedUsername)
         console.log(response.data.data)
         setCategories(response.data.data);
+        setSelectedCategory(response.data.data[0].id_kategori);
+        onKategoriChange(response.data.data[0].id_kategori);
       })
       .catch((error) => {
         console.error(error);

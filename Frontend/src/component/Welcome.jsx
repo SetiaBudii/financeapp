@@ -1,18 +1,18 @@
-import React, { useEffect, useState } from "react";
-import Cookies from "js-cookie";
+import React, { useEffect, useState } from 'react';
+import Cookies from 'js-cookie';
 
 function Welcome() {
-  const [username, setUsername] = useState("");
+  const [username, setUsername] = useState('');
 
   useEffect(() => {
-    const storedUsername = Cookies.get("username");
+    const storedUsername = Cookies.get('username');
     if (storedUsername) {
       setUsername(storedUsername);
     }
   }, []);
 
   return (
-    <div style={{ marginLeft: "10px" }}>
+    <div>
       <p>Welcome, {username}!</p>
     </div>
   );
