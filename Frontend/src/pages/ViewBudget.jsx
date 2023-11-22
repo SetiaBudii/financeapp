@@ -185,28 +185,26 @@ const ViewBudget = () => {
             <div className="d-sm-flex align-items-center justify-content-between mb-4">
               <h1 className="h3 mb-0 text-gray-800">Category</h1>
             </div>
-            <div className="container-fluid">
-              <div className="card shadow mb-4 mt-5">
-                <div className="card-header py-3">
-                  <h6 className="m-0 font-weight-bold text-primary text-center">
-                    CATEGORY
-                  </h6>
-                </div>
-                <div className="card-body">
-                  <button
-                    type="button"
-                    className="btn btn-primary mb-4"
-                    data-toggle="modal"
-                    data-target="#addkategorimodal"
-                  >
-                    Add Category
-                  </button>
-                  <TableKategori
-                    allCategory={allKategori}
-                    handleDeleteClick={handleDeleteClick}
-                    handleUpdateClick={handleUpdateClick}
-                  />
-                </div>
+            <div className="card shadow mb-4 mt-5">
+              <div className="card-header py-3">
+                <h6 className="m-0 font-weight-bold text-primary text-center">
+                  CATEGORY
+                </h6>
+              </div>
+              <div className="card-body">
+                <button
+                  type="button"
+                  className="btn btn-primary mb-4"
+                  data-toggle="modal"
+                  data-target="#addkategorimodal"
+                >
+                  Add Category
+                </button>
+                <TableKategori
+                  allCategory={allKategori}
+                  handleDeleteClick={handleDeleteClick}
+                  handleUpdateClick={handleUpdateClick}
+                />
               </div>
             </div>
           </div>
