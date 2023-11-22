@@ -52,10 +52,6 @@ const Sidebar = () => {
             data-parent="#accordionSidebar"
           >
             <div className="bg-white py-2 collapse-inner rounded">
-<<<<<<< HEAD
-              <h6 className="collapse-header">Custom Components:</h6>
-=======
->>>>>>> 289040cb591607728639fb15ea71bca6ad1354aa
               <a className="collapse-item" href="/wallet">
                 View
               </a>
