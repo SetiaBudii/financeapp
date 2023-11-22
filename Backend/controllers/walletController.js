@@ -114,7 +114,7 @@ export const deleteWallet = async (req, res) => {
       },
     });
     
-    req.status(204).send();
+    res.status(204).send();
   } catch (error) {
     console.error('Error deleting wallet:', error);
     res.status(500).json({ msg: 'Internal server error' });

@@ -204,7 +204,7 @@ const Wallet = () => {
           <div className="modal-content">
             <div className="modal-header">
               <h5 className="modal-title" id="exampleModalLabel">
-                Add Outcome
+                Add Tipe Wallet
               </h5>
               <button
                 className="close"
