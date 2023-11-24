@@ -2,7 +2,7 @@
 import React, { useMemo } from 'react';
 import DataTable from 'react-data-table-component';
 
-const ReportTable = ({ data }) => {
+const ReportTable = ({ data, type }) => {
     console.log(data);
     // Filter data where amount > 0
     const filteredData = data.filter((row) => row.amount > 0);
@@ -35,7 +35,10 @@ const ReportTable = ({ data }) => {
                 fixedHeaderScrollHeight="300px"
                 highlightOnHover
             />
-            <button className="btn btn-primary mt-3" >Total: {totalAmount}</button>
+            {type == "income" ?
+                <div className="d-flex justify-content-center mt-3 fw-bold" style={{ fontSize: '15px',color:'black'}} ><i className="fas fa-plus-circle mx-1 my-1 text-success"></i><u>Total Income: {formatterIDR.format(totalAmount)}</u></div>
+                : <div className="d-flex justify-content-center mt-3" style={{ fontSize: '15px',color:'black' }} ><i className="fas fa-minus-circle mx-1 my-1 text-danger"></i><u>Total Outcome: {formatterIDR.format(totalAmount)}</u></div>
+            }
         </>
     );
 };
