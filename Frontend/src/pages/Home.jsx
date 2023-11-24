@@ -291,7 +291,7 @@ const Home = () => {
                 aria-controls="collapseCardExample"
               >
                 <h6 class="m-0 font-weight-bold text-primary text-center">
-                  INCOME VS OUTCOME REPORT
+                  INCOME VS OUTCOME REPORT BASED ON MONTH
                 </h6>
               </a>
               <div class="collapse show" id="collapseCardExample">
