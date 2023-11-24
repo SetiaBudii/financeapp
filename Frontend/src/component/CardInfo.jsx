@@ -293,55 +293,81 @@ const CardInfo = () => {
           </div>
         </div>
         <div className="row justify-content-center">
-                    <div className="col-12 mb-4">
-                        <div className="card shadow mb-4 h-100">
-                            <div
-                                className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                <h6 className="m-0 font-weight-bold text-primary">Budget Condition</h6>
-                                <div className="dropdown no-arrow">
-                                    <div className="dropdown-menu"
-                                        aria-labelledby="dropdownMenuLink">
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="card-body">
-                                <div className="row">
-                                    <div className="col-sm-4 col-xs-12">
-                                        <KategoriDropdown onKategoriChange={handleKategoriChange} />
-                                    </div>
-                                </div>
-                                <div className="card py-2 mt-3 border-0 ">
-                                    <div className="card-body mb-1">
-                                        <div className="row no-gutters align-items-center text-center">
-                                            <div className="col border-right border-danger ">
-                                                <div className={`h6 mb-0 font-weight-bold ${Actually > Budget ? 'text-danger' : 'text-success'}`}>{formatterIDR.format(Actually)}</div>
-                                            </div>
-                                            <div className="col">
-                                                <div className="h6 mb-0 font-weight-bold text-gray-800">{formatterIDR.format(Budget)}</div>
-                                            </div>
-                                        </div>
-                                        <div className="row no-gutters align-items-center text-center mt-2">
-                                            <div className="col-6 border-right border-dark">
-                                                <div className="h7 mb-0 font-weight-bold text-gray-800">Actually</div>
-                                            </div>
-                                            <div className="col-6">
-                                                <div className="h7 mb-0 font-weight-bold text-gray-800">Budget</div>
-                                            </div>
-                                        </div>
-                                        <div className="row justify-content-center text-center mt-3">
-                                            <div className="col-12 col-sm-6 col-xs-12 mt-3 align-items-center">
-                                                <p className={` mt-0 mb-0 h7 ${Actually > Budget ? 'budget-danger' : 'budget-safe'}`}>{Actually > Budget ? `Your Budget is over ${formatterIDR.format(((-1) * (Budget - Actually)))}` : ` Your are saving ${formatterIDR.format(Budget - Actually)}`}</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+          <div className="col-12 mb-4">
+            <div className="card shadow mb-4 h-100">
+              <div className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 className="m-0 font-weight-bold text-primary">
+                  Budget Condition
+                </h6>
+                <div className="dropdown no-arrow">
+                  <div
+                    className="dropdown-menu"
+                    aria-labelledby="dropdownMenuLink"
+                  ></div>
                 </div>
+              </div>
+              <div className="card-body">
+                <div className="row">
+                  <div className="col-sm-4 col-xs-12">
+                    <KategoriDropdown onKategoriChange={handleKategoriChange} />
+                  </div>
+                </div>
+                <div className="card py-2 mt-3 border-0 ">
+                  <div className="card-body mb-1">
+                    <div className="row no-gutters align-items-center text-center">
+                      <div className="col border-right border-danger ">
+                        <div
+                          className={`h6 mb-0 font-weight-bold ${
+                            Actually > Budget ? "text-danger" : "text-success"
+                          }`}
+                        >
+                          {formatterIDR.format(Actually)}
+                        </div>
+                      </div>
+                      <div className="col">
+                        <div className="h6 mb-0 font-weight-bold text-gray-800">
+                          {formatterIDR.format(Budget)}
+                        </div>
+                      </div>
+                    </div>
+                    <div className="row no-gutters align-items-center text-center mt-2">
+                      <div className="col-6 border-right border-dark">
+                        <div className="h7 mb-0 font-weight-bold text-gray-800">
+                          Actually
+                        </div>
+                      </div>
+                      <div className="col-6">
+                        <div className="h7 mb-0 font-weight-bold text-gray-800">
+                          Budget
+                        </div>
+                      </div>
+                    </div>
+                    <div className="row justify-content-center text-center mt-3">
+                      <div className="col-12 col-sm-6 col-xs-12 mt-3 align-items-center">
+                        <p
+                          className={` mt-0 mb-0 h7 ${
+                            Actually > Budget ? "budget-danger" : "budget-safe"
+                          }`}
+                        >
+                          {Actually > Budget
+                            ? `Your Budget is over ${formatterIDR.format(
+                                -1 * (Budget - Actually)
+                              )}`
+                            : ` Your are saving ${formatterIDR.format(
+                                Budget - Actually
+                              )}`}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-        </>
-    )
-}
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};
 
 export default CardInfo;

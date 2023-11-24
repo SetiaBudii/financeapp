@@ -55,7 +55,7 @@ const Wallet = () => {
           text: data.data.msg,
         });
       }
-
+      $("#addtipemodal").modal("hide");
       if (username) {
         loadKategori(username);
       }
@@ -128,23 +128,18 @@ const Wallet = () => {
           <div className="container-fluid">
             <div className="d-sm-flex align-items-center justify-content-between mb-4"></div>
             <div className="container-fluid">
-              <div className="card shadow mb-4 mt-5">
+              <div className="card shadow mb-4 ">
                 <div className="card-header py-3">
-                  <div className="row">
-                    <div className="col">
-                      <h6 className="m-0 font-weight-bold text-primary text-center">
-                        Wallet
-                      </h6>
-                    </div>
-                    <div className="col"></div>
-                  </div>
+                  <h6 className="m-0 font-weight-bold text-primary text-center">
+                    Wallet
+                  </h6>
                 </div>
                 <div className="card-body">
                   <button
                     type="button"
                     className="btn btn-primary mb-4"
                     data-toggle="modal"
-                    data-target="#addoutcomemodal"
+                    data-target="#addtipemodal"
                   >
                     Add Tipe
                   </button>
@@ -194,13 +189,13 @@ const Wallet = () => {
       </div>
       <div
         className="modal fade"
-        id="addoutcomemodal"
+        id="addtipemodal"
         tabIndex="-1"
         role="dialog"
         aria-labelledby="exampleModalLabel"
         aria-hidden="true"
       >
-        <div className="modal-dialog" role="document">
+        <div className="modal-dialog modal-dialog-centered" role="document">
           <div className="modal-content">
             <div className="modal-header">
               <h5 className="modal-title" id="exampleModalLabel">

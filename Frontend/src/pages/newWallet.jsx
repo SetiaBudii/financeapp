@@ -63,15 +63,6 @@ const NewWallet = () => {
                         selectedTipe={selectedTipe}
                       />
                     </div>
-                    {/* <div className="">
-                      <ShowTipe onTipeChange={handleTipeChange} />
-                      <div className="mt-5">
-                        <WalletForm
-                          username={username}
-                          selectedTipe={selectedTipe}
-                        />
-                      </div>
-                    </div> */}
                   </div>
                 </div>
               </div>
