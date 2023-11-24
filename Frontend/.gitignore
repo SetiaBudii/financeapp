@@ -24,3 +24,10 @@ dist-ssr
 *.sw?
 
 dev-dist
+
+build/
+dist/
+dev-dist/
+node_modules/
+package-lock.json
+package.json
