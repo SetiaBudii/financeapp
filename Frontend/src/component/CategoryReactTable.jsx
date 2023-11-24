@@ -16,6 +16,11 @@ const CategoryReactTable = ({
       {
         name: "Budget",
         selector: (row) => formatterIDR.format(row.budget),
+        style: {
+          paddingRight: '0px',
+          marginLeft: '0px',
+        },
+        width: "40%",
       },
       {
         name: "Action",
@@ -64,13 +69,6 @@ const CategoryReactTable = ({
           fixedHeader
           fixedHeaderScrollHeight="300px"
           highlightOnHover
-          expandableRows = {window.innerWidth < 400 ? true : false} 
-          expandableRowsComponent={({ data }) => (
-            <div className="p-3">
-              <div>{data.nama_kategori}</div>
-              <div>{formatterIDR.format(data.budget)}</div>
-            </div>
-          )}
         />
       </div>
     </>

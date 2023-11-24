@@ -11815,4 +11815,10 @@ body.sidebar-toggled footer.sticky-footer {
     height: 100%;
   }
  }
+
+ .rdt_TableCol div:first-child {
+  white-space: normal !important;
+  align-items: center;
+  overflow: visible !important;
+}
  

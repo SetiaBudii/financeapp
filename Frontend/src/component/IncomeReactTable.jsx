@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import DataTable from 'react-data-table-component';
 
 const IncomeReactTable = ({ allIncome,handleDeleteClick }) => {
-    console.log(allIncome)
+    const isMobileView = window.innerWidth <= 600; // Adjust the pixel width as needed
     const columns = useMemo(
         () => [
             {
@@ -10,16 +10,29 @@ const IncomeReactTable = ({ allIncome,handleDeleteClick }) => {
                 selector: row => row.time_stamp,
                 cell: (row) => formatDateDDMMYYYY(row.time_stamp),
                 sortable: true,
+                style: isMobileView ? {
+                    paddingRight: '0px',
+                    paddingLeft: '5px',
+                    marginLeft: '0px',
+                } : {
+                    
+                },
             },
             {
                 name: 'Wallet',
                 selector: row => row.wallet.tipe,
+                sortable: true,
             },
             {
                 name: 'Amount',
                 selector: row => row.amount,
                 sortable: true,
                 cell: (row) => formatterIDR.format(row.amount),
+                style: {
+                    marginLeft: '0px',
+                    paddingLeft: '0px',
+                },
+                width: '30%',
             },
             {
                 name: 'Action',
@@ -36,10 +49,9 @@ const IncomeReactTable = ({ allIncome,handleDeleteClick }) => {
                 <DataTable 
                     columns={columns}
                     data={allIncome}
-                    noHeader
                     highlightOnHover
+                    noHeader
                     pagination
-                    searchable
                 />
             </div>
         </>
