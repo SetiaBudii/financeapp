@@ -87,7 +87,7 @@ const Recap = () => {
                       aria-controls="collapseIncomeCard"
                     >
                       <h6 className="m-0 font-weight-bold text-primary text-center">
-                        RECAP INCOME
+                        Recap Income
                       </h6>
                     </a>
                     <div className="collapse show" id="collapseIncomeCard">
