@@ -70,9 +70,7 @@ const Home = () => {
           endDate: endSTR,
         }
       }, { validateStatus: false });
-      console.log(start);
-      console.log(end);
-      setAllIncome(result.data);
+      setAllIncome(result.data.data);
     } catch (error) {
       console.error("Error loading income data:", error);
     }

@@ -44,7 +44,7 @@ export const createWallet = async (req, res) => {
     });
 
     // Respond with the created wallet object
-    res.status(201).json({ msg: 'User created successfully' });
+    res.status(201).json({ msg: 'Wallet created successfully', data: newWallet });
   } catch (error) {
     console.error('Error creating wallet:', error);
     res.status(500).json({ error: 'Internal server error' });
@@ -104,7 +104,7 @@ export const deleteWallet = async (req, res) => {
     });
 
     if (!wallet) {
-      return res.status(404).json({ error: 'Wallet not found' });
+      return res.status(404).json({ msg: 'Wallet not found' });
     }
 
     // Delete the wallet
@@ -113,11 +113,11 @@ export const deleteWallet = async (req, res) => {
         id_wallet: wallet.id_wallet,
       },
     });
-
-    res.status(204).send(); // Respond with no content (success)
+    
+    res.status(204).send();
   } catch (error) {
     console.error('Error deleting wallet:', error);
-    res.status(500).json({ error: 'Internal server error' });
+    res.status(500).json({ msg: 'Internal server error' });
   }
 };
 

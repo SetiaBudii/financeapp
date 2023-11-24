@@ -201,7 +201,7 @@ const CardInfo = () => {
               </div>
               <div className="card-body">
                 <div className="row">
-                  <div className="col-6">
+                  <div className="col-xs-12 col-sm-6 ">
                     <WalletTypeDropdown onWalletChange={handleWalletChange} />
                   </div>
                 </div>

@@ -44,9 +44,9 @@ export const getIncomeByUser = async (req, res) => {
         });
 
         if (!userIncomes) {
-            return res.status(404).json({ error: 'User not found' });
+            return res.status(404).json({ error: 'Income not found' });
         } else {
-            return res.status(200).json({ msg: 'User found', data: userIncomes });
+            return res.status(200).json({ msg: 'Income Found', data: userIncomes });
         }
     } catch (error) {
         console.error('Error retrieving user outcomes:', error);
@@ -100,7 +100,8 @@ export const getIncomeInPeriod = async (req, res) => {
       }
     });
 
-    res.json(result);
+    // res.json(result);
+    res.status(200).json({ msg: 'Income', data: result });
 
   } catch (error) {
     console.error('Error retrieving income in period:', error);
@@ -158,8 +159,7 @@ export const getTotalIncomeInPeriod = async (req, res) => {
       });
       currentDate.setDate(currentDate.getDate() + 1);
     }
-
-    res.json(result);
+    res.status(200).json({ msg: 'List Income', data: result });
   } catch (error) {
     console.error('Error retrieving income in period:', error);
     res.status(500).json({ msg: error.message });
@@ -173,7 +173,6 @@ export const deleteIncome = async (req, res) => {
         const response = await prisma.income.delete({
             where: { id_income: parseInt(req.params.id_income) }
         });
-        console.log(response);
         console.log(req.params.id_income);
         res.status(200).json({ msg: 'Income deleted successfully', data: response });
     } catch (error) {

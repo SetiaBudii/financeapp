@@ -77,8 +77,6 @@ const Wallet = () => {
         `http://localhost:5000/wallet/${username}/${selectedTipe}`
       );
 
-      console.log("Wallet deleted successfully");
-
       Swal.fire({
         icon: "success",
         title: "Success!",
@@ -206,7 +204,7 @@ const Wallet = () => {
           <div className="modal-content">
             <div className="modal-header">
               <h5 className="modal-title" id="exampleModalLabel">
-                Add Outcome
+                Add Tipe Wallet
               </h5>
               <button
                 className="close"

@@ -9,7 +9,7 @@ router.post('/users', createUser);
 router.get('/users', getAllUsers);
 router.get('/users/:username', getUserByUsername);
 router.delete('/users/:username', deleteUserByUsername);
-router.patch('/users/:username', updatePasswordByUsername)
+// router.patch('/users/:username', updatePasswordByUsername)
 router.post('/users/login', login)
 
 export default router;
