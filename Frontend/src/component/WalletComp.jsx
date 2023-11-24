@@ -79,15 +79,22 @@ const WalletForm = ({ username, selectedTipe }) => {
           </label>
 
           <div className="mb-3">
-            <input
-              type="number"
-              className="form-control"
-              id="saldo"
-              name="saldo"
-              value={saldo}
-              onChange={(e) => setSaldo(e.target.value)}
-              required
-            />
+            <div class="input-group mb-3">
+              <span class="input-group-text rounded-0">Rp.</span>
+              <input
+                type="number"
+                class="form-control"
+                aria-label="Amount (to the nearest dollar)"
+                id="saldo"
+                name="saldo"
+                value={saldo}
+                onChange={(e) => setSaldo(e.target.value)}
+                required
+                min={1}
+                placeholder="0"
+              />
+              <span class="input-group-text rounded-0">.00</span>
+            </div>
           </div>
 
           <div className="d-flex justify-content-end">

@@ -76,7 +76,7 @@ const ViewBudget = () => {
           text: result.data.msg,
         });
       }
-      $("#deletkategorimodal").modal("hide");
+      $("#deletekategorimodal").modal("hide");
     } catch (error) {
       console.error("Error adding outcome data:", error);
     }
