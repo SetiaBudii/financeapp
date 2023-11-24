@@ -11,11 +11,13 @@ const Recap = () => {
   const [allOutcome, setAllOutcome] = useState([]);
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
+  const [startDateOutcome, setStartDateOutcome] = useState(new Date());
+  const [endDateOutcome, setEndDateOutcome] = useState(new Date());
 
   useEffect(() => {
     loadIncome();
     loadOutcome();
-  }, [startDate, endDate]);
+  }, [startDate, endDate, startDateOutcome, endDateOutcome]);
 
   const loadIncome = async () => {
     try {
@@ -44,8 +46,8 @@ const Recap = () => {
         {
           params: {
             username: Cookies.get("username"),
-            startDate: startDate,
-            endDate: endDate,
+            startDate: startDateOutcome,
+            endDate: endDateOutcome,
           },
         },
         { validateStatus: false }
@@ -62,6 +64,14 @@ const Recap = () => {
     const selectedEndDate = e.target.dateEnd.value;
     setStartDate(selectedStartDate);
     setEndDate(selectedEndDate);
+  };
+
+  const handleDateOutcome = (e) => {
+    e.preventDefault(); // Prevent the default form submission.
+    const selectedStartDateOutcome = e.target.dateStartOut.value;
+    const selectedEndDateOutcome = e.target.dateEndOut.value;
+    setStartDateOutcome(selectedStartDateOutcome);
+    setEndDateOutcome(selectedEndDateOutcome);
   };
 
   return (
@@ -93,7 +103,7 @@ const Recap = () => {
                     <div className="collapse show" id="collapseIncomeCard">
                       <form onSubmit={handleDate} className="m-3">
                         <div className="row">
-                          <div className="form-group col-sm-5 col-4">
+                          <div className="form-group col-sm-5 col-4 m-0 pr-0">
                             <label
                               htmlFor="dateStart"
                               style={{ color: "black" }}
@@ -107,7 +117,7 @@ const Recap = () => {
                               className="form-control"
                             />
                           </div>
-                          <div className="form-group col-sm-5 col-4">
+                          <div className="form-group col-sm-5 col-4 m-0 pl-2">
                             <label htmlFor="dateEnd" style={{ color: "black" }}>
                               End Date:
                             </label>
@@ -118,10 +128,10 @@ const Recap = () => {
                               className="form-control"
                             />
                           </div>
-                          <div className="form-group col-sm-2 mt-3 col-4">
+                          <div className="form-group col-sm-2 mt-3 col-4 p-0">
                             <button
                               type="submit"
-                              className="btn btn-primary mt-3"
+                              className="btn btn-primary mt-3 w-75"
                             >
                               SET
                             </button>
@@ -149,9 +159,9 @@ const Recap = () => {
                       </h6>
                     </a>
                     <div className="collapse show" id="collapseOutcomeCard">
-                      <form onSubmit={handleDate} className="m-3">
+                      <form onSubmit={handleDateOutcome} className="m-3">
                         <div className="row">
-                          <div className="form-group col-sm-5 col-4">
+                          <div className="form-group col-sm-5 col-4 m-0 pr-0">
                             <label
                               htmlFor="dateStart"
                               style={{ color: "black" }}
@@ -160,26 +170,26 @@ const Recap = () => {
                             </label>
                             <input
                               type="date"
-                              name="dateStart"
-                              id="dateStart"
+                              name="dateStartOut"
+                              id="dateStartOut"
                               className="form-control"
                             />
                           </div>
-                          <div className="form-group col-sm-5 col-4">
+                          <div className="form-group col-sm-5 col-4 m-0 pl-2">
                             <label htmlFor="dateEnd" style={{ color: "black" }}>
                               End Date:
                             </label>
                             <input
                               type="date"
-                              name="dateEnd"
-                              id="dateEnd"
+                              name="dateEndOut"
+                              id="dateEndOut"
                               className="form-control"
                             />
                           </div>
-                          <div className="form-group col-sm-2 mt-3 col-4">
+                          <div className="form-group col-sm-2 mt-3 col-4 p-0">
                             <button
                               type="submit"
-                              className="btn btn-primary mt-3"
+                              className="btn btn-primary mt-3 w-75"
                             >
                               SET
                             </button>
