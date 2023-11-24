@@ -20,6 +20,7 @@ const CategoryReactTable = ({
       {
         name: "Action",
         selector: (row) => row.id_kategori,
+        width: "auto",
         cell: (row) => (
           <>
             <button
@@ -63,6 +64,13 @@ const CategoryReactTable = ({
           fixedHeader
           fixedHeaderScrollHeight="300px"
           highlightOnHover
+          expandableRows = {window.innerWidth < 400 ? true : false} 
+          expandableRowsComponent={({ data }) => (
+            <div className="p-3">
+              <div>{data.nama_kategori}</div>
+              <div>{formatterIDR.format(data.budget)}</div>
+            </div>
+          )}
         />
       </div>
     </>
