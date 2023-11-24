@@ -11791,6 +11791,7 @@ body.sidebar-toggled footer.sticky-footer {
 @media (max-width: 576px) { 
   .sidebar {
     align-items: center;
+    z-index: 999000;
   }
   
   .h6{
@@ -11809,6 +11810,9 @@ body.sidebar-toggled footer.sticky-footer {
 @media (max-width: 768px) { 
   .sidebar {
     align-items: center;
+    /* z-index: 99900000000;
+    position: absolute;
+    height: 100%; */
   }
  }
 

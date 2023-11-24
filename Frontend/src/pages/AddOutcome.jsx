@@ -238,27 +238,25 @@ const AddOutcome = () => {
             <div className="d-sm-flex align-items-center justify-content-between mb-4">
               <h1 className="h3 mb-0 text-gray-800">Outcomes</h1>
             </div>
-            <div className="container-fluid">
-              <div className="card shadow mb-4 mt-5">
-                <div className="card-header py-3">
-                  <h6 className="m-0 font-weight-bold text-primary text-center">
-                    OUTCOME
-                  </h6>
-                </div>
-                <div className="card-body">
-                  <button
-                    type="button"
-                    className="btn btn-primary mb-4"
-                    data-toggle="modal"
-                    data-target="#addoutcomemodal"
-                  >
-                    Add Outcome
-                  </button>
-                  <TableReactOutcome
-                    allOutcome={userOutcomes}
-                    handleDeleteClick={handleDeleteOnClick}
-                  />
-                </div>
+            <div className="card shadow mb-4 mt-5">
+              <div className="card-header py-3">
+                <h6 className="m-0 font-weight-bold text-primary text-center">
+                  OUTCOME
+                </h6>
+              </div>
+              <div className="card-body">
+                <button
+                  type="button"
+                  className="btn btn-primary mb-4"
+                  data-toggle="modal"
+                  data-target="#addoutcomemodal"
+                >
+                  Add Outcome
+                </button>
+                <TableReactOutcome
+                  allOutcome={userOutcomes}
+                  handleDeleteClick={handleDeleteOnClick}
+                />
               </div>
             </div>
           </div>
