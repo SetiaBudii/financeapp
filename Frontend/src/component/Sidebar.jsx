@@ -9,8 +9,8 @@ const Sidebar = () => {
   };
 
   const sidebarClassName = isSidebarOpen
-    ? "navbar-nav bg-gradient-dark sidebar sidebar-dark accordion"
-    : "navbar-nav bg-gradient-dark sidebar sidebar-dark accordion toggled";
+    ? "navbar-nav bg-gradient-dark sidebar sidebar-dark accordion toggled"
+    : "navbar-nav bg-gradient-dark sidebar sidebar-dark accordion ";
 
   return (
     <>

@@ -102,7 +102,7 @@ const Navbar = () => {
               aria-haspopup="true"
               aria-expanded="false"
             >
-              <span className="mr-2 d-none d-lg-inline text-gray-600 medium">
+              <span className="mr-2 d-lg-inline text-gray-600 medium">
                 {username}
               </span>
               <img

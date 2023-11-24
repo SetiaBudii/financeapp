@@ -148,20 +148,20 @@ const Wallet = () => {
                       className="table table-bordered text-center"
                       id="dataTable"
                     >
-                      <thead>
+                      <thead style={{ backgroundColor: '#74807e', color:'white' }}>
                         <tr>
                           <th>Tipe</th>
                           <th>Saldo</th>
                           <th>Action</th>
                         </tr>
                       </thead>
-                      <tbody>
+                      <tbody style={{color:'black'}}>
                         {allWallet &&
                           allWallet.map((wallet) => (
                             <tr key={wallet.username}>
                               <td>{wallet.tipe}</td>
                               <td className="text-align-center">
-                                {wallet.saldo.toLocaleString("de-DE")}
+                                {formatterIDR.format(wallet.saldo)}
                               </td>
                               <td>
                                 <button
