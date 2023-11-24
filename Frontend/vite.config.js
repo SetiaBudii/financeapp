@@ -13,13 +13,6 @@ export default defineConfig({
       devOptions: {
         enabled: true,
       },
-      // add this to cache all the imports
-      workbox: {
-        globPatterns: ["**/*"],
-      },
-      // add this to cache all the
-      // static assets in the public folder
-      includeAssets: ["**/*"],
       manifest: {
         name: "BudgetBuddy",
         short_name: "BudgetBuddy",
@@ -52,7 +45,7 @@ export default defineConfig({
             urlPattern: ({ url }) => true,
             handler: "NetworkFirst",
             options: {
-              cacheName: "api-cache",
+              cacheName: "api-cache-dua",
               cacheableResponse: {
                 statuses: [0, 200],
               },
