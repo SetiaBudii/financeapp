@@ -93,7 +93,7 @@ const Recap = () => {
                     <div className="collapse show" id="collapseIncomeCard">
                       <form onSubmit={handleDate} className="m-3">
                         <div className="row">
-                          <div className="form-group col-sm-5">
+                          <div className="form-group col-sm-5 col-4">
                             <label
                               htmlFor="dateStart"
                               style={{ color: "black" }}
@@ -107,7 +107,7 @@ const Recap = () => {
                               className="form-control"
                             />
                           </div>
-                          <div className="form-group col-sm-5">
+                          <div className="form-group col-sm-5 col-4">
                             <label htmlFor="dateEnd" style={{ color: "black" }}>
                               End Date:
                             </label>
@@ -118,7 +118,7 @@ const Recap = () => {
                               className="form-control"
                             />
                           </div>
-                          <div className="form-group col-sm-2 mt-3">
+                          <div className="form-group col-sm-2 mt-3 col-4">
                             <button
                               type="submit"
                               className="btn btn-primary mt-3"
@@ -151,7 +151,7 @@ const Recap = () => {
                     <div className="collapse show" id="collapseOutcomeCard">
                       <form onSubmit={handleDate} className="m-3">
                         <div className="row">
-                          <div className="form-group col-sm-5">
+                          <div className="form-group col-sm-5 col-4">
                             <label
                               htmlFor="dateStart"
                               style={{ color: "black" }}
@@ -165,7 +165,7 @@ const Recap = () => {
                               className="form-control"
                             />
                           </div>
-                          <div className="form-group col-sm-5">
+                          <div className="form-group col-sm-5 col-4">
                             <label htmlFor="dateEnd" style={{ color: "black" }}>
                               End Date:
                             </label>
@@ -176,7 +176,7 @@ const Recap = () => {
                               className="form-control"
                             />
                           </div>
-                          <div className="form-group col-sm-2 mt-3">
+                          <div className="form-group col-sm-2 mt-3 col-4">
                             <button
                               type="submit"
                               className="btn btn-primary mt-3"
