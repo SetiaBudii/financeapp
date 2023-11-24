@@ -101,7 +101,7 @@ const Recap = () => {
                       </h6>
                     </a>
                     <div className="collapse show" id="collapseIncomeCard">
-                      <form onSubmit={handleDate} className="m-3">
+                      <form onSubmit={handleDate} className="m-3 d-none d-md-block">
                         <div className="row">
                           <div className="form-group col-sm-5 col-4 m-0 pr-0">
                             <label
@@ -138,6 +138,43 @@ const Recap = () => {
                           </div>
                         </div>
                       </form>
+                      <form onSubmit={handleDate} className="m-3 d-md-none">
+                        <div className="row">
+                          <div className="form-group col-12">
+                            <label
+                              htmlFor="dateStart"
+                              style={{ color: "black" }}
+                            >
+                              Start Date:
+                            </label>
+                            <input
+                              type="date"
+                              name="dateStart"
+                              id="dateStart"
+                              className="form-control"
+                            />
+                          </div>
+                          <div className="form-group col-12">
+                            <label htmlFor="dateEnd" style={{ color: "black" }}>
+                              End Date:
+                            </label>
+                            <input
+                              type="date"
+                              name="dateEnd"
+                              id="dateEnd"
+                              className="form-control"
+                            />
+                          </div>
+                          <div className="form-group col-sm-2 align-items-center justify-content-center text-center">
+                            <button
+                              type="submit"
+                              className="btn btn-primary mt-3 w-50"
+                            >
+                              SET
+                            </button>
+                          </div>
+                        </div>
+                      </form>
                       <div className="card-body pt-1">
                         <Table data={allIncome} type="income" />
                       </div>
@@ -159,7 +196,7 @@ const Recap = () => {
                       </h6>
                     </a>
                     <div className="collapse show" id="collapseOutcomeCard">
-                      <form onSubmit={handleDateOutcome} className="m-3">
+                      <form onSubmit={handleDateOutcome} className="m-3 d-none d-md-block">
                         <div className="row">
                           <div className="form-group col-sm-5 col-4 m-0 pr-0">
                             <label
@@ -190,6 +227,43 @@ const Recap = () => {
                             <button
                               type="submit"
                               className="btn btn-primary mt-3 w-75"
+                            >
+                              SET
+                            </button>
+                          </div>
+                        </div>
+                      </form>
+                      <form onSubmit={handleDateOutcome} className="m-3 d-md-none">
+                        <div className="row">
+                          <div className="form-group col-12">
+                            <label
+                              htmlFor="dateStart"
+                              style={{ color: "black" }}
+                            >
+                              Start Date:
+                            </label>
+                            <input
+                              type="date"
+                              name="dateStartOut"
+                              id="dateStartOut"
+                              className="form-control"
+                            />
+                          </div>
+                          <div className="form-group col-12">
+                            <label htmlFor="dateEnd" style={{ color: "black" }}>
+                              End Date:
+                            </label>
+                            <input
+                              type="date"
+                              name="dateEndOut"
+                              id="dateEndOut"
+                              className="form-control"
+                            />
+                          </div>
+                          <div className="form-group col-sm-2 text-center">
+                            <button
+                              type="submit"
+                              className="btn btn-primary mt-3 w-50"
                             >
                               SET
                             </button>

@@ -71,7 +71,7 @@ const WalletForm = ({ username, selectedTipe }) => {
   };
 
   return (
-    <div className="mt-3">
+    <div className="p-0">
       <form onSubmit={handleSubmit}>
         <div className="mb-3 d-flex flex-column">
           <label htmlFor="saldo" className="form-label">

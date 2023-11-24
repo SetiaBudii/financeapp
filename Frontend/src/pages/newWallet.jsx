@@ -54,10 +54,10 @@ const NewWallet = () => {
               <div className="collapse show" id="collapseCardExample">
                 <div className="card-body ">
                   <div className="row ">
-                    <div className="col-lg-6 col-xs-12">
+                    <div className="col-lg-6 col-xs">
                       <ShowTipe onTipeChange={handleTipeChange} />
                     </div>
-                    <div className="col-lg-6 col-xs-12">
+                    <div className="col-lg-6 col-xs">
                       <WalletForm
                         username={username}
                         selectedTipe={selectedTipe}

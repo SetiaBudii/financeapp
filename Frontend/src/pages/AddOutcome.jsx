@@ -45,20 +45,6 @@ const AddOutcome = () => {
     console.log(userOutcomes);
   }, []);
 
-  if (loading) {
-    // Render a Bootstrap-styled loading screen
-    return (
-      <div
-        className="d-flex justify-content-center align-items-center"
-        style={{ height: "100vh" }}
-      >
-        <div className="spinner-border text-primary" role="status">
-          <span className="visually-hidden">Loading</span>
-        </div>
-      </div>
-    );
-  }
-
   const loadOutcome = async () => {
     try {
       const result = await axios.get(
