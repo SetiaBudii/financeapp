@@ -140,7 +140,9 @@ const CardInfo = () => {
         },
         { validateStatus: false }
       );
-      setAllIncome(result.data);
+      console.log("ini income: ", startSTR);
+      setAllIncome(result.data.data);
+      console.log("income data:", result.data);
     } catch (error) {
       console.error("Error loading income data:", error);
     }
