@@ -83,10 +83,7 @@ const Recap = () => {
             <Navbar />
             <div className="container-fluid">
               <div className="row">
-                <div className="col-lg-6 col-md-6 col-sm-6 col-xs-6"></div>
-              </div>
-              <div className="row">
-                <div className="col">
+                <div className="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                   <div className="card shadow mb-4">
                     <a
                       href="#collapseIncomeCard"
@@ -101,7 +98,10 @@ const Recap = () => {
                       </h6>
                     </a>
                     <div className="collapse show" id="collapseIncomeCard">
-                      <form onSubmit={handleDate} className="m-3 d-none d-md-block">
+                      <form
+                        onSubmit={handleDate}
+                        className="m-3 d-none d-md-block"
+                      >
                         <div className="row">
                           <div className="form-group col-sm-5 col-4 m-0 pr-0">
                             <label
@@ -181,7 +181,7 @@ const Recap = () => {
                     </div>
                   </div>
                 </div>
-                <div className="col">
+                <div className="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                   <div className="card shadow mb-4">
                     <a
                       href="#collapseOutcomeCard"
@@ -196,7 +196,10 @@ const Recap = () => {
                       </h6>
                     </a>
                     <div className="collapse show" id="collapseOutcomeCard">
-                      <form onSubmit={handleDateOutcome} className="m-3 d-none d-md-block">
+                      <form
+                        onSubmit={handleDateOutcome}
+                        className="m-3 d-none d-md-block"
+                      >
                         <div className="row">
                           <div className="form-group col-sm-5 col-4 m-0 pr-0">
                             <label
@@ -233,7 +236,10 @@ const Recap = () => {
                           </div>
                         </div>
                       </form>
-                      <form onSubmit={handleDateOutcome} className="m-3 d-md-none">
+                      <form
+                        onSubmit={handleDateOutcome}
+                        className="m-3 d-md-none"
+                      >
                         <div className="row">
                           <div className="form-group col-12">
                             <label
