@@ -26,6 +26,7 @@ PWA04-Finance adalah aplikasi yang dibuat dengan tujuan untuk mengelola pemasuka
 ## Kontributor Lainnya
 
 - **Hanri Fajar R (Tester)**
+- **M Fikrihidayatullah (Tester)**
 
 - **Raditya Pasya H (DevOps)**
   - GitHub: https://github.com/RadityaP
