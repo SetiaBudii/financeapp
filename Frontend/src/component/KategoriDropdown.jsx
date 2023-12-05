@@ -42,7 +42,6 @@ function CategoryDropdown({ onKategoriChange }) {
         value={selectedCategory}
         onChange={handleKategoriChange}
       >
-        <option value="">Select...</option>
         {categories.map((category) => (
           <option key={category.id} value={category.id_kategori}>
             {category.nama_kategori}
