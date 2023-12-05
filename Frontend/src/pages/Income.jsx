@@ -208,6 +208,7 @@ const Income = () => {
                       onChange={handleInputChange}
                       min={1}
                       placeholder="0"
+                      required
                     />
                     <span class="input-group-text rounded-0">.00</span>
                   </div>
@@ -221,6 +222,7 @@ const Income = () => {
                     name="time_stamp"
                     value={newIncome.time_stamp}
                     onChange={handleInputChange}
+                    required
                   />
                 </div>
                 <button type="submit" className="btn btn-primary m-1">

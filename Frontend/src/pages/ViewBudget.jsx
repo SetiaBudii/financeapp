@@ -246,6 +246,7 @@ const ViewBudget = () => {
                     name="nama_kategori"
                     value={newCategory.nama_kategori}
                     onChange={handleInputChange}
+                    required
                   />
                 </div>
                 <div className="form-group">
@@ -261,6 +262,7 @@ const ViewBudget = () => {
                       value={newCategory.budget}
                       onChange={handleInputChange}
                       placeholder="0"
+                      required
                     />
                     <span class="input-group-text rounded-0">.00</span>
                   </div>
@@ -316,6 +318,7 @@ const ViewBudget = () => {
                     name="nama_kategori"
                     value={updateCategory.nama_kategori}
                     onChange={handleUpdateInputChange}
+                    required
                   />
                 </div>
                 <div className="form-group">
@@ -341,6 +344,7 @@ const ViewBudget = () => {
                       value={updateCategory.budget}
                       onChange={handleUpdateInputChange}
                       placeholder="0"
+                      required
                     />
                     <span className="input-group-text rounded-0">.00</span>
                   </div>

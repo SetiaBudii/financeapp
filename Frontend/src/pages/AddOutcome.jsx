@@ -294,6 +294,7 @@ const AddOutcome = () => {
                       onChange={handleInputChange}
                       placeholder="0"
                       min={1}
+                      required
                     />
                     <span class="input-group-text rounded-0">.00</span>
                   </div>
@@ -307,6 +308,7 @@ const AddOutcome = () => {
                     name="time_stamp"
                     value={newOutcome.time_stamp}
                     onChange={handleInputChange}
+                    required
                   />
                 </div>
                 <button type="submit" className="btn btn-primary m-1">

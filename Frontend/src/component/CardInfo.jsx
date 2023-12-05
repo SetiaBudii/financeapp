@@ -17,8 +17,7 @@ const CardInfo = () => {
   const [Actually, setActually] = useState(0);
   const username = Cookies.get("username");
   const date = new Date();
-  const dateNow =
-    date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
+  const dateNow = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
   const start = new Date(date.getFullYear(), date.getMonth(), 1);
   const end = new Date(date.getFullYear(), date.getMonth() + 1, 0);
   const startSTR =
@@ -45,7 +44,9 @@ const CardInfo = () => {
     loadKategori();
     loadKategoriActually();
     loadTotalSaldoWallet();
-  }, [selectedWalletId, selectedKategoriId]);
+    console.log("selected wallet id: ", selectedWalletId);
+    console.log("selected kategori id: ", selectedKategoriId);
+  }, [selectedWalletId, selectedKategoriId,saldo]);
 
   const loadKategori = async () => {
     try {
@@ -91,7 +92,11 @@ const CardInfo = () => {
       if (result.data.data.saldo == null) {
         setSaldo(0);
       } else {
+        console.log(result.data.data.saldo);
+        console.log(result.data.data);
+        console.log("inipisan", result.data.data.saldo);
         setSaldo(result.data.data.saldo);
+        console.log("inisaldo", saldo);
       }
     } catch (error) {
       setSaldo(0);
@@ -169,7 +174,7 @@ const CardInfo = () => {
 
   const handleWalletChange = (value) => {
     setSelectedWalletId(value);
-    console.log("selected wallet id: ", selectedWalletId);
+    console.log("ini",value)
   };
 
   const TotalIncome = allIncome.reduce(

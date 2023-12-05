@@ -21,6 +21,7 @@ const AddIncome = () => {
       setUsername(storedUsername);
     }
     loadIncome();
+    console.log(newIncome);
   }, []);
 
   const loadIncome = async () => {
@@ -228,6 +229,7 @@ const AddIncome = () => {
                       value={newIncome.amount}
                       onChange={handleInputChange}
                       min={1}
+                      required
                     />
                     <span class="input-group-text rounded-0">.00</span>
                   </div>
@@ -241,6 +243,7 @@ const AddIncome = () => {
                     name="time_stamp"
                     value={newIncome.time_stamp}
                     onChange={handleInputChange}
+                    required
                   />
                 </div>
                 <button type="submit" className="btn btn-primary m-1">
