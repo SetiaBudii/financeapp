@@ -15,10 +15,7 @@ const Sidebar = () => {
   return (
     <>
       <ul className={sidebarClassName} id="accordionSidebar">
-        <a
-          className="sidebar-brand d-flex align-items-center justify-content-center"
-          href="index.html"
-        >
+        <a className="sidebar-brand d-flex align-items-center justify-content-center">
           <div class="sidebar-brand-icon rotate-n-15">
             <i class="fas fa-window-restore"></i>
           </div>
