@@ -59,9 +59,9 @@ PWA04-Finance adalah aplikasi yang dibuat dengan tujuan untuk mengelola pemasuka
    ```sh
    npm install
    ```
-3. Install Prisma
+3. Generate Prisma
    ```sh
-   npx install prisma
+   npx prisma generate
    ```
 4. Migrate Database
       ```sh
