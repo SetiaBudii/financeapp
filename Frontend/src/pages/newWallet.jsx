@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Sidebar from "../component/Sidebar";
 import Navbar from "../component/Navbar";
-import Welcome from "../component/Welcome";
 import ShowTipe from "../component/ShowTipe";
 import WalletForm from "../component/WalletComp";
 import Cookies from "js-cookie";
