@@ -49,7 +49,6 @@ const Income = () => {
   const deleteIncome = async (e) => {
     e.preventDefault();
     try {
-      console.log(deletesIncome);
       const data = await axios.delete(
         `http://localhost:5000/income/${deletesIncome.id_income}`,
         { validateStatus: false }

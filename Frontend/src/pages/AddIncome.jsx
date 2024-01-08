@@ -21,7 +21,6 @@ const AddIncome = () => {
       setUsername(storedUsername);
     }
     loadIncome();
-    console.log(newIncome);
   }, []);
 
   const loadIncome = async () => {
@@ -30,7 +29,6 @@ const AddIncome = () => {
         validateStatus: false,
       });
       setAllIncome(result.data.data);
-      console.log(result.data.data);
     } catch (error) {
       console.error("Error loading income data:", error);
     }
@@ -43,7 +41,6 @@ const AddIncome = () => {
         { validateStatus: false }
       );
       setAllKategori(result.data.data);
-      console.log(result.data.data);
     } catch (error) {
       console.error("Error loading income data:", error);
     }
@@ -79,7 +76,6 @@ const AddIncome = () => {
       newIncome.id_wallet = parseInt(newIncome.id_wallet);
       const isoDateString = formatDateToISOString(newIncome.time_stamp);
       newIncome.time_stamp = isoDateString;
-      console.log(newIncome);
       const data = await axios.post("http://localhost:5000/income", newIncome, {
         validateStatus: false,
       });

@@ -32,7 +32,6 @@ const Recap = () => {
         },
         { validateStatus: false }
       );
-      console.log(result.data);
       setAllIncome(result.data.data);
     } catch (error) {
       console.error("Error loading income data:", error);

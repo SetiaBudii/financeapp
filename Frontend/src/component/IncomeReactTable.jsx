@@ -63,7 +63,6 @@ export default IncomeReactTable
 // import React from 'react'
 
 // const IncomeReactTable = ({allIncome,handleDeleteClick}) => {
-//     console.log(allIncome)
 //     return (
 //         <>
 //             <div className="table-responsive">

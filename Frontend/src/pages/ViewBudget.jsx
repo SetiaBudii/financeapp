@@ -43,7 +43,6 @@ const ViewBudget = () => {
       nama_kategori: nama_kategori,
       budget: budget,
     });
-    console.log(updateCategory);
   };
 
   const handleDeleteClick = (id_kategori) => {
@@ -51,7 +50,6 @@ const ViewBudget = () => {
     setDeleteCategory({
       id_kategori: id_kategori,
     });
-    console.log(deleteCategory);
   };
 
   const DeleteCategory = async (event) => {
@@ -122,7 +120,6 @@ const ViewBudget = () => {
         { validateStatus: false }
       );
       setAllKategori(result.data.data);
-      console.log(result.data.data);
     } catch (error) {
       console.error("Error loading outcome data:", error);
     }
@@ -133,7 +130,6 @@ const ViewBudget = () => {
     setDeleteCategory({
       id_kategori: id_kategori,
     });
-    console.log(deleteCategory);
   };
 
   const handleUpdateClickk = (id_kategori, nama_kategori, budget) => {
@@ -146,7 +142,6 @@ const ViewBudget = () => {
   };
 
   const AddNewCategory = async (event) => {
-    console.log(newCategory);
     newCategory.budget = parseInt(newCategory.budget);
     event.preventDefault();
     try {

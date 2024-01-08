@@ -3,7 +3,6 @@ import React, { useMemo } from 'react';
 import DataTable from 'react-data-table-component';
 
 const RecapTable = ({ data }) => {
-    console.log(data);
     const columns = useMemo(
         () => [
             {

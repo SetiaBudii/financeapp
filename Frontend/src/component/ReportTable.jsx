@@ -3,7 +3,6 @@ import React, { useMemo } from 'react';
 import DataTable from 'react-data-table-component';
 
 const ReportTable = ({ data, type }) => {
-    console.log(data);
     // Filter data where amount > 0
     const filteredData = data.filter((row) => row.amount > 0);
     const columns = useMemo(
