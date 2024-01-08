@@ -216,7 +216,6 @@ export const getOutcomeByday = async (req, res) => {
       }
   
       res.json(result);
-      console.log(result);
     } catch (error) {
       console.error('Error retrieving income in period:', error);
       res.status(500).json({ msg: error.message });
@@ -282,14 +281,11 @@ export const getOutcomeByday = async (req, res) => {
         },
       });
 
-      console.log(nama);
-
       const result = [];
       let x = 0;
       outcomeByWallet.forEach((outcome) => {
         for (let i = 0; i < nama.length; i++) {
           if ((parseInt(outcome.id_kategori) === parseInt(nama[i].id_kategori))) {
-            console.log("masuk");
             const modifiedoutcome = {
               amount: outcome._sum.amount,
               username: nama[i].username,
@@ -300,7 +296,6 @@ export const getOutcomeByday = async (req, res) => {
         }
       });
       res.json(result);
-      console.log(result);
     } catch (error) {
       console.error('Error retrieving outcome in period:', error);
       res.status(500).json({ msg: error.message });
