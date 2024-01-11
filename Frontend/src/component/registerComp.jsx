@@ -86,17 +86,17 @@ const RegisterComp = () => {
                                         <div className="form-group row">
                                             <div className="col mb-3 mb-sm-0">
                                                 <input type="text" className="form-control form-control-user" id="exampleFirstName"
-                                                    placeholder="Username" name="username" value={formData.username} onChange={handleInputChange} />
+                                                    placeholder="Username" name="username" value={formData.username} onChange={handleInputChange} required/>
                                             </div>
                                         </div>
                                         <div className="form-group row">
                                             <div className="col-sm-6 mb-3 mb-sm-0">
                                                 <input type="password" className="form-control form-control-user"
-                                                    id="exampleInputPassword" placeholder="Password" name="password" value={formData.password} onChange={handleInputChange} />
+                                                    id="exampleInputPassword" placeholder="Password" name="password" value={formData.password} onChange={handleInputChange} required/>
                                             </div>
                                             <div className="col-sm-6">
                                                 <input type="password" className="form-control form-control-user"
-                                                    id="exampleRepeatPassword" name="repeatPassword" placeholder="Repeat Password" value={formData.repeatPassword} onChange={handleInputChange} />
+                                                    id="exampleRepeatPassword" name="repeatPassword" placeholder="Repeat Password" value={formData.repeatPassword} onChange={handleInputChange} required/>
                                             </div>
                                         </div>
                                         <button type='submit' className="btn btn-primary btn-user btn-block">

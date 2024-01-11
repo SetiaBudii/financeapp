@@ -16,13 +16,9 @@ const Report = () => {
   const startSTR = start.getFullYear() + '-' + (String(start.getMonth() + 1).padStart(2, '0')) + '-' + String(start.getDate()).padStart(2, '0');
   const endSTR = end.getFullYear() + '-' + (String(end.getMonth() + 1).padStart(2, '0')) + '-' + String(end.getDate()).padStart(2, '0');
 
-  console.log(start);
-  console.log(end);
   useEffect(() => {
     loadIncome();
     loadOutcome();
-    console.log(allIncome);
-    console.log(allOutcome);
   }, []);
 
   const loadIncome = async () => {
@@ -34,8 +30,6 @@ const Report = () => {
           endDate: endSTR,
         }
       }, { validateStatus: false });
-      console.log(start);
-      console.log(end);
       setAllIncome(result.data);
     } catch (error) {
       console.error("Error loading income data:", error);

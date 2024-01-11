@@ -16,8 +16,6 @@ function CategoryDropdown({ onKategoriChange }) {
 
     axios.get(`http://localhost:5000/kategori/${storedUsername}`) // Adjust the URL to match your API endpoint
       .then((response) => {
-        console.log(storedUsername)
-        console.log(response.data.data)
         setCategories(response.data.data);
         setSelectedCategory(response.data.data[0].id_kategori);
         onKategoriChange(response.data.data[0].id_kategori);
@@ -42,7 +40,6 @@ function CategoryDropdown({ onKategoriChange }) {
         value={selectedCategory}
         onChange={handleKategoriChange}
       >
-        <option value="">Select...</option>
         {categories.map((category) => (
           <option key={category.id} value={category.id_kategori}>
             {category.nama_kategori}

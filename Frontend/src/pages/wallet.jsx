@@ -134,14 +134,14 @@ const Wallet = () => {
                   </h6>
                 </div>
                 <div className="card-body">
-                  <button
+                  {/* <button
                     type="button"
                     className="btn btn-primary mb-4"
                     data-toggle="modal"
                     data-target="#addtipemodal"
                   >
                     Add Tipe
-                  </button>
+                  </button> */}
                   <div className="table-responsive">
                     <table
                       className="table table-bordered text-center"

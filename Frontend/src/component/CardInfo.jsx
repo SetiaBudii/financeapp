@@ -17,8 +17,7 @@ const CardInfo = () => {
   const [Actually, setActually] = useState(0);
   const username = Cookies.get("username");
   const date = new Date();
-  const dateNow =
-    date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
+  const dateNow = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
   const start = new Date(date.getFullYear(), date.getMonth(), 1);
   const end = new Date(date.getFullYear(), date.getMonth() + 1, 0);
   const startSTR =
@@ -45,7 +44,7 @@ const CardInfo = () => {
     loadKategori();
     loadKategoriActually();
     loadTotalSaldoWallet();
-  }, [selectedWalletId, selectedKategoriId]);
+  }, [selectedWalletId, selectedKategoriId,saldo]);
 
   const loadKategori = async () => {
     try {
@@ -108,8 +107,6 @@ const CardInfo = () => {
         }
       );
 
-      console.log("Wallet data:", result.data);
-
       if (result.data && result.data.length > 0) {
         // Mengambil nilai setiap saldo dan menjumlahkannya
         const total = result.data.reduce((accumulator, wallet) => {
@@ -140,9 +137,7 @@ const CardInfo = () => {
         },
         { validateStatus: false }
       );
-      console.log("ini income: ", startSTR);
       setAllIncome(result.data.data);
-      console.log("income data:", result.data);
     } catch (error) {
       console.error("Error loading income data:", error);
     }
@@ -169,7 +164,6 @@ const CardInfo = () => {
 
   const handleWalletChange = (value) => {
     setSelectedWalletId(value);
-    console.log("selected wallet id: ", selectedWalletId);
   };
 
   const TotalIncome = allIncome.reduce(

@@ -39,7 +39,6 @@ function WalletTypeDropdown({ onWalletChange }) {
         value={selectedWalletId}
         onChange={handleWalletChange}
       >
-        <option value="">Select...</option>
         {walletTypes.map((wallet) => (
           <option key={wallet.id_wallet} value={wallet.id_wallet}>
             {wallet.tipe}

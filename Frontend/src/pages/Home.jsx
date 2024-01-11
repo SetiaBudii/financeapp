@@ -57,7 +57,6 @@ const Home = () => {
 
   // Define a list of months and years
 
-  console.log(months[selectedMonth]);
   const years = [];
   const currentYear = new Date().getFullYear();
   for (let year = currentYear; year >= currentYear - 10; year--) {
@@ -92,8 +91,6 @@ const Home = () => {
       String(endDate.getMonth() + 1).padStart(2, "0") +
       "-" +
       String(endDate.getDate()).padStart(2, "0");
-    console.log(startSTR);
-    console.log(endSTR);
     loadIncome();
     loadOutcome();
     sumAll();
@@ -201,8 +198,6 @@ const Home = () => {
         { validateStatus: false }
       );
       sumAllKategori(result.data);
-      console.log(result.data);
-      console.log(username);
     } catch (error) {
       console.error("Error loading outcome data:", error);
     }
@@ -352,20 +347,25 @@ const Home = () => {
             </div>
             <div class="card shadow mb-4">
               <a
-                href="#collapseCardExample"
+                href="#collapseCardExample1"
                 class="d-block card-header py-3"
                 data-toggle="collapse"
                 role="button"
                 aria-expanded="true"
-                aria-controls="collapseCardExample"
+                aria-controls="collapseCardExample1"
               >
                 <h6 class="m-0 font-weight-bold text-primary text-center">
                   OUTCOMES BASED ON CATEGORY
                 </h6>
               </a>
-              <div class="collapse show" id="collapseCardExample">
+              <div class="collapse show" id="collapseCardExample1">
                 <div class="card-body">
-                  <HighchartsReact highcharts={Highcharts} options={pieChart} />
+                  {/* <HighchartsReact highcharts={Highcharts} options={pieChart} /> */}
+                  {sumKategori.length > 0 ? (
+                    <HighchartsReact highcharts={Highcharts} options={pieChart} />
+                  ) : (
+                    <p className="text-center">No data available</p>
+                  )}
                 </div>
               </div>
             </div>

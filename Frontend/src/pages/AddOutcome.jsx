@@ -34,7 +34,6 @@ const AddOutcome = () => {
     axios
       .get(`http://localhost:5000/outcome/per/${storedUsername}`)
       .then((response) => {
-        console.log(response.data);
         setUserOutcomes(response.data);
         setLoading(false);
       })
@@ -42,7 +41,6 @@ const AddOutcome = () => {
         console.error("Error fetching outcomes:", error);
         setLoading(false);
       });
-    console.log(userOutcomes);
   }, []);
 
   const loadOutcome = async () => {
@@ -52,7 +50,6 @@ const AddOutcome = () => {
       );
       setUserOutcomes(result.data);
       setLoading(false);
-      console.log(username);
     } catch (error) {
       console.error("Error loading outcome data:", error);
     }
@@ -65,9 +62,6 @@ const AddOutcome = () => {
       const saldoWallet = await axios.get(
         `http://localhost:5000/wallet/id/${selectedWalletId}`
       );
-
-      console.log(saldoWallet.data);
-      console.log(newOutcome.amount);
       if (saldoWallet.data.data.saldo < parseInt(newOutcome.amount)) {
         Swal.fire({
           icon: "error",
@@ -90,10 +84,8 @@ const AddOutcome = () => {
       newOutcome.amount = parseInt(newOutcome.amount);
       newOutcome.id_wallet = parseInt(selectedWalletId);
       const isoDateString = formatDateToISOString(newOutcome.time_stamp);
-      console.log(isoDateString);
       newOutcome.time_stamp = isoDateString;
       newOutcome.id_kategori = parseInt(selectedCategory);
-      console.log(newOutcome);
       const data = await axios.post(
         "http://localhost:5000/outcome",
         newOutcome,
@@ -294,6 +286,7 @@ const AddOutcome = () => {
                       onChange={handleInputChange}
                       placeholder="0"
                       min={1}
+                      required
                     />
                     <span class="input-group-text rounded-0">.00</span>
                   </div>
@@ -307,6 +300,7 @@ const AddOutcome = () => {
                     name="time_stamp"
                     value={newOutcome.time_stamp}
                     onChange={handleInputChange}
+                    required
                   />
                 </div>
                 <button type="submit" className="btn btn-primary m-1">

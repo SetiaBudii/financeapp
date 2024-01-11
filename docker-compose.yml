@@ -1,0 +1,45 @@
+version: '3'
+
+services:
+  backend:
+    build:
+      context: Backend
+    ports:
+      - "5005:5005"
+    environment:
+     - DATABASE_URL=postgresql://postgres:1@databaseP:5432/pwa?schema=public
+    depends_on:
+     - databaseP
+  
+  frontend:
+    build:
+      context: Frontend  
+    ports:
+      - "21010:3000"
+    depends_on:
+      - backend
+
+  databaseP:
+    container_name: databaseP
+    image: postgres:latest
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=1
+      - POSTGRES_DB=pwa
+    ports:
+      - 5434:5432
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@example.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - "8080:80"
+    depends_on:
+      - databaseP
+
+volumes:
+  pgdata: 

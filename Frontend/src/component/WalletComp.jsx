@@ -19,8 +19,6 @@ const WalletForm = ({ username, selectedTipe }) => {
       });
 
       // Handle success
-      console.log("Wallet created successfully");
-
       // Show a SweetAlert success pop-up
       Swal.fire({
         icon: "success",
