@@ -11,7 +11,7 @@ function ShowTipe({ onTipeChange }) {
   }, []);
 
   const loadTipe = async () => {
-    const result = await axios.get("http://localhost:5000/tipe_wallet");
+    const result = await axios.get("http://localhost:5005/tipe_wallet");
     setTipeWallets(result.data.data);
   };
 

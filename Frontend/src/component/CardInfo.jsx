@@ -49,7 +49,7 @@ const CardInfo = () => {
   const loadKategori = async () => {
     try {
       const result = await axios.get(
-        `http://localhost:5000/kategori/id/${selectedKategoriId}`,
+        `http://localhost:5005/kategori/id/${selectedKategoriId}`,
         {},
         { validateStatus: false }
       );
@@ -66,7 +66,7 @@ const CardInfo = () => {
   const loadKategoriActually = async () => {
     try {
       const result = await axios.get(
-        `http://localhost:5000/outcome/sum/${selectedKategoriId}`,
+        `http://localhost:5005/outcome/sum/${selectedKategoriId}`,
         {},
         { validateStatus: false }
       );
@@ -83,7 +83,7 @@ const CardInfo = () => {
   const loadWallet = async () => {
     try {
       const result = await axios.get(
-        `http://localhost:5000/wallet/id/${selectedWalletId}`,
+        `http://localhost:5005/wallet/id/${selectedWalletId}`,
         {},
         { validateStatus: false }
       );
@@ -101,7 +101,7 @@ const CardInfo = () => {
     try {
       const username = Cookies.get("username");
       const result = await axios.get(
-        `http://localhost:5000/wallet/${username}`,
+        `http://localhost:5005/wallet/${username}`,
         {
           validateStatus: false,
         }
@@ -127,7 +127,7 @@ const CardInfo = () => {
   const loadIncome = async () => {
     try {
       const result = await axios.get(
-        `http://localhost:5000/income/periode`,
+        `http://localhost:5005/income/periode`,
         {
           params: {
             username: username,
@@ -146,7 +146,7 @@ const CardInfo = () => {
   const loadOutcome = async () => {
     try {
       const result = await axios.get(
-        `http://localhost:5000/outcome/periode`,
+        `http://localhost:5005/outcome/periode`,
         {
           params: {
             username: username,

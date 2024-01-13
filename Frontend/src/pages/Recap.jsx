@@ -22,7 +22,7 @@ const Recap = () => {
   const loadIncome = async () => {
     try {
       const result = await axios.get(
-        `http://localhost:5000/income/totalincomeperiode`,
+        `http://localhost:5005/income/totalincomeperiode`,
         {
           params: {
             username: Cookies.get("username"),
@@ -41,7 +41,7 @@ const Recap = () => {
   const loadOutcome = async () => {
     try {
       const result = await axios.get(
-        `http://localhost:5000/outcome/total`,
+        `http://localhost:5005/outcome/total`,
         {
           params: {
             username: Cookies.get("username"),

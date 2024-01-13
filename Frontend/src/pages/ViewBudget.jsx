@@ -56,7 +56,7 @@ const ViewBudget = () => {
     event.preventDefault();
     try {
       const result = await axios.delete(
-        `http://localhost:5000/kategori/${deleteCategory.id_kategori}`,
+        `http://localhost:5005/kategori/${deleteCategory.id_kategori}`,
         { validateStatus: false }
       );
 
@@ -85,7 +85,7 @@ const ViewBudget = () => {
     event.preventDefault();
     try {
       const result = await axios.put(
-        `http://localhost:5000/kategori/${updateCategory.id_kategori}`,
+        `http://localhost:5005/kategori/${updateCategory.id_kategori}`,
         updateCategory,
         { validateStatus: false }
       );
@@ -116,7 +116,7 @@ const ViewBudget = () => {
   const loadKategori = async () => {
     try {
       const result = await axios.get(
-        `http://localhost:5000/kategori/${username}`,
+        `http://localhost:5005/kategori/${username}`,
         { validateStatus: false }
       );
       setAllKategori(result.data.data);
@@ -146,7 +146,7 @@ const ViewBudget = () => {
     event.preventDefault();
     try {
       const result = await axios.post(
-        `http://localhost:5000/kategori`,
+        `http://localhost:5005/kategori`,
         newCategory,
         { validateStatus: false }
       );

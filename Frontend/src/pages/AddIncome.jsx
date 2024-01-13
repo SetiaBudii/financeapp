@@ -25,7 +25,7 @@ const AddIncome = () => {
 
   const loadIncome = async () => {
     try {
-      const result = await axios.get("http://localhost:5000/income", {
+      const result = await axios.get("http://localhost:5005/income", {
         validateStatus: false,
       });
       setAllIncome(result.data.data);
@@ -37,7 +37,7 @@ const AddIncome = () => {
   const loadKategori = async () => {
     try {
       const result = await axios.get(
-        `http://localhost:5000/kategori/${username}`,
+        `http://localhost:5005/kategori/${username}`,
         { validateStatus: false }
       );
       setAllKategori(result.data.data);
@@ -76,7 +76,7 @@ const AddIncome = () => {
       newIncome.id_wallet = parseInt(newIncome.id_wallet);
       const isoDateString = formatDateToISOString(newIncome.time_stamp);
       newIncome.time_stamp = isoDateString;
-      const data = await axios.post("http://localhost:5000/income", newIncome, {
+      const data = await axios.post("http://localhost:5005/income", newIncome, {
         validateStatus: false,
       });
 

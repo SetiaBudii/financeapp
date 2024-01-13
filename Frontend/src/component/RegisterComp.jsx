@@ -37,7 +37,7 @@ const RegisterComp = () => {
           }
 
         try {
-            const response = await axios.post('http://localhost:5000/users', formData, { validateStatus: false });
+            const response = await axios.post('http://localhost:5005/users', formData, { validateStatus: false });
             if(response.status === 201){
                 Swal.fire({
                     icon: 'success',

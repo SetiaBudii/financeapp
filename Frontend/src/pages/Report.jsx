@@ -23,7 +23,7 @@ const Report = () => {
 
   const loadIncome = async () => {
     try {
-      const result = await axios.get(`http://localhost:5000/income/totalincomeperiode`, {
+      const result = await axios.get(`http://localhost:5005/income/totalincomeperiode`, {
         params: {
           username: Cookies.get("username"),
           startDate: startSTR,
@@ -38,7 +38,7 @@ const Report = () => {
 
   const loadOutcome = async () => {
     try {
-      const result = await axios.get(`http://localhost:5000/outcome/total`, {
+      const result = await axios.get(`http://localhost:5005/outcome/total`, {
         params: {
           username: Cookies.get("username"),
           startDate: startSTR,
