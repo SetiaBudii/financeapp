@@ -158,3 +158,14 @@ CREATE TRIGGER update_wallet_saldo_on_income_delete_trigger
 BEFORE DELETE ON income
 FOR EACH ROW
 EXECUTE FUNCTION update_wallet_saldo_on_income_delete();
+
+INSERT INTO tipe_wallet (tipe) VALUES ('BNI')
+INSERT INTO tipe_wallet (tipe) VALUES ('BRI')
+INSERT INTO tipe_wallet (tipe) VALUES ('DANA')
+INSERT INTO tipe_wallet (tipe) VALUES ('GOPAY')
+INSERT INTO tipe_wallet (tipe) VALUES ('MANDIRI')
+INSERT INTO tipe_wallet (tipe) VALUES ('OVO')
+INSERT INTO tipe_wallet (tipe) VALUES ('SHOPEEPAY')
+INSERT INTO tipe_wallet (tipe) VALUES ('WALLET-1')
+INSERT INTO tipe_wallet (tipe) VALUES ('WALLET-2')
+INSERT INTO tipe_wallet (tipe) VALUES ('LAINNYA')
