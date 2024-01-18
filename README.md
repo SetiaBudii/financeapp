@@ -1,5 +1,5 @@
 <div align="center">
-  <h1 align="center">PWA04-Finance</h1>
+  <h1 align="center"> PWA04-Finance </h1>
 </div>
 
 <!-- ABOUT THE PROJECT -->
