@@ -33,7 +33,7 @@ const AddOutcome = () => {
     }
 
     axios
-      .get(`http://${config.apiUrl}/outcome/per/${storedUsername}`)
+      .get(`${config.apiUrl}/outcome/per/${storedUsername}`)
       .then((response) => {
         setUserOutcomes(response.data);
         setLoading(false);
@@ -47,7 +47,7 @@ const AddOutcome = () => {
   const loadOutcome = async () => {
     try {
       const result = await axios.get(
-        `http://${config.apiUrl}/outcome/per/${username}`
+        `${config.apiUrl}/outcome/per/${username}`
       );
       setUserOutcomes(result.data);
       setLoading(false);
@@ -61,7 +61,7 @@ const AddOutcome = () => {
 
     try {
       const saldoWallet = await axios.get(
-        `http://${config.apiUrl}/wallet/id/${selectedWalletId}`
+        `${config.apiUrl}/wallet/id/${selectedWalletId}`
       );
       if (saldoWallet.data.data.saldo < parseInt(newOutcome.amount)) {
         Swal.fire({
@@ -88,7 +88,7 @@ const AddOutcome = () => {
       newOutcome.time_stamp = isoDateString;
       newOutcome.id_kategori = parseInt(selectedCategory);
       const data = await axios.post(
-        "http://${config.apiUrl}/outcome",
+        "${config.apiUrl}/outcome",
         newOutcome,
         { validateStatus: false }
       );
@@ -184,7 +184,7 @@ const AddOutcome = () => {
     e.preventDefault();
     try {
       const data = await axios.delete(
-        `http://${config.apiUrl}/outcome/${deletesOutcome.id_outcome}`,
+        `${config.apiUrl}/outcome/${deletesOutcome.id_outcome}`,
         { validateStatus: false }
       );
       if (data.status === 200) {

@@ -13,7 +13,7 @@ const WalletForm = ({ username, selectedTipe }) => {
     const saldoValue = parseInt(saldo, 10);
 
     try {
-      await axios.post("http://${config.apiUrl}/wallet", {
+      await axios.post("${config.apiUrl}/wallet", {
         username,
         saldo: saldoValue, // Send the converted value
         tipe_wallet: selectedTipe,

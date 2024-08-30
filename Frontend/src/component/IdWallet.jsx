@@ -12,7 +12,7 @@ const IdWallet  = ({ id }) => {
     }, []);
 
     const loadTipeWallet = async () => {
-        const result = await axios.get(`http://${config.apiUrl}/wallet/${username}/${id}`);
+        const result = await axios.get(`${config.apiUrl}/wallet/${username}/${id}`);
         setTipeWallet(result.data.data.tipe);
     }
 

@@ -10,7 +10,7 @@ const Userlist = () => {
     }, [])
 
     const loadUsers = async () => {
-        const result = await axios.get("http://${config.apiUrl}/users")
+        const result = await axios.get("${config.apiUrl}/users")
         setUsers(result.data)
     }
     

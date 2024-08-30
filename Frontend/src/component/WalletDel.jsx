@@ -10,7 +10,7 @@ const WalletDel = ({ username, selectedTipe }) => {
     e.preventDefault();
 
     try {
-      await axios.delete(`http://${config.apiUrl}/wallet/${username}/${selectedTipe}`);
+      await axios.delete(`${config.apiUrl}/wallet/${username}/${selectedTipe}`);
       // Show a SweetAlert success pop-up
       Swal.fire({
         icon: 'success',

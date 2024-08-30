@@ -100,7 +100,7 @@ const Home = () => {
   const loadIncome = async () => {
     try {
       const result = await axios.get(
-        `http://${config.apiUrl}/income/totalincomeperiode`,
+        `${config.apiUrl}/income/totalincomeperiode`,
         {
           params: {
             username: Cookies.get("username"),
@@ -119,7 +119,7 @@ const Home = () => {
   const loadOutcome = async () => {
     try {
       const result = await axios.get(
-        `http://${config.apiUrl}/outcome/total`,
+        `${config.apiUrl}/outcome/total`,
         {
           params: {
             username: Cookies.get("username"),
@@ -194,7 +194,7 @@ const Home = () => {
   const sumAll = async () => {
     try {
       const result = await axios.get(
-        `http://${config.apiUrl}/outcome/sumall/${username}`,
+        `${config.apiUrl}/outcome/sumall/${username}`,
         {},
         { validateStatus: false }
       );

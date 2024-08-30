@@ -25,7 +25,7 @@ const Wallet = () => {
 
   const loadKategori = async (x) => {
     try {
-      const result = await axios.get(`http://${config.apiUrl}/wallets/${x}`, {
+      const result = await axios.get(`${config.apiUrl}/wallets/${x}`, {
         validateStatus: false,
       });
       setAllWallet(result.data.data);
@@ -38,7 +38,7 @@ const Wallet = () => {
     e.preventDefault();
     try {
       const data = await axios.post(
-        "http://${config.apiUrl}/tipe_wallet",
+        "${config.apiUrl}/tipe_wallet",
         newTipe,
         { validateStatus: false }
       );
@@ -75,7 +75,7 @@ const Wallet = () => {
   const handleSubmitDelete = async (selectedTipe) => {
     try {
       await axios.delete(
-        `http://${config.apiUrl}/wallet/${username}/${selectedTipe}`
+        `${config.apiUrl}/wallet/${username}/${selectedTipe}`
       );
 
       Swal.fire({

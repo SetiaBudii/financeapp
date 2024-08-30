@@ -30,7 +30,7 @@ const LoginForm = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post(`http://${config.apiUrl}/users/login`, formData, { validateStatus: false }); // Replace with your API endpoint
+      const response = await axios.post(`${config.apiUrl}/users/login`, formData, { validateStatus: false }); // Replace with your API endpoint
       if (response.status === 200) {
         setDefaultPageAttributes();
         Cookies.set('username', response.data.username, { expires: 1 }); // Save username to cookie with expiry of 1 day

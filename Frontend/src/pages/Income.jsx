@@ -34,7 +34,7 @@ const Income = () => {
   const loadIncome = async () => {
     try {
       const result = await axios.get(
-        `http://${config.apiUrl}/income/per/${Cookies.get("username")}`,
+        `${config.apiUrl}/income/per/${Cookies.get("username")}`,
         { validateStatus: false }
       );
       setAllIncome(result.data.data);
@@ -51,7 +51,7 @@ const Income = () => {
     e.preventDefault();
     try {
       const data = await axios.delete(
-        `http://${config.apiUrl}/income/${deletesIncome.id_income}`,
+        `${config.apiUrl}/income/${deletesIncome.id_income}`,
         { validateStatus: false }
       );
       if (data.status === 200) {
@@ -91,7 +91,7 @@ const Income = () => {
       newIncome.id_wallet = parseInt(selectedWalletId);
       const date = new Date(newIncome.time_stamp);
       newIncome.time_stamp = date.toISOString();
-      const data = await axios.post("http://${config.apiUrl}/income", newIncome, {
+      const data = await axios.post("${config.apiUrl}/income", newIncome, {
         validateStatus: false,
       });
 

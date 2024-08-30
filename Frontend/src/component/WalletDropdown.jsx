@@ -14,7 +14,7 @@ function WalletTypeDropdown({ onWalletChange }) {
             setUsername(storedUsername)
         }
     // Fetch the list of wallet types for the given username from your Express API
-    axios.get(`http://${config.apiUrl}/wallet/${storedUsername}`) // Adjust the URL to match your API endpoint
+    axios.get(`${config.apiUrl}/wallet/${storedUsername}`) // Adjust the URL to match your API endpoint
       .then((response) => {
         setWalletTypes(response.data);
         setSelectedWalletId(response.data[0].id_wallet);

@@ -57,7 +57,7 @@ const ViewBudget = () => {
     event.preventDefault();
     try {
       const result = await axios.delete(
-        `http://${config.apiUrl}/kategori/${deleteCategory.id_kategori}`,
+        `${config.apiUrl}/kategori/${deleteCategory.id_kategori}`,
         { validateStatus: false }
       );
 
@@ -86,7 +86,7 @@ const ViewBudget = () => {
     event.preventDefault();
     try {
       const result = await axios.put(
-        `http://${config.apiUrl}/kategori/${updateCategory.id_kategori}`,
+        `${config.apiUrl}/kategori/${updateCategory.id_kategori}`,
         updateCategory,
         { validateStatus: false }
       );
@@ -117,7 +117,7 @@ const ViewBudget = () => {
   const loadKategori = async () => {
     try {
       const result = await axios.get(
-        `http://${config.apiUrl}/kategori/${username}`,
+        `${config.apiUrl}/kategori/${username}`,
         { validateStatus: false }
       );
       setAllKategori(result.data.data);
@@ -147,7 +147,7 @@ const ViewBudget = () => {
     event.preventDefault();
     try {
       const result = await axios.post(
-        `http://${config.apiUrl}/kategori`,
+        `${config.apiUrl}/kategori`,
         newCategory,
         { validateStatus: false }
       );
