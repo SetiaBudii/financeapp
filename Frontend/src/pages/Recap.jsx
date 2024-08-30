@@ -5,6 +5,7 @@ import Sidebar from "../component/Sidebar";
 import Navbar from "../component/Navbar";
 import Table from "../component/ReportTable";
 import axios from "axios";
+import config from './config';
 
 const Recap = () => {
   const [allIncome, setAllIncome] = useState([]);
@@ -22,7 +23,7 @@ const Recap = () => {
   const loadIncome = async () => {
     try {
       const result = await axios.get(
-        `http://${process.env.REACT_APP_API_URL}/income/totalincomeperiode`,
+        `http://${apiUrl}/income/totalincomeperiode`,
         {
           params: {
             username: Cookies.get("username"),
@@ -41,7 +42,7 @@ const Recap = () => {
   const loadOutcome = async () => {
     try {
       const result = await axios.get(
-        `http://${process.env.REACT_APP_API_URL}/outcome/total`,
+        `http://${apiUrl}/outcome/total`,
         {
           params: {
             username: Cookies.get("username"),

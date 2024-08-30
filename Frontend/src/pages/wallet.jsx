@@ -4,6 +4,7 @@ import Navbar from "../component/Navbar";
 import axios from "axios";
 import Swal from "sweetalert2";
 import Cookies from "js-cookie";
+import config from './config';
 
 const Wallet = () => {
   const [allWallet, setAllWallet] = useState([]);
@@ -24,7 +25,7 @@ const Wallet = () => {
 
   const loadKategori = async (x) => {
     try {
-      const result = await axios.get(`http://${process.env.REACT_APP_API_URL}/wallets/${x}`, {
+      const result = await axios.get(`http://${apiUrl}/wallets/${x}`, {
         validateStatus: false,
       });
       setAllWallet(result.data.data);
@@ -37,7 +38,7 @@ const Wallet = () => {
     e.preventDefault();
     try {
       const data = await axios.post(
-        "http://${process.env.REACT_APP_API_URL}/tipe_wallet",
+        "http://${apiUrl}/tipe_wallet",
         newTipe,
         { validateStatus: false }
       );
@@ -74,7 +75,7 @@ const Wallet = () => {
   const handleSubmitDelete = async (selectedTipe) => {
     try {
       await axios.delete(
-        `http://${process.env.REACT_APP_API_URL}/wallet/${username}/${selectedTipe}`
+        `http://${apiUrl}/wallet/${username}/${selectedTipe}`
       );
 
       Swal.fire({

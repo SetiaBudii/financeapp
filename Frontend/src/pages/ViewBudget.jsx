@@ -5,6 +5,7 @@ import TableKategori from "../component/CategoryReactTable";
 import Cookies from "js-cookie";
 import axios from "axios";
 import Swal from "sweetalert2";
+import config from './config';
 
 const ViewBudget = () => {
   const [allKategori, setAllKategori] = useState([]);
@@ -56,7 +57,7 @@ const ViewBudget = () => {
     event.preventDefault();
     try {
       const result = await axios.delete(
-        `http://${process.env.REACT_APP_API_URL}/kategori/${deleteCategory.id_kategori}`,
+        `http://${apiUrl}/kategori/${deleteCategory.id_kategori}`,
         { validateStatus: false }
       );
 
@@ -85,7 +86,7 @@ const ViewBudget = () => {
     event.preventDefault();
     try {
       const result = await axios.put(
-        `http://${process.env.REACT_APP_API_URL}/kategori/${updateCategory.id_kategori}`,
+        `http://${apiUrl}/kategori/${updateCategory.id_kategori}`,
         updateCategory,
         { validateStatus: false }
       );
@@ -116,7 +117,7 @@ const ViewBudget = () => {
   const loadKategori = async () => {
     try {
       const result = await axios.get(
-        `http://${process.env.REACT_APP_API_URL}/kategori/${username}`,
+        `http://${apiUrl}/kategori/${username}`,
         { validateStatus: false }
       );
       setAllKategori(result.data.data);
@@ -146,7 +147,7 @@ const ViewBudget = () => {
     event.preventDefault();
     try {
       const result = await axios.post(
-        `http://${process.env.REACT_APP_API_URL}/kategori`,
+        `http://${apiUrl}/kategori`,
         newCategory,
         { validateStatus: false }
       );

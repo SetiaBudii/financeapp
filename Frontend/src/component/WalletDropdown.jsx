@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
+import config from './config';
 
 function WalletTypeDropdown({ onWalletChange }) {
   const [username, setUsername] = useState('');
@@ -13,7 +14,7 @@ function WalletTypeDropdown({ onWalletChange }) {
             setUsername(storedUsername)
         }
     // Fetch the list of wallet types for the given username from your Express API
-    axios.get(`http://${process.env.REACT_APP_API_URL}/wallet/${storedUsername}`) // Adjust the URL to match your API endpoint
+    axios.get(`http://${apiUrl}/wallet/${storedUsername}`) // Adjust the URL to match your API endpoint
       .then((response) => {
         setWalletTypes(response.data);
         setSelectedWalletId(response.data[0].id_wallet);

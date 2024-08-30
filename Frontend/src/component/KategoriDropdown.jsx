@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from "axios";
 import Swal from "sweetalert2";
 import Cookies from 'js-cookie';
+import config from './config';
 
 function CategoryDropdown({ onKategoriChange }) {
   const [username, setUsername] = useState('');
@@ -14,7 +15,7 @@ function CategoryDropdown({ onKategoriChange }) {
             setUsername(storedUsername)
         }
 
-    axios.get(`http://${process.env.REACT_APP_API_URL}/kategori/${storedUsername}`) // Adjust the URL to match your API endpoint
+    axios.get(`http://${apiUrl}/kategori/${storedUsername}`) // Adjust the URL to match your API endpoint
       .then((response) => {
         setCategories(response.data.data);
         setSelectedCategory(response.data.data[0].id_kategori);

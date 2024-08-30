@@ -1,5 +1,6 @@
 import React, {useState,useEffect} from 'react'
 import axios from 'axios'
+import config from './config';
 
 const Userlist = () => {
  const [users, setUsers] = useState([])
@@ -9,7 +10,7 @@ const Userlist = () => {
     }, [])
 
     const loadUsers = async () => {
-        const result = await axios.get("http://${process.env.REACT_APP_API_URL}/users")
+        const result = await axios.get("http://${apiUrl}/users")
         setUsers(result.data)
     }
     

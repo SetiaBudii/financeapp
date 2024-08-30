@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import { Link } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import Swal from 'sweetalert2';
+import config from './config';
 
 
 const LoginForm = () => {
@@ -29,7 +30,7 @@ const LoginForm = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post(`http://${process.env.REACT_APP_API_URL}/users/login`, formData, { validateStatus: false }); // Replace with your API endpoint
+      const response = await axios.post(`http://${apiUrl}/users/login`, formData, { validateStatus: false }); // Replace with your API endpoint
       if (response.status === 200) {
         setDefaultPageAttributes();
         Cookies.set('username', response.data.username, { expires: 1 }); // Save username to cookie with expiry of 1 day

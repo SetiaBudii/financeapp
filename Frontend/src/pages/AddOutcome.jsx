@@ -7,6 +7,7 @@ import TableReactOutcome from "../component/OutcomeReactTable";
 import axios from "axios";
 import Swal from "sweetalert2";
 import Cookies from "js-cookie";
+import config from './config';
 
 const AddOutcome = () => {
   const [username, setUsername] = useState("");
@@ -32,7 +33,7 @@ const AddOutcome = () => {
     }
 
     axios
-      .get(`http://${process.env.REACT_APP_API_URL}/outcome/per/${storedUsername}`)
+      .get(`http://${apiUrl}/outcome/per/${storedUsername}`)
       .then((response) => {
         setUserOutcomes(response.data);
         setLoading(false);
@@ -46,7 +47,7 @@ const AddOutcome = () => {
   const loadOutcome = async () => {
     try {
       const result = await axios.get(
-        `http://${process.env.REACT_APP_API_URL}/outcome/per/${username}`
+        `http://${apiUrl}/outcome/per/${username}`
       );
       setUserOutcomes(result.data);
       setLoading(false);
@@ -60,7 +61,7 @@ const AddOutcome = () => {
 
     try {
       const saldoWallet = await axios.get(
-        `http://${process.env.REACT_APP_API_URL}/wallet/id/${selectedWalletId}`
+        `http://${apiUrl}/wallet/id/${selectedWalletId}`
       );
       if (saldoWallet.data.data.saldo < parseInt(newOutcome.amount)) {
         Swal.fire({
@@ -87,7 +88,7 @@ const AddOutcome = () => {
       newOutcome.time_stamp = isoDateString;
       newOutcome.id_kategori = parseInt(selectedCategory);
       const data = await axios.post(
-        "http://${process.env.REACT_APP_API_URL}/outcome",
+        "http://${apiUrl}/outcome",
         newOutcome,
         { validateStatus: false }
       );
@@ -183,7 +184,7 @@ const AddOutcome = () => {
     e.preventDefault();
     try {
       const data = await axios.delete(
-        `http://${process.env.REACT_APP_API_URL}/outcome/${deletesOutcome.id_outcome}`,
+        `http://${apiUrl}/outcome/${deletesOutcome.id_outcome}`,
         { validateStatus: false }
       );
       if (data.status === 200) {

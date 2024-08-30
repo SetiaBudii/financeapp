@@ -8,6 +8,7 @@ import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
 import axios, { all } from "axios";
 import Cookies from "js-cookie";
+import config from './config';
 
 const Home = () => {
   const [allIncome, setAllIncome] = useState([]);
@@ -99,7 +100,7 @@ const Home = () => {
   const loadIncome = async () => {
     try {
       const result = await axios.get(
-        `http://${process.env.REACT_APP_API_URL}/income/totalincomeperiode`,
+        `http://${apiUrl}/income/totalincomeperiode`,
         {
           params: {
             username: Cookies.get("username"),
@@ -118,7 +119,7 @@ const Home = () => {
   const loadOutcome = async () => {
     try {
       const result = await axios.get(
-        `http://${process.env.REACT_APP_API_URL}/outcome/total`,
+        `http://${apiUrl}/outcome/total`,
         {
           params: {
             username: Cookies.get("username"),
@@ -193,7 +194,7 @@ const Home = () => {
   const sumAll = async () => {
     try {
       const result = await axios.get(
-        `http://${process.env.REACT_APP_API_URL}/outcome/sumall/${username}`,
+        `http://${apiUrl}/outcome/sumall/${username}`,
         {},
         { validateStatus: false }
       );

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
+import config from './config';
 
 const WalletDel = ({ username, selectedTipe }) => {
   const [saldo, setSaldo] = useState('');
@@ -9,7 +10,7 @@ const WalletDel = ({ username, selectedTipe }) => {
     e.preventDefault();
 
     try {
-      await axios.delete(`http://${process.env.REACT_APP_API_URL}/wallet/${username}/${selectedTipe}`);
+      await axios.delete(`http://${apiUrl}/wallet/${username}/${selectedTipe}`);
       // Show a SweetAlert success pop-up
       Swal.fire({
         icon: 'success',
