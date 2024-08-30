@@ -24,7 +24,7 @@ const Wallet = () => {
 
   const loadKategori = async (x) => {
     try {
-      const result = await axios.get(`http://localhost:5005/wallets/${x}`, {
+      const result = await axios.get(`http://${process.env.REACT_APP_API_URL}/wallets/${x}`, {
         validateStatus: false,
       });
       setAllWallet(result.data.data);
@@ -37,7 +37,7 @@ const Wallet = () => {
     e.preventDefault();
     try {
       const data = await axios.post(
-        "http://localhost:5005/tipe_wallet",
+        "http://${process.env.REACT_APP_API_URL}/tipe_wallet",
         newTipe,
         { validateStatus: false }
       );
@@ -74,7 +74,7 @@ const Wallet = () => {
   const handleSubmitDelete = async (selectedTipe) => {
     try {
       await axios.delete(
-        `http://localhost:5005/wallet/${username}/${selectedTipe}`
+        `http://${process.env.REACT_APP_API_URL}/wallet/${username}/${selectedTipe}`
       );
 
       Swal.fire({

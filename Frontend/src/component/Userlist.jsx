@@ -9,7 +9,7 @@ const Userlist = () => {
     }, [])
 
     const loadUsers = async () => {
-        const result = await axios.get("http://localhost:5005/users")
+        const result = await axios.get("http://${process.env.REACT_APP_API_URL}/users")
         setUsers(result.data)
     }
     

@@ -49,7 +49,7 @@ const CardInfo = () => {
   const loadKategori = async () => {
     try {
       const result = await axios.get(
-        `http://localhost:5005/kategori/id/${selectedKategoriId}`,
+        `http://${process.env.REACT_APP_API_URL}/kategori/id/${selectedKategoriId}`,
         {},
         { validateStatus: false }
       );
@@ -66,7 +66,7 @@ const CardInfo = () => {
   const loadKategoriActually = async () => {
     try {
       const result = await axios.get(
-        `http://localhost:5005/outcome/sum/${selectedKategoriId}`,
+        `http://${process.env.REACT_APP_API_URL}/outcome/sum/${selectedKategoriId}`,
         {},
         { validateStatus: false }
       );
@@ -83,7 +83,7 @@ const CardInfo = () => {
   const loadWallet = async () => {
     try {
       const result = await axios.get(
-        `http://localhost:5005/wallet/id/${selectedWalletId}`,
+        `http://${process.env.REACT_APP_API_URL}/wallet/id/${selectedWalletId}`,
         {},
         { validateStatus: false }
       );
@@ -101,7 +101,7 @@ const CardInfo = () => {
     try {
       const username = Cookies.get("username");
       const result = await axios.get(
-        `http://localhost:5005/wallet/${username}`,
+        `http://${process.env.REACT_APP_API_URL}/wallet/${username}`,
         {
           validateStatus: false,
         }
@@ -127,7 +127,7 @@ const CardInfo = () => {
   const loadIncome = async () => {
     try {
       const result = await axios.get(
-        `http://localhost:5005/income/periode`,
+        `http://${process.env.REACT_APP_API_URL}/income/periode`,
         {
           params: {
             username: username,
@@ -146,7 +146,7 @@ const CardInfo = () => {
   const loadOutcome = async () => {
     try {
       const result = await axios.get(
-        `http://localhost:5005/outcome/periode`,
+        `http://${process.env.REACT_APP_API_URL}/outcome/periode`,
         {
           params: {
             username: username,
