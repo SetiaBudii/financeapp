@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import { Link } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import Swal from 'sweetalert2';
-import config from './config';
+import config from '../config';
 
 const RegisterComp = () => {
     Cookies.remove('username');
@@ -38,7 +38,7 @@ const RegisterComp = () => {
           }
 
         try {
-            const response = await axios.post(`http://${apiUrl}/users`, formData, { validateStatus: false });
+            const response = await axios.post(`http://${config.apiUrl}/users`, formData, { validateStatus: false });
             if(response.status === 201){
                 Swal.fire({
                     icon: 'success',

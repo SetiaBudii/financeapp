@@ -5,7 +5,7 @@ import WalletTypeDropdown from "./WalletDropdown";
 import KategoriDropdown from "./KategoriDropdown";
 import Cookies from "js-cookie";
 import axios, { all } from "axios";
-import config from './config';
+import config from '../config';
 
 
 const CardInfo = () => {
@@ -51,7 +51,7 @@ const CardInfo = () => {
   const loadKategori = async () => {
     try {
       const result = await axios.get(
-        `http://${apiUrl}/kategori/id/${selectedKategoriId}`,
+        `http://${config.apiUrl}/kategori/id/${selectedKategoriId}`,
         {},
         { validateStatus: false }
       );
@@ -68,7 +68,7 @@ const CardInfo = () => {
   const loadKategoriActually = async () => {
     try {
       const result = await axios.get(
-        `http://${apiUrl}/outcome/sum/${selectedKategoriId}`,
+        `http://${config.apiUrl}/outcome/sum/${selectedKategoriId}`,
         {},
         { validateStatus: false }
       );
@@ -85,7 +85,7 @@ const CardInfo = () => {
   const loadWallet = async () => {
     try {
       const result = await axios.get(
-        `http://${apiUrl}/wallet/id/${selectedWalletId}`,
+        `http://${config.apiUrl}/wallet/id/${selectedWalletId}`,
         {},
         { validateStatus: false }
       );
@@ -103,7 +103,7 @@ const CardInfo = () => {
     try {
       const username = Cookies.get("username");
       const result = await axios.get(
-        `http://${apiUrl}/wallet/${username}`,
+        `http://${config.apiUrl}/wallet/${username}`,
         {
           validateStatus: false,
         }
@@ -129,7 +129,7 @@ const CardInfo = () => {
   const loadIncome = async () => {
     try {
       const result = await axios.get(
-        `http://${apiUrl}/income/periode`,
+        `http://${config.apiUrl}/income/periode`,
         {
           params: {
             username: username,
@@ -148,7 +148,7 @@ const CardInfo = () => {
   const loadOutcome = async () => {
     try {
       const result = await axios.get(
-        `http://${apiUrl}/outcome/periode`,
+        `http://${config.apiUrl}/outcome/periode`,
         {
           params: {
             username: username,

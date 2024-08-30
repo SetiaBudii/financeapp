@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import config from './config';
+import config from '../config';
 
 function ShowTipe({ onTipeChange }) {
   const [tipeWallets, setTipeWallets] = useState([]);
@@ -12,7 +12,7 @@ function ShowTipe({ onTipeChange }) {
   }, []);
 
   const loadTipe = async () => {
-    const result = await axios.get("http://${apiUrl}/tipe_wallet");
+    const result = await axios.get("http://${config.apiUrl}/tipe_wallet");
     setTipeWallets(result.data.data);
   };
 

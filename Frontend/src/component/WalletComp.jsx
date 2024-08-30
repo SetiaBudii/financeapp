@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
-import config from './config';
+import config from '../config';
 
 const WalletForm = ({ username, selectedTipe }) => {
   const [saldo, setSaldo] = useState("");
@@ -13,7 +13,7 @@ const WalletForm = ({ username, selectedTipe }) => {
     const saldoValue = parseInt(saldo, 10);
 
     try {
-      await axios.post("http://${apiUrl}/wallet", {
+      await axios.post("http://${config.apiUrl}/wallet", {
         username,
         saldo: saldoValue, // Send the converted value
         tipe_wallet: selectedTipe,
